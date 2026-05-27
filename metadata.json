@@ -1,0 +1,6 @@
+{
+  "name": "StudyClaw",
+  "description": "StudyClaw 教育智能体平台 - 提供课前、课中、课后智能化闭环教学诊断、学情画像，实现自习伴学和因材施教。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
