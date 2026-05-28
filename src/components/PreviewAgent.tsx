@@ -256,7 +256,9 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
   // Dynamic forecast compre level numbers
   const [forecastBefore] = useState(65);
   const [forecastAfter, setForecastAfter] = useState(65);
-  const previewVideoUrl = 'https://media.w3.org/wai/perspective-videos/understandable-content.mp4';
+  const microLessonVideoId = '771EB95BBA9BDBA1B463AB73BD4C026B';
+  const microLessonSiteId = '3BF7C9738A6F67BC';
+  const microLessonVideoUrl = `https://p.bokecc.com/playhtml.bo?vid=${microLessonVideoId}&siteid=${microLessonSiteId}&autoStart=false`;
 
   const [aiCustomContent, setAiCustomContent] = useState<{
     generalOutline: string;
@@ -838,27 +840,15 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                     <div className="rounded-xl border border-emerald-100 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 p-3 shadow-sm">
                       <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_220px] md:items-center">
                         <div className="relative overflow-hidden rounded-xl border border-white/10 bg-slate-900 aspect-video">
-                          {previewVideoUrl ? (
-                            <video
-                              controls
-                              preload="metadata"
-                              className="h-full w-full bg-slate-950 object-cover"
-                              src={previewVideoUrl}
-                            >
-                              您的浏览器暂不支持视频播放。
-                            </video>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => onShowToast('微课视频位已预留：接入视频地址后即可在这里播放', 'info')}
-                              className="flex h-full w-full cursor-pointer flex-col items-center justify-center gap-2 text-white transition hover:bg-white/5"
-                            >
-                              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/15 backdrop-blur">
-                                <PlayCircle className="h-8 w-8 text-white" />
-                              </span>
-                              <span className="text-xs font-bold text-white/90">点击预览课前微课位置</span>
-                            </button>
-                          )}
+                          <iframe
+                            id={`cciframe_${microLessonVideoId}`}
+                            title="课前微课视频"
+                            src={microLessonVideoUrl}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                            className="h-full w-full bg-slate-950"
+                          />
                         </div>
 
                         <div className="space-y-2 text-left">
