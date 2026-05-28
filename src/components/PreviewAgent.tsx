@@ -47,83 +47,83 @@ const getFrontendFallback = (sub: string, gd: string, ch: string) => {
 
     if (isLiBai) {
       return {
-        generalOutline: "身临其境感受李白《望天门山》的雄丽风光和浪漫气魄，理解生动词眼词译，建立头脑风暴画面感。",
+        generalOutline: "预习李白《望天门山》的景物描写和关键词语，理解诗句中的动态画面与情感表达。",
         keyConcepts: [
-          { label: "“中断” (天地大裂变)", detail: "浩荡的长江水像一把开天辟地的绝世屠龙宝刀，生生把天门山劈成两半！" },
-          { label: "“回” (江水蹦跳打转)", detail: "水流遇到山脉包夹，在峡谷处回旋转弯，撞击出滔天彩色大浪花。" },
-          { label: "“两岸青山” (青山大长腿)", detail: "远处的群山像活过来一样，迈着大步，伴着一叶轻舟探出头来迎接你。" }
+          { label: "“中断”", detail: "写长江从天门山中间奔流而过，突出山势和水势的开阔。" },
+          { label: "“回”", detail: "写江水在山势影响下转向或回旋，表现水流变化。" },
+          { label: "“两岸青山”", detail: "写船行江上时看到两岸青山不断进入视野，形成动态画面。" }
         ],
         questions: [
-          "读完“两岸青山相对出，孤帆一片日边来”，你脑海中那一轮太阳是什么颜色的？",
-          "为什么李白不写“两岸青山一动不动”，而要写群山“相对出”？群山真的会走路吗？",
-          "“碧水东流至此回”中的“回”，你觉得是回旋、转向还是回到老家？",
-          "如果是你在一叶扁舟上，看着长江滔滔迎风扑面，你会高歌一首什么诗章？"
+          "“两岸青山相对出”中的“出”表现了怎样的画面感？",
+          "“碧水东流至此回”中的“回”可以怎样理解？",
+          "诗中哪些词语表现了长江水势和山势的特点？",
+          "预习时可以用哪一句诗概括整首诗的主要画面？"
         ],
-        scenario: "唐代的某个艳阳天，浪漫奇才李白正醉眼朦胧地立在摇晃的木船头。两岸天门山青翠如画，一轮红日映照着江面。作为他的伴读童子，你会怎么帮他递上彩铅，把这种天地巨变的一幕画在草纸上？",
+        scenario: "想象自己坐在江面小船上，远处是天门山，江水从两山之间流过。请结合诗句，标出山、水、船、太阳四个画面元素。",
         presetChatQuestions: [
-          { q: "天门山真的被江水冲断了吗？", a: "在古代神话和李白充满想象力的脑海中，长江江水水势太大、太猛了，就好像一把巨大的水仙刀，把巍峨的天门山一劈为二！这体现了李白极其阔大、天马行空的浪漫胸怀唷！" },
-          { q: "什么是“相对出”呀？", a: "这是一种神奇的「运动视觉效果」！当你乘着小木船快速顺流而下时，两岸原本静止的绿色大山，会像拉开舞台帷幕一样，接连不断地向你迎面扑过来，就好像大山长了长腿在向你招手致敬呢！" },
-          { q: "怎么背古诗最快？", a: "不要死记字形哦！闭上眼，在脑海里放一部 15 秒极速色彩大电影：\n1️⃣ 先看到山被劈开，水在打转；\n2️⃣ 再看到绿山在飘走，日边滑来一条金色小船。\n跟着画面去联想，读个三遍，你就能秒背成功啦！" }
+          { q: "天门山真的被江水冲断了吗？", a: "不是字面意义上的冲断。诗句通过想象和夸张，表现长江水势很强、两岸山势分明。" },
+          { q: "什么是“相对出”？", a: "这是从船上看两岸青山时产生的动态感。山本身不动，但船向前行，读者会感觉青山迎面出现。" },
+          { q: "怎么更有效地背古诗？", a: "先理解每句诗的画面，再按“水势、山势、船影、太阳”的顺序复述。理解画面后再朗读，会比只背字形更稳定。" }
         ],
         quizItems: [
-          { id: 1, question: "《望天门山》的作者是唐代赫赫有名的哪位伟大诗人（人称“诗仙”）？", options: ["杜甫", "李白", "白居易", "王维"], correct: 1, analysis: "李白是唐代的豪放浪漫派诗仙，天门山这首诗就是他青年时期写下的传世名篇。" },
-          { id: 2, question: "“孤帆一片日边来”中的“孤帆”在诗里指代的是什么？", options: ["一只孤零零的野鸭", "载着作者李白迎着红日铺来的一叶小木船", "一片白花花的天空", "天门山顶的白云"], correct: 1, analysis: "“孤帆”用帆船的船帆，来代指行驶在碧波白浪间的江船，在金色红日下徐徐铺来，极富意境。" },
-          { id: 3, question: "在预习案中，用 15 分钟闭眼勾勒诗里的意境画，主要是为了：", options: ["完成美术作业", "在脑中建立空间画面感知网络，从而在上课时秒懂课文、产生深度记忆", "为了让草稿纸变满", "以上都不对"], correct: 1, analysis: "语文的最高境界是意境，建立起脑中电影院，会让你第二天的课堂专注力和吸收效果实现火箭般飞跃！" }
+          { id: 1, question: "《望天门山》的作者是哪位唐代诗人？", options: ["杜甫", "李白", "白居易", "王维"], correct: 1, analysis: "《望天门山》的作者是李白，预习时可结合作者风格理解诗中的开阔想象。" },
+          { id: 2, question: "“孤帆一片日边来”中的“孤帆”在诗里指代什么？", options: ["江面上的船", "天空中的云", "山顶的树", "岸边的亭子"], correct: 0, analysis: "“孤帆”借船帆代指江面上的船，是古诗中常见的借代写法。" },
+          { id: 3, question: "预习古诗时勾勒诗中画面，主要作用是什么？", options: ["帮助理解诗句内容和意境", "替代课文朗读", "只为了画画", "忽略关键词语"], correct: 0, analysis: "画面想象要服务于诗句理解，重点仍是词语、句意和情感。" }
         ]
       };
     }
 
     return {
-      generalOutline: `预习感受课文《${c}》的行文画面感与特色意境，大方读记重点生词拼读，深入领会文章要义。`,
+      generalOutline: `预习课文《${c}》的主要内容、关键词句和表达特点，初步形成自己的阅读疑问。`,
       keyConcepts: [
-        { label: "意境画面 (思维电影)", detail: "阅读课文时闭上双眼，把文字拆分组合，在脑海里建立专属的高清电影大片段。" },
-        { label: "字词圈记 (拼音偏旁法)", detail: "拆解全新生词的拼音发音、笔顺、部首偏旁，像拆积木一样轻松攻克朗读屏障。" },
-        { label: "作者心灵 (写作大背景)", detail: `联系课本里提到的小故事或历史，看看作者在什么样奇妙的心境中一鼓作气写下了这篇巨作《${c}》。` }
+        { label: "主要内容", detail: "先通读课文，弄清文章写了什么、按什么顺序写。" },
+        { label: "关键词句", detail: "圈出生字词、中心句和不理解的句子，便于课堂重点听讲。" },
+        { label: "表达特点", detail: `关注《${c}》中描写、说明、对话或修辞等表达方式。` }
       ],
       questions: [
-        `当你大声而流畅地初读完一遍这篇《${c}》，你心里的第一重直觉感受是什么？`,
-        `文章里有没有哪一个角色、一个比喻或者一句话，让你耳目一新，忍不住多读了两遍？`,
-        "这一节内容里有没有写得非常妙、但第一部分你却觉得有一些绕口或者不理解其用意的段落？",
-        `明天去学校听老师讲《${c}》，由你做主当 3 分钟老师，你打算给全班同学抛出什么样的趣味探秘问题？`
+        `读完《${c}》后，你能用一句话概括主要内容吗？`,
+        `文中有哪些词语或句子需要重点理解？`,
+        "有没有哪一段你能读懂大意，但还说不清为什么这样写？",
+        `明天课堂上，你最想请老师解释《${c}》中的哪个问题？`
       ],
-      scenario: `夕阳西下，你们学校的小黑板上贴出了一则重磅通知，班级读书分享会将在明日开启，主题就是这篇《${c}》！作为书香智囊团推荐代表，你打算在 15 分钟内圈记哪些精彩段落和生字，从而惊艳亮出你们小组的名片呢？`,
+      scenario: `明天课堂将学习《${c}》。请你先通读课文，圈出生字词、标出不理解的句子，并写下一个想在课堂上解决的问题。`,
       presetChatQuestions: [
-        { q: `怎么才能富有感情地朗读《${c}》呢？`, a: `这非常有趣！《${c}》的朗读就像一幅声音的彩色画卷：\n1️⃣ 遇到开阔、愉悦的段落，声音要清脆、挺直；\n2️⃣ 遇到修辞优美或思念、感悟句段，音调可以放轻放缓。\n多练两遍，你准能发现自主朗朗读诵的非凡魅力！` },
-        { q: `《${c}》字句中的“意境”是什么意思呀？`, a: `问得太好了！意境就是“字里的彩色电影”。\n当读完《${c}》时，你的脑袋里不应该只看到黑白的汉字，而是变成了一个高清立体电影院。作者用文字画了一幅彩绘，你能在脑海画出彩色的场景和角色，就是懂意境了噢！` },
-        { q: `预习《${c}》有什么妙招呀？`, a: `这非常简单！你可以尝试这三步：\n1️⃣ 朗读课文，圈出最有趣或是不好念的 3 个词眼；\n2️⃣ 闭上眼睛，想象课文里的世界是什么样子；\n3️⃣ 给自己提出一个小问题。这样明天的讨论中你准能表现惊艳！` }
+        { q: `怎么才能比较准确地朗读《${c}》？`, a: `可以先读准字音，再根据句意停顿。遇到描写景物或情感变化的句子，要结合内容调整语气。` },
+        { q: `《${c}》中的“意境”可以怎样理解？`, a: `意境是文字呈现出的画面和情感。预习时可以先找景物、人物或动作，再思考作者想表达的感受。` },
+        { q: `预习《${c}》可以做哪些事？`, a: `建议完成三步：朗读课文、圈出生字词和关键词、写下一个不理解的问题。这样上课更容易跟上重点。` }
       ],
       quizItems: [
-        { id: 1, question: `在深入预习《${c}》这一节内容时，如果遇到新课文里从没学过的生字，最科学的做法是？`, options: ["跳过去装作看不见", "借助拼音或者字典先念准声音，顺手圈出生字偏旁笔顺", "觉得太累直接合上书去玩游戏", "要求父母替自己做"], correct: 1, analysis: "亲自动手查阅字音并勾勒偏旁，一气呵成建立肌肉记忆，明天一定能受到老师赞赏！" },
-        { id: 2, question: `在预习《${c}》时，我们提倡在脑海里建立“彩色电影院”的根本用意在于：`, options: ["纯属浪费草稿纸", "激发右脑视觉潜能，把白纸黑字变成跳跃的立体大片，明天听讲更专注", "只为了应对考试", "毫无用处"], correct: 1, analysis: "把阅读转化为大脑中的视觉电影，能帮助我们更牢固地记住课文内容和情境。" },
-        { id: 3, question: `如果你想把《${c}》预习得更扎实，下面哪一种方法最值得坚持？`, options: ["只看标题就算预习完成", "边朗读边圈重点字词，再写下 1 个自己真正想问的问题", "完全依赖别人讲解", "遇到不懂的地方立刻跳过"], correct: 1, analysis: "预习最有效的方式是主动朗读、标记和提问，这样上课时才能迅速对上老师讲的重点。" }
+        { id: 1, question: `预习《${c}》遇到生字时，比较合理的做法是？`, options: ["借助拼音或字典读准字音并做标记", "直接跳过所有生字", "只看插图不读课文", "等课堂上再打开书"], correct: 0, analysis: "预习时先解决字音和基本词义，有助于课堂理解课文内容。" },
+        { id: 2, question: `预习《${c}》时想象画面的主要目的是什么？`, options: ["帮助理解内容和情感", "替代朗读课文", "只完成绘画任务", "忽略关键词句"], correct: 0, analysis: "画面想象要服务于文本理解，不能代替朗读和词句分析。" },
+        { id: 3, question: `如果想把《${c}》预习得更扎实，下面哪一种方法最值得坚持？`, options: ["边朗读边圈重点字词，再写下疑问", "只看标题", "完全依赖别人讲解", "遇到不懂的地方不做记录"], correct: 0, analysis: "主动朗读、标记和提问，是比较有效的课前预习方法。" }
       ]
     };
   }
 
   if (s === "英语") {
     return {
-      generalOutline: `围绕 ${g}《${c}》的核心词汇和会话句型，先把单词敢读、句子敢说、场景敢演。`,
+      generalOutline: `围绕 ${g}《${c}》的核心词汇、发音规则和会话句型，完成课前朗读和句型理解。`,
       keyConcepts: [
         { label: "Phonics 拼读", detail: "把长单词拆成几个小音节，一段一段读，会比硬背字母顺口得多。" },
         { label: "句型骨架", detail: `先抓住《${c}》里最常用的核心问答框架，再往里面替换人物、地点和动作。` },
         { label: "情景表达", detail: "把课本内容放进真实生活场景里，口语会更自然，也更容易记住。" }
       ],
       questions: [
-        `这一课《${c}》里，哪一个新单词你一看到就想先开口读读看？`,
-        "如果把本课重点句型搬到校园生活里，你最想拿它和同桌聊什么？",
-        "有没有哪一句英文你会认、会看，却还不太敢大声说出来？",
-        "要是把今天最响亮的生活对话唱成一段 Rap，你会挑选哪两句作为切入口？"
+        `这一课《${c}》里，哪些新单词需要先读准？`,
+        "本课重点句型的问答结构是什么？",
+        "有没有哪一句英文你能看懂，但还不能准确说出来？",
+        "如果把本课句型放到校园生活中，可以怎样替换人物、地点或动作？"
       ],
-      scenario: `一位来自遥远国度的国际交换生今天来到了你们的小组。你正好可以用刚预习的《${c}》热词和句型跟他 say hello！`,
+      scenario: `明天课堂将练习《${c}》的词汇和句型。请先读准新单词，再用本课句型写出一组简单问答。`,
       presetChatQuestions: [
-        { q: `Word pronunciation tips for 《${c}》? (发音建议)`, a: "单词要大声跟着 AI 伴读拼念！只要勇敢说出来，舌头肌肉就会瞬间建立起流畅记忆档案，超级有效哦！" },
-        { q: `What key conversation patterns does 《${c}》 focus on? (重点句式)`, a: "该单元的核心主要关注在日常角色问答。记住火车头框架并塞入各种你感兴趣的事物积木吧！" },
-        { q: "怎么克服不敢大声用英文开口对话的问题？", a: "最酷的口语就是有自信！歪果仁最重视勇敢沟通，多试两次，你会发现你也能说得特别地道顺溜！" }
+        { q: `Word pronunciation tips for 《${c}》? (发音建议)`, a: "先按音节或字母组合分段读，再连起来读。遇到不确定的发音，要标记下来，课堂上重点听老师示范。" },
+        { q: `What key conversation patterns does 《${c}》 focus on? (重点句式)`, a: "先找出本课固定句型，再确认可以替换的人物、地点、动作或物品。" },
+        { q: "怎么克服不敢开口读英文的问题？", a: "先从短句开始，读准关键词和重音。能稳定读出句型后，再进行对话练习。" }
       ],
       quizItems: [
-        { id: 1, question: `When meeting a new word during our study of 《${c}》, what is the best strategy?`, options: ["Ignore it completely", "Slice it by syllables (phonics) and read it out loud step by step", "Cry and stop studying", "Scribble wildly"], correct: 1, analysis: "把长单词拆散按元音音节分段，比如 fan-tas-tic，读得轻松，记忆也更扎实。" },
-        { id: 2, question: `In our 《${c}》 dialogues, why do we practice saying the key sentence model loudly?`, options: ["For nothing but fun", "To build muscle memory in our tongue and speak naturally with confidence", "To disturb nearby friends", "To make drawing easy"], correct: 1, analysis: "口语是舌头肌肉的练习。大声念出来能有效激活你的口语记忆，明天和同桌对话更自然。" },
-        { id: 3, question: `If your classmate does a fantastic job on English role-play in class, what polite comment should you give?`, options: ["Oh boring!", "Thank you!", "Excellent job! You are so awesome!", "Goodbye!"], correct: 2, analysis: "用一句赞叹词给同学点赞，是英语交流中自然又有礼貌的表达方式。" }
+        { id: 1, question: `When meeting a new word during 《${c}》, what is a good preview strategy?`, options: ["Break it into sounds and read it aloud", "Ignore the word", "Copy it without reading", "Skip the whole sentence"], correct: 0, analysis: "Breaking a word into sounds helps pronunciation and memory." },
+        { id: 2, question: `Why should we practice the key sentence pattern in 《${c}》?`, options: ["To understand how to ask and answer", "To avoid reading", "To change the topic", "To ignore new words"], correct: 0, analysis: "A sentence pattern helps students use words in a real communication structure." },
+        { id: 3, question: `Which response is polite when a classmate finishes a role-play well?`, options: ["Good job!", "Stop reading.", "That is wrong without reason.", "I do not listen."], correct: 0, analysis: "“Good job!” is a simple and polite classroom response." }
       ]
     };
   }
@@ -133,7 +133,7 @@ const getFrontendFallback = (sub: string, gd: string, ch: string) => {
 
   if (isFraction) {
     return {
-      generalOutline: `理解认识分数与比例的数理本质，读读写对简单分子分母形式，建立切分作图的第一直觉。`,
+      generalOutline: `理解分数表示“把一个整体平均分后取其中几份”，会读写简单分数并能用图形说明。`,
       keyConcepts: [
         { label: "分母 (下方数据)", detail: "总共均匀被切分的瓣数，表示整体被平均分成了多少份。" },
         { label: "分子 (上方数据)", detail: "表示你拿走、圈定或涂色了其中的几份。" },
@@ -142,26 +142,26 @@ const getFrontendFallback = (sub: string, gd: string, ch: string) => {
       questions: [
         "如果你和妈妈对半分一个苹果，每个人得到的一半用什么数来准确描述？",
         "画一个矩形切成 4 份，给其中 2 份涂上颜色。请问这和切成 2 份取 1 份一样大吗？",
-        "分母可以为数字零吗？如果切成 0 份，我们还能怎么去拿走红苹果呢？",
-        "家里的巧克力有 8 小格，你奖励自己吃了 3 格，还剩下几分之几留给爸爸保鲜？"
+        "分母可以为 0 吗？为什么平均分成 0 份没有意义？",
+        "一块巧克力有 8 小格，吃了 3 格，还剩下这块巧克力的几分之几？"
       ],
-      scenario: "周末全家点了一个超大 12 寸至尊披萨。大厨把它平均切成 8 瓣，你和爸爸各拿了一瓣。请问你们合力吃掉了这整盒披萨的几分之几？",
+      scenario: "把一张圆形纸片平均分成 8 份，其中 2 份涂上颜色。请用分数表示涂色部分，并说明分子和分母分别表示什么。",
       presetChatQuestions: [
-        { q: "1/2 和 2/4 哪个大？", a: "其实它们是一样大的哦！想象同一个圆饼，一种切成 2 份拿 1 份，另一种切成 4 份拿 2 份，吃到嘴里的量是一样的，这就叫等值分数。" },
+        { q: "1/2 和 2/4 哪个大？", a: "它们一样大。把同一个整体平均分成 2 份取 1 份，和平均分成 4 份取 2 份，表示的面积相同，这叫等值分数。" },
         { q: "3/4 怎么在草稿本里画？", a: "先画一个长方形，平均切成 4 小格，再给其中 3 格涂色。总格数是分母，涂色格数是分子，这样一下就明白了。" },
-        { q: "怎么记分子和分母谁在上谁在下？", a: "记住一句话：总份数在下面，拿走的份数在上面。这样看分数时就不容易混淆啦！" }
+        { q: "怎么记分子和分母谁在上谁在下？", a: "可以记住：分母表示平均分成的总份数，写在下面；分子表示取了几份，写在上面。" }
       ],
       quizItems: [
-        { id: 1, question: "妈妈烤了一个甜甜圈蛋糕，准备平均分给 4 个小朋友。请问每个人拿到这个蛋糕的几分之几？", options: ["1/2", "1/4", "2/4", "4/1"], correct: 1, analysis: "分母 4 代表蛋糕平均切 4 份，分子 1 代表每个人拿走 1 块，所以是 1/4。" },
+        { id: 1, question: "把一个整体平均分给 4 个人，每人得到这个整体的几分之几？", options: ["1/2", "1/4", "2/4", "4/1"], correct: 1, analysis: "分母 4 代表平均分成 4 份，分子 1 代表每人取其中 1 份，所以是 1/4。" },
         { id: 2, question: "1/2 块西瓜和 1/4 块西瓜相比，下面哪句说得合理？", options: ["1/2 块更大一些", "1/4 块更大一些", "它们一样大", "西瓜不能这样比较"], correct: 0, analysis: "同一个西瓜分得越少，每一块反而越大，所以 1/2 会大于 1/4。" },
-        { id: 3, question: "小明有一根 1 米长的七彩毛线，平均剪成 5 截。请问每小截是多长？", options: ["1/2 米", "1/3 米", "1/5 米", "5 米"], correct: 2, analysis: "1 米平均剪成 5 段，每小段就占全长的五分之一，所以长度标记为 1/5 米。" }
+        { id: 3, question: "一根 1 米长的绳子平均剪成 5 段。每段是全长的几分之几？", options: ["1/2", "1/3", "1/5", "5/1"], correct: 2, analysis: "1 米平均剪成 5 段，每段占全长的五分之一。" }
       ]
     };
   }
 
   if (isDecimal) {
     return {
-      generalOutline: "打通从分数过渡到零点几的数理盲区，读准小数点位，初步建立十进制细分度量的敏锐数感。",
+      generalOutline: "理解小数表示比 1 更细的十进制数量，会读写一位小数并能联系长度、钱币等情境。",
       keyConcepts: [
         { label: "小数点 (小小分水岭)", detail: "隔开整数部分与小数部分，就像一条清晰的界线。" },
         { label: "十分之一 (0.1)", detail: "把 1 个完整单位平均分成 10 份，其中 1 份就是 0.1。" },
@@ -171,9 +171,9 @@ const getFrontendFallback = (sub: string, gd: string, ch: string) => {
         "在温度计、直尺或者价签上，你最常在哪里看到小数点？",
         "一元钱等于 10 角，那么 3 角钱写成用“元”做单位的小数应该怎么记？",
         "0.5 块橡皮擦和半块橡皮擦，它们表示的分量一致吗？",
-        "数轴上 0 和 1 中间，除了 0.5，还藏着哪些小数小精灵？"
+        "数轴上 0 和 1 中间，除了 0.5，还可以找到哪些一位小数？"
       ],
-      scenario: "下过雨的清晨，小明拿着一把塑料直尺去草坪上量彩虹蜗牛。蜗牛爬行了 3 厘米又多出 5 毫米。多出来的 5 毫米如果用厘米做单位，该怎么用小数记录？",
+      scenario: "用直尺测量一条线段，长度是 3 厘米又 5 毫米。请把 5 毫米换成厘米，并用小数表示总长度。",
       presetChatQuestions: [
         { q: "0.1 是什么意思？", a: "0.1 就是把 1 个完整的东西平均分成 10 份，其中拿出 1 份，所以也叫十分之一。" },
         { q: "怎么读带小数点的数？", a: "先读小数点左边的整数部分，再读“点”，最后把右边的数字一个一个念出来。例如 12.55 读作“十二点五五”。" },
@@ -181,35 +181,35 @@ const getFrontendFallback = (sub: string, gd: string, ch: string) => {
       ],
       quizItems: [
         { id: 1, question: "一角钱是 1 元的十分之一。如果用小数来表示 7 角钱，应该记作多少元？", options: ["0.1 元", "0.7 元", "7.0 元", "0.07 元"], correct: 1, analysis: "7 角钱等于十分之七元，我们用小数记作 0.7 元。" },
-        { id: 2, question: "在 0.4 和 0.6 之间，藏着下面哪一个数小精灵？", options: ["0.3", "0.5", "0.7", "0.05"], correct: 1, analysis: "0.4 和 0.6 的中间正好是 0.5。" },
+        { id: 2, question: "在 0.4 和 0.6 之间，下面哪一个数合适？", options: ["0.3", "0.5", "0.7", "0.05"], correct: 1, analysis: "0.5 大于 0.4 且小于 0.6。" },
         { id: 3, question: "把 1 根竹竿平均分成 10 节，刚好拿走全部 10 节。用小数表示，这等同于数字几？", options: ["0", "1", "10", "0.1"], correct: 1, analysis: "拿走 10/10 也就是拿走完整的 1 根，所以结果等于 1。" }
       ]
     };
   }
 
   return {
-    generalOutline: `帮助 ${g} 学生围绕《${c}》建立核心数学感知，在动手和类比中体会解题要领。`,
+      generalOutline: `帮助 ${g} 学生围绕《${c}》建立核心概念、基本步骤和易错点意识。`,
     keyConcepts: [
       { label: "核心规则", detail: `掌握《${c}》这一节最关键的计算法则或图形规律，这是解题的骨架。` },
       { label: "运算步骤", detail: "数学是一门讲逻辑顺序的学科，把每一步走稳，结果才更可靠。" },
-      { label: "生活类比", detail: "把数字、图形和生活中的水果、折纸、钱币联系起来，概念会更容易理解。" }
+        { label: "例题验证", detail: "用一道基础例题检查自己是否理解概念和步骤。" }
     ],
     questions: [
-      `本节《${c}》里，最吸引你注意力的第一个数学现象是什么？`,
-      "你觉得有什么日常现象或生活小物，也能套用这节课的数学规律？",
+      `本节《${c}》里，最核心的定义或规则是什么？`,
+      "这个知识点在例题中通常先看什么条件？",
       `在解决《${c}》相关练习题时，最容易在哪一步产生偏差或疑问？`,
-      "明天课堂上如果要大声分享你的数学新发现，你最想聊什么？"
+      "明天课堂上你最需要老师解释哪个步骤？"
     ],
-    scenario: `你手中的《${c}》探秘手记翻到了最精彩的一页。明天你要代表学习小组在讲台上展示趣味算理推导，你会挑选什么样的实例呢？`,
+    scenario: `请从《${c}》中选一道基础例题，先圈出已知条件，再写出第一步应该使用的规则或公式。`,
     presetChatQuestions: [
       { q: `这个《${c}》公式应该怎么用才不容易混淆？`, a: "先分清楚已知条件和目标，再把公式当成桥梁去连接它们。每一步都说出理由，公式就不容易用反。" },
-      { q: `为什么很多同学在预习《${c}》时容易卡壳？`, a: "因为只盯着符号很容易抽象。把它换成切蛋糕、分糖果、折纸条这类生活故事，概念一下就会亮起来。" },
-      { q: "怎么能让明天的数学课上让老师大赞一通？", a: "把你今天预习时发现的规律，用一个自己画的小图或小例子讲出来。能说清楚来龙去脉，老师最容易看到你的思考力。" }
+      { q: `为什么很多同学在预习《${c}》时容易卡住？`, a: "通常是因为只看结论，没有弄清定义、条件和第一步。建议先标出已知条件，再对照例题。" },
+      { q: "明天数学课上怎样表达自己的预习结果？", a: "可以说出一个已经理解的概念，再提出一个仍不确定的步骤。这样老师能更准确地帮助你。" }
     ],
     quizItems: [
-      { id: 1, question: `在深入探寻《${c}》这一节的规律时，数学中“均分”概念的终极精髓是什么？`, options: ["想切多大就多大看心情", "一视同仁，每一小份的大小都应尽量相等", "大份留给自己，小份给别人", "不能进行切分"], correct: 1, analysis: "均分的关键就在于每一份都一样大，这样后面的比较和计算才有意义。" },
+      { id: 1, question: `学习《${c}》时，如果涉及“平均分”，它的核心要求是什么？`, options: ["每一份大小相等", "份数越多越好", "可以随意分", "只看其中一份"], correct: 0, analysis: "平均分的关键是每一份大小相等，这样后续比较和计算才有意义。" },
       { id: 2, question: `如果我们在预习《${c}》时，把一张纸连续对折 3 次，最后会被平均分成多少份？`, options: ["3 份", "4 份", "8 份", "6 份"], correct: 2, analysis: "每对折一次，份数就翻一倍，所以 2 x 2 x 2 = 8 份。" },
-      { id: 3, question: `在本次《${c}》的自查小测试中，如果你有一题选错或者感到卡壳，最好的想法是什么？`, options: ["说明我学不会数学", "这是发现薄弱点的好机会，顺着解析就能补上", "生气并把笔丢开", "以后不做这类题了"], correct: 1, analysis: "预习时发现问题，本来就是为了第二天课堂更有针对性地理解新知识。" }
+      { id: 3, question: `在《${c}》自查中，如果有一题选错，比较合理的做法是什么？`, options: ["对照解析找出薄弱点", "说明自己学不会", "不再看这类题", "只记住答案不看原因"], correct: 0, analysis: "预习时发现问题，是为了第二天课堂更有针对性地理解新知识。" }
     ]
   };
 };
@@ -244,7 +244,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
 
   // Chatbot state
   const [chatLog, setChatLog] = useState<ChatMessage[]>([
-    { id: 'start', sender: 'ai', text: '嗨！大朋友，我是你的预习助兴小能手 🌟\n在预习《认识分数》的内容时，只要有任何地方犯迷糊，哪怕是最简单的好奇，都可以随时点击下面的气泡来问我。加油鸭！💪' }
+    { id: 'start', sender: 'ai', text: '你好，我是你的课前预习助手。\n在预习《认识分数》时，如果遇到概念、例题步骤或易错点问题，可以点击下方问题或直接输入。' }
   ]);
   const [chatInput, setChatInput] = useState('');
   const [chatIsTyping, setChatIsTyping] = useState(false);
@@ -290,12 +290,12 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
         { 
           key: 'difficulty',
           question: `作为一门全新的语文课文，你直觉觉得自己预习《${chapter}》最可能在哪里遇到挑战呢？`, 
-          options: ["课文意境高深，脑海里没有画面感", "有一些生僻、多音生字词读音和词义记不准", `不知道${authorText}当时是在什么样的背景环境下创作此篇内容的`, "朗读技巧不够到位，不知道轻重音和情感起伏"] 
+          options: ["课文画面和情感不容易理解", "有一些生字词读音和词义记不准", `不清楚${authorText}或课文背景`, "朗读停顿、重音和语气把握不准"]
         },
         { 
           key: 'style',
-          question: `想一想，平常学习优秀古诗词和文学，你最喜欢用哪种妙招来加深预习记忆呢？`, 
-          options: ["🎨 制作彩色卡片，尝试手绘本篇内容描绘的画卷", `📖 讲大白话，听一听和这篇《${chapter}》/ ${authorText} 背景有关的奇闻趣事`, "✋ 大声并用极具表现力的手势、腔调读诵课文内容", "👂 跟着伴读AI拆解字词意像的字里行间玄机"] 
+          question: `学习古诗词或课文时，你更习惯用哪种方式预习？`,
+          options: ["画出课文中的主要画面", `了解《${chapter}》或${authorText}的相关背景`, "朗读课文并标注停顿", "拆解关键词句和表达方法"]
         }
       ];
     } else if (subject === '英语') {
@@ -303,19 +303,19 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
         { 
           key: 'difficulty',
           question: `面对新单元的英语模块，你直觉觉得在预习《${chapter}》时最可能卡壳在哪呢？`, 
-          options: ["长难单词特别多，拼读时舌头容易打结 🤪", "口语情境对话特别繁琐，读下来时续时断", "不能很好地参悟核心语法框架并用到真实交谈中", "大声跟读说口语时没有底气，怕发音不纯正"] 
+          options: ["长单词较多，拼读不够稳定", "情境对话较长，容易读断", "核心句型不够清楚", "跟读时担心发音不准确"]
         },
         { 
           key: 'style',
-          question: `大朋友，平常记忆英语高频热词、玩口语互动，你更青睐采用什么有趣的小技巧？`, 
-          options: ["🎹 听带感有韵律英文拼读童谣，把句子唱着记", "🎥 结合短片动画情境，联想日常生活实景", "💬 随时找AI伴学高手开展一唱一和的角色扮演", "📖 像切面包一样拆分自然拼读（Phonics）音节记忆"] 
+          question: `平常记忆英语词汇和句型时，你更适合哪种方式？`,
+          options: ["跟读标准音频并模仿重音", "结合情境理解句子用途", "进行简短角色对话练习", "按自然拼读拆分音节记忆"]
         }
       ];
     } else {
       const isFraction = chapter.includes('分数') || chapter.includes('部分') || chapter.includes('分母');
       const diffOptions = isFraction 
-        ? ["不确定分子分母分别指什么", "分数的大小感觉很容易比反 😵", "不知道怎么把它们画在纸上", "我都还行，挑战一下 😎"]
-        : [`对《${chapter}》的基本数量关系感到抽象`, `公式或者算法规律记不准，怕用错`, `不知道如何通过图形或者身边的算盘来数形结合`, `我没问题，挑战自学 😎`];
+        ? ["不确定分子分母分别指什么", "分数大小比较容易混淆", "不知道怎么用图形表示", "基础概念已理解，想做进阶练习"]
+        : [`对《${chapter}》的基本数量关系感到抽象`, `公式或者算法规律记不准，怕用错`, `不知道如何通过图形进行数形结合`, `基础内容已理解，想做进阶练习`];
       return [
         { 
           key: 'difficulty',
@@ -324,8 +324,8 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
         },
         { 
           key: 'style',
-          question: "大朋友，你平常解数学题、背公式，最喜欢采用哪种妙招吸收呢？", 
-          options: ["📷 喜欢看动态画画拼图、圆饼折纸法", "📖 喜欢听趣味历史段子或数数学故事", "✋ 喜欢动手折纸条算切口、生活实物演算", "👂 喜欢跟着老师拆解例题规律"] 
+          question: "平常学习数学概念和公式时，你更适合哪种方式？",
+          options: ["看图形或动态演示", "听老师讲解概念来源", "动手画图或操作实物", "跟着例题拆解步骤"]
         }
       ];
     }
@@ -346,7 +346,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
   // Reset/sync welcome chat log greeting and reset cached AI content dynamically
   useEffect(() => {
     setChatLog([
-      { id: 'start', sender: 'ai', text: `嗨！大朋友，我是你的预习助兴小能手 🌟\n在预习《${chapter || '当前知识点'}》的内容时，只要有任何地方犯迷糊，哪怕是最简单的好奇，都可以随时点击下面的气泡来问我。加油鸭！💪` }
+      { id: 'start', sender: 'ai', text: `你好，我是你的课前预习助手。\n在预习《${chapter || '当前知识点'}》时，如果遇到概念、例题步骤或易错点问题，可以点击下方问题或直接输入。` }
     ]);
     setAiCustomContent(null);
     setCustomEval(null);
@@ -469,11 +469,11 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
       responseText = matched.a;
     } else {
       if (subject === '语文') {
-        responseText = `大朋友，针对你提问的“${txt}”，这真是一个极其绝妙的语文预习切入点！在欣赏优美古诗词时，我们不仅要读准字音，最关键的是要在脑海里勾勒活灵活现的彩色画面和揣摩李白豪迈浪漫的胸襟噢。你愿意在明天上课时，当一回小小朗诵家并和同学老师探索解答吗？\n\n💡 提示：可以在隔壁黑板试一下常用快捷提问：“怎么才能富有感情地朗读诗歌呢？” 或 “诗句中的‘意境’是什么意思呀？”`;
+        responseText = `关于“${txt}”，建议先回到课文原句，找出关键词，再结合上下文判断它表达的画面或情感。\n\n提示：可以尝试提问“这句话的关键词是什么？”或“这个词在句中有什么作用？”`;
       } else if (subject === '英语') {
-        responseText = `大朋友，对于你疑惑的“${txt}”，这充分显示了你极佳的英语触觉和勇敢探索精神！在预习英语单元时，大声念出来感知肌肉记忆比什么都见效，不要有任何心理压力。你想在明天的口语角色扮演课上大放异彩吗？\n\n💡 提示：可以在隔壁黑板试一下常用快捷提问：“怎么快速拼读一个很长的英文单词？” 或 “口语对话总是不好意思说出口怎么办？”`;
+        responseText = `关于“${txt}”，建议先确认关键词读音，再看它在句型中的位置和作用。如果是句型问题，可以先找主语、动词和可替换内容。\n\n提示：可以尝试提问“这个单词怎么分音节？”或“这个句型可以替换哪些词？”`;
       } else {
-        responseText = `大朋友，针对你提问的“${txt}”，这真是一个极其爱思考的小细节！我们可以利用分数线来解答，分母（在下面辛苦托举的妈妈）把饼等额划成更多小格，分子（骑在妈妈肩头数苹果的小孩）就是你想咬的那几口噢。你愿意明天的几何课上，和老师分享你的奇思妙想吗？\n\n💡 提示：可以在隔壁黑板试一下常用快捷提问：“1/2 和 2/4 哪个大？” 或 “3/4 怎么在草稿本里画？”`;
+        responseText = `关于“${txt}”，建议先明确题目中的已知条件和要求，再对照定义或例题步骤判断。以分数为例，分母表示平均分成的总份数，分子表示取了其中几份。\n\n提示：可以尝试提问“这个概念的使用条件是什么？”或“这一步为什么这样做？”`;
       }
     }
 
@@ -541,12 +541,12 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
       } else {
         console.warn("API responds with non-ok stat:", resp.status);
         const localFallback = {
-          summary: `你太牛啦！你对《${chapter}》中的核心概念吃得很透。小自测验证明，你对相关知识要点理解已经越过了全班 ${65 + correctCount*10}% 小学生的预备直觉！`,
+          summary: `你完成了《${chapter}》的课前自测，答对 ${correctCount} / ${quizItems.length} 题，说明已经形成初步理解。建议继续关注错题解析和概念使用条件。`,
           classLink: {
             question: `“大家在预习完《${chapter}》后，最能体会到哪些深刻应用和特色呢？”`,
-            answer: `“老师，我是这样看的：我们可以把这些概念和我们的日常生活模型连接，用立体和更惊艳的直觉去剖析，从而更透彻地学进去！”`
+            answer: `“老师，我会先说明核心定义，再结合一个例题或图形解释它的使用条件。”`
           },
-          forecastLeap: `恭喜！由于你在脑瓜中建立了核心模型并大获成功，你的《${chapter}》明日听课学习效率值完成了华丽升级！`,
+          forecastLeap: `根据本次预习结果，明天课堂理解度预计可达到 ${65 + correctCount * 10}%。建议重点听概念来源和易错步骤。`,
           scoreValue: 65 + correctCount * 10
         };
         setCustomEval(localFallback);
@@ -555,12 +555,12 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
     } catch (e) {
       console.error("Failed to load Qwen evaluation:", e);
       const localFallback = {
-        summary: `你太牛啦！你对《${chapter}》中的核心概念吃得很透。小自测验证明，你对相关知识要点理解已经越过了全班 ${65 + correctCount*10}% 小学生的预备直觉！`,
+        summary: `你完成了《${chapter}》的课前自测，答对 ${correctCount} / ${quizItems.length} 题，说明已经形成初步理解。建议继续关注错题解析和概念使用条件。`,
         classLink: {
           question: `“大家在预习完《${chapter}》后，最能体会到哪些深刻应用和特色呢？”`,
-          answer: `“老师，我是这样看的：我们可以把这些概念和我们的日常生活模型连接，用立体和更惊艳的直觉去剖析，从而更透彻地学进去！”`
+          answer: `“老师，我会先说明核心定义，再结合一个例题或图形解释它的使用条件。”`
         },
-        forecastLeap: `恭喜！由于你在脑瓜中建立了核心模型并大获成功，你的《${chapter}》明日听课学习效率值完成了华丽升级！`,
+        forecastLeap: `根据本次预习结果，明天课堂理解度预计可达到 ${65 + correctCount * 10}%。建议重点听概念来源和易错步骤。`,
         scoreValue: 65 + correctCount * 10
       };
       setCustomEval(localFallback);
@@ -591,7 +591,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
     setTaskCardGenerated(false);
     setIsGenerating(false);
     const defaultChat: ChatMessage[] = [
-      { id: 'start', sender: 'ai', text: `嗨！大朋友，我是你的预习助兴小能手 🌟\n在预习《${chapter}》的内容时，只要有任何地方犯迷糊，哪怕是最简单的好奇，都可以随时点击下面的气泡来问我。加油鸭！💪` }
+      { id: 'start', sender: 'ai', text: `你好，我是你的课前预习助手。\n在预习《${chapter}》时，如果遇到概念、例题步骤或易错点问题，可以点击下方问题或直接输入。` }
     ];
     setChatLog(defaultChat);
     setSelectedAnswers({});
@@ -890,7 +890,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                       <div className="space-y-1.5 font-sans text-[11px] text-slate-600 leading-relaxed pl-1">
                         <p className="font-bold text-slate-800 flex items-center gap-1">
                           <Brain className="w-3.5 h-3.5 text-emerald-500" />
-                          <span>核心魔法：怎么平均分和表示</span>
+                          <span>核心方法：怎么平均分和表示</span>
                         </p>
                         <div className="mt-4 relative pl-8 sm:pl-10 before:absolute before:left-3.5 sm:before:left-4 before:top-4 before:bottom-4 before:w-0.5 before:bg-emerald-100 before:rounded-full space-y-4">
                           {aiCustomContent?.keyConcepts ? (
@@ -919,7 +919,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                                     <Sparkles className="w-3.5 h-3.5" />
                                     分母 (下方数据)
                                   </span>
-                                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed font-medium">总共被砍切的均等总瓣数 [切蛋糕数]</p>
+                                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed font-medium">一个整体被平均分成的总份数。</p>
                                 </div>
                               </div>
                               <div className="relative">
@@ -930,7 +930,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                                     <Sparkles className="w-3.5 h-3.5" />
                                     分子 (上方数据)
                                   </span>
-                                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed font-medium">你分到、占有或拿走的那几瓣 [取走格数]</p>
+                                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed font-medium">其中被选取、涂色或使用的份数。</p>
                                 </div>
                               </div>
                               <div className="relative">
@@ -941,7 +941,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                                     <Sparkles className="w-3.5 h-3.5" />
                                     分线 (居中横杆)
                                   </span>
-                                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed font-medium">代表物理本质“平均分”，切忌多寡不均</p>
+                                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed font-medium">表示分子和分母共同描述同一个整体中的部分关系。</p>
                                 </div>
                               </div>
                             </>
@@ -953,7 +953,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                   <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-4 sm:p-5 space-y-3">
                     <span className="text-[11px] font-bold text-emerald-800 flex items-center gap-1">
                       <HelpCircle className="w-3.5 h-3.5 text-emerald-600" />
-                      <span>{aiCustomContent ? "AI 智能定制 4 大思考小扣" : "伴读思考小挑战"}</span>
+                      <span>{aiCustomContent ? "AI 定制 4 个预习问题" : "伴读思考问题"}</span>
                     </span>
                     <ol className="text-xs text-slate-600 space-y-2.5 leading-relaxed text-left">
                       {aiCustomContent?.questions ? (
@@ -967,29 +967,29 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                         <>
                           <li className="flex gap-2.5">
                             <span className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-700 font-bold flex items-center justify-center flex-shrink-0 text-[10px] mt-0.5">1</span>
-                            <span className="flex-1">分数代表西瓜的“一瓣”还是“切块整体”？能用来算绳线测绘吗？</span>
+                            <span className="flex-1">分数表示一个整体中的一部分，还是表示某一个具体物品？</span>
                           </li>
                           <li className="flex gap-2.5">
                             <span className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-700 font-bold flex items-center justify-center flex-shrink-0 text-[10px] mt-0.5">2</span>
-                            <span className="flex-1">1/2 块草莓生日饼 和 1/4 瓣究竟谁更大一些呢？为什么？</span>
+                            <span className="flex-1">同一个整体中，1/2 和 1/4 哪个更大？为什么？</span>
                           </li>
                           <li className="flex gap-2.5">
                             <span className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-700 font-bold flex items-center justify-center flex-shrink-0 text-[10px] mt-0.5">3</span>
-                            <span className="flex-1">分母可否是数字一或数字零呢？为什么？</span>
+                            <span className="flex-1">分母可以是 1 或 0 吗？分别代表什么含义？</span>
                           </li>
                         </>
                       )}
                     </ol>
                   </div>
 
-                  {/* Pizza slice scenario questions */}
+                  {/* Scenario questions */}
                   <div className="rounded-xl border border-slate-100 bg-white p-4 sm:p-5 shadow-sm space-y-1.5 text-left">
                     <span className="text-[11px] font-bold text-emerald-800 flex items-center gap-1.5">
                       <Compass className="w-3.5 h-3.5 text-emerald-600" />
-                      <span>趣味小故事（结合：{profileAnswers.style}）</span>
+                      <span>应用场景（结合：{profileAnswers.style}）</span>
                     </span>
                     <p className="text-xs text-slate-700 leading-relaxed font-medium whitespace-pre-line">
-                      {aiCustomContent?.scenario || "周末狂欢，全家团聚点了一个超大12寸至尊披萨饼。大厨 average 均匀下切分了 8 瓣。你、爸爸、妈妈、以及小弟弟，规定每个人由于肚量拿一瓣垫肚子。请问：你们大家合力吃掉了这整盒披萨的几分之几？铁盘里还能生还几分之几？"}
+                      {aiCustomContent?.scenario || "把一张圆形纸片平均分成 8 份，其中 2 份涂色。请用分数表示涂色部分，并说明分子和分母分别表示什么。"}
                     </p>
                   </div>
 
@@ -998,7 +998,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1.5 text-xs">
                       <span className="font-bold text-amber-850 flex items-center gap-1">
                         <TrendingUp className="w-3.5 h-3.5 text-amber-600" />
-                        <span>听课秒懂率预估（看看你能听懂多少）</span>
+                        <span>课堂理解度预估</span>
                       </span>
                       <span className="font-mono text-amber-700 font-bold text-sm">{forecastBefore}% 听透可能性</span>
                     </div>
@@ -1009,7 +1009,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
 
                     <span className="text-[10px] text-slate-500 leading-normal flex items-start gap-1 text-left">
                       <Sparkles className="w-3.5 h-3.5 text-amber-500 flex-shrink-0 mt-0.5" />
-                      <span>别担心！跟着小助手热热身，明天上课你一定会变成“秒懂”小天才！</span>
+                      <span>完成预习后，明天课堂上可重点关注定义来源、例题步骤和易错点。</span>
                     </span>
                   </div>
                 </div>
@@ -1042,7 +1042,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                 <MessageSquare className="w-4 h-4 text-sky-600 animate-pulse" />
                 <span>互动答疑：有问题随时问我哦</span>
               </h3>
-              <div className="text-[10px] sm:text-[11px] text-slate-400">像大朋友一样陪你读书，有不懂的随时点我问！</div>
+              <div className="text-[10px] sm:text-[11px] text-slate-400">围绕概念、例题步骤和易错点进行课前答疑</div>
             </div>
           </div>
 
@@ -1269,7 +1269,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                   className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 px-6 py-3.5 text-xs font-bold text-white shadow-lg shadow-amber-500/20 transition-all hover:from-amber-600 hover:to-orange-700 active:scale-[0.99] sm:w-auto sm:px-8 sm:py-3 sm:text-sm"
                 >
                   <Send className="w-4 h-4 text-white animate-pulse" />
-                  <span>提交答案，看看我的秒懂率！</span>
+                  <span>提交答案，查看预习理解度</span>
                 </button>
               ) : (
                 <div className="space-y-5 sm:space-y-6">
@@ -1315,7 +1315,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                         <div className="rounded-xl border border-sky-100 bg-sky-50/70 p-3.5 shadow-sm sm:p-4.5 space-y-3 animate-fade-in">
                           <span className="text-[11px] sm:text-xs font-bold text-sky-900 flex items-center gap-1.5 flex-wrap">
                             <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-500 animate-glow-pulse" />
-                            <span>明天课堂上的表现秘籍（答出这些，老师肯定夸你！）</span>
+                            <span>明天课堂上的回答建议</span>
                           </span>
 
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1335,7 +1335,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                                 <span>建议你可以这样回答：</span>
                               </span>
                               <p className="text-[11px] sm:text-xs text-slate-800 font-semibold leading-relaxed">
-                                {customEval.classLink?.answer || `“吃至尊披萨饼时切成8块，我合吞2格就是 1/4，它和4/8是一样饱腹的，这叫等值！”`}
+                                {customEval.classLink?.answer || `“把同一个整体平均分成 8 份，取其中 2 份就是 2/8；它可以约分成 1/4，这两个分数表示的大小相同。”`}
                               </p>
                             </div>
                           </div>
@@ -1347,7 +1347,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                             <div className="space-y-1 flex-1">
                               <span className="text-xs font-bold text-amber-850 block flex items-center gap-1">
                                 <TrendingUp className="w-4 h-4 text-amber-600 animate-pulse" />
-                                <span>听课秒懂率飙升到 {forecastAfter}% 啦！</span>
+                                <span>课堂理解度预计达到 {forecastAfter}%</span>
                               </span>
                               <p className="text-[10px] sm:text-[10.5px] text-slate-605 leading-relaxed font-semibold">
                                 {customEval.forecastLeap}
