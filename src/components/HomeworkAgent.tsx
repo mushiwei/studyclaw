@@ -248,19 +248,35 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
   return (
     <div className="space-y-8 animate-fade-in-up">
       {/* Intro Header */}
-      <div className="text-center space-y-2">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100/70 text-blue-700 text-xs font-semibold rounded-full border border-blue-200">
+      <div className="rounded-2xl border border-blue-100 bg-gradient-to-br from-white via-blue-50/80 to-indigo-50/70 p-5 text-left shadow-sm ring-1 ring-white/80 sm:p-7">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/85 text-blue-700 text-xs font-bold rounded-full border border-blue-100 shadow-sm">
           <Brain className="w-3.5 h-3.5" />
           <span>作业诊断中心 · 从精密批改到随堂巩固一体化闭环</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl font-extrabold font-display text-slate-900">作业宝 · 全链条闭环诊断演示</h2>
-        <p className="text-slate-500 max-w-xl mx-auto text-sm leading-relaxed">
-          体验一键作业批改、跨学级智能追查、实时画像，以及针对性变式题巩固的全天候家教闭环。
-        </p>
+        <div className="mt-4 grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div>
+            <h2 className="text-2xl sm:text-4xl font-extrabold font-display text-slate-950 tracking-tight">复习宝 · 全链条闭环诊断演示</h2>
+            <p className="mt-2 text-slate-600 max-w-2xl text-sm leading-relaxed">
+              体验一键作业批改、跨学级智能追查、实时画像，以及针对性变式题巩固的全天候家教闭环。
+            </p>
+          </div>
+          <div className="grid grid-cols-3 gap-2 text-center sm:min-w-[320px]">
+            {[
+              ['65', '初始得分'],
+              ['6', '诊断步骤'],
+              ['4', '变式训练']
+            ].map(([value, label]) => (
+              <div key={label} className="rounded-xl border border-white/80 bg-white/85 px-3 py-2 shadow-sm">
+                <div className="font-display text-xl font-black text-blue-700">{value}</div>
+                <div className="text-[10px] font-bold text-slate-500">{label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Step Progress Indicators */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4">
+      <div className="bg-white/95 rounded-2xl border border-white/80 shadow-sm ring-1 ring-slate-200/60 p-4">
         <div className="flex items-center justify-between gap-1 sm:gap-2 overflow-x-auto scrollbar-none py-1">
           {['习题采集', '多维批改', '成因诊断', '学情画像', '随堂变式', '巩固评估'].map((name, idx) => {
             const stepNum = idx + 1;
@@ -299,11 +315,11 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
       <div 
         ref={stepRefs[1]} 
         id="homework_step_1"
-        className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-6"
+        className="bg-white/95 rounded-2xl border border-white/80 shadow-sm ring-1 ring-slate-200/60 p-5 sm:p-6 space-y-6"
       >
-        <div className="flex items-center justify-between border-b border-slate-50 pb-4">
+        <div className="flex items-center justify-between rounded-xl bg-blue-50/70 px-3.5 py-3">
           <div className="flex items-center gap-3">
-            <span className="w-8 h-8 bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center text-xs font-bold">01</span>
+            <span className="w-9 h-9 bg-white text-blue-700 rounded-xl flex items-center justify-center text-xs font-bold shadow-sm">01</span>
             <div>
               <h3 className="font-bold text-slate-800 text-base">一键题目录入面板</h3>
               <div className="text-[11px] text-slate-400">选择学科和年级，载入学生原始解题切片</div>
@@ -323,7 +339,7 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
                 <select 
                   value={subject} 
                   onChange={(e) => setSubject(e.target.value)}
-                  className="w-full mt-1 px-3 py-2 border border-slate-200 rounded-lg text-xs font-medium focus:outline-none focus:border-blue-500"
+                  className="w-full mt-1 min-h-[40px] px-3 py-2 border border-slate-200 bg-slate-50/70 rounded-xl text-xs font-medium focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100 transition"
                 >
                   <option>数学</option>
                   <option>语文</option>
@@ -340,7 +356,7 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
                 <select 
                   value={grade} 
                   onChange={(e) => setGrade(e.target.value)}
-                  className="w-full mt-1 px-3 py-2 border border-slate-200 rounded-lg text-xs font-medium focus:outline-none focus:border-blue-500"
+                  className="w-full mt-1 min-h-[40px] px-3 py-2 border border-slate-200 bg-slate-50/70 rounded-xl text-xs font-medium focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100 transition"
                 >
                   <option>三年级</option>
                   <option>二年级</option>
@@ -356,11 +372,11 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
                 value={questionText}
                 onChange={(e) => setQuestionText(e.target.value)}
                 rows={3}
-                className="w-full mt-1 px-3 py-2 border border-slate-200 rounded-lg text-xs font-medium focus:outline-none focus:border-blue-500 leading-relaxed"
+                className="w-full mt-1 px-3 py-2 border border-slate-200 bg-slate-50/70 rounded-xl text-xs font-medium focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100 leading-relaxed transition"
               />
             </div>
 
-            <div className="p-3.5 bg-slate-50 border border-slate-100 rounded-lg text-xs text-slate-500 leading-relaxed space-y-1">
+            <div className="p-3.5 bg-blue-50/50 border border-blue-100 rounded-xl text-xs text-slate-500 leading-relaxed space-y-1">
               <span className="font-semibold text-slate-700 block text-[11px]">💡 演示向导说明</span>
               <span>
                 系统已预填小学名题“鸡兔同笼”及一份特意含有思维瑕疵的“手写解题案”。点击下方<b>开始批改</b>按钮，您将全程观看系统如何在多端反馈模块间自动流转并定位该生的认知漏洞。

@@ -225,19 +225,35 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
   return (
     <div className="space-y-8 animate-fade-in-up">
       {/* Intro Header */}
-      <div className="text-center space-y-2">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-100/70 text-amber-700 text-xs font-semibold rounded-full border border-amber-200">
+      <div className="rounded-2xl border border-amber-100 bg-gradient-to-br from-white via-amber-50/80 to-sky-50/70 p-5 text-left shadow-sm ring-1 ring-white/80 sm:p-7">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/85 text-amber-700 text-xs font-bold rounded-full border border-amber-100 shadow-sm">
           <Sparkles className="w-3.5 h-3.5 animate-spin" />
           <span>听课学情分析中心 · 4 项全链路诊断流</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl font-extrabold font-display text-slate-900">听课宝 · 课堂重难点提取与错题透视演示</h2>
-        <p className="text-slate-500 max-w-xl mx-auto text-sm leading-relaxed">
-          通过上传任意黑板照、上课原声甚至随堂演课笔记，提取全班知识掌握谱，定位易错人员、定制下一步干预方案。
-        </p>
+        <div className="mt-4 grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div>
+            <h2 className="text-2xl sm:text-4xl font-extrabold font-display text-slate-950 tracking-tight">听课宝 · 课堂重难点提取与错题透视演示</h2>
+            <p className="mt-2 text-slate-600 max-w-2xl text-sm leading-relaxed">
+              通过上传任意黑板照、上课原声甚至随堂演课笔记，提取全班知识掌握谱，定位易错人员、定制下一步干预方案。
+            </p>
+          </div>
+          <div className="grid grid-cols-3 gap-2 text-center sm:min-w-[320px]">
+            {[
+              ['82', '课堂均分'],
+              ['4', '诊断流程'],
+              ['12', '周趋势']
+            ].map(([value, label]) => (
+              <div key={label} className="rounded-xl border border-white/80 bg-white/85 px-3 py-2 shadow-sm">
+                <div className="font-display text-xl font-black text-amber-700">{value}</div>
+                <div className="text-[10px] font-bold text-slate-500">{label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Progress Indicators */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4">
+      <div className="bg-white/95 rounded-2xl border border-white/80 shadow-sm ring-1 ring-slate-200/60 p-4">
         <div className="flex items-center justify-between gap-2 overflow-x-auto scrollbar-none py-1">
           {['手稿采集', '学情分析诊断', '课堂对比报告', '成长档案归纳'].map((name, idx) => {
             const stepNum = idx + 1;
@@ -273,10 +289,10 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
       </div>
 
       {/* STEP 1: Capture Source面板 */}
-      <div ref={stepRefs[1]} id="teacher_step_1" className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-50 pb-4 gap-3">
+      <div ref={stepRefs[1]} id="teacher_step_1" className="bg-white/95 rounded-2xl border border-white/80 shadow-sm ring-1 ring-slate-200/60 p-5 sm:p-6 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between rounded-xl bg-amber-50/80 px-3.5 py-3 gap-3">
           <div className="flex items-start sm:items-center gap-3">
-            <span className="w-8 h-8 bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center text-xs font-bold font-mono flex-shrink-0">01</span>
+            <span className="w-9 h-9 bg-white text-amber-700 rounded-xl flex items-center justify-center text-xs font-bold font-mono flex-shrink-0 shadow-sm">01</span>
             <div>
               <h3 className="font-bold text-slate-800 text-sm sm:text-base">班级课程与源生教材收录</h3>
               <div className="text-[10px] sm:text-[11px] text-slate-400">设定基本的班课维度，选用不同的多模态感知路径</div>
@@ -292,7 +308,7 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
             <select 
               value={selectedClass} 
               onChange={(e) => setSelectedClass(e.target.value)}
-              className="w-full mt-1.5 px-3 py-2 border border-slate-200 rounded-lg text-xs font-medium focus:outline-none"
+              className="w-full mt-1.5 min-h-[40px] px-3 py-2 border border-slate-200 bg-slate-50/70 rounded-xl text-xs font-medium focus:outline-none focus:border-amber-500 focus:bg-white focus:ring-4 focus:ring-amber-100 transition"
             >
               <option>三年级 2 班</option>
               <option>三年级 1 班</option>
@@ -309,7 +325,7 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
               type="text" 
               value={selectedTopic} 
               onChange={(e) => setSelectedTopic(e.target.value)}
-              className="w-full mt-1.5 px-3 py-2 border border-slate-200 rounded-lg text-xs font-medium focus:outline-none"
+              className="w-full mt-1.5 min-h-[40px] px-3 py-2 border border-slate-200 bg-slate-50/70 rounded-xl text-xs font-medium focus:outline-none focus:border-amber-500 focus:bg-white focus:ring-4 focus:ring-amber-100 transition"
             />
           </div>
 
@@ -318,7 +334,7 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
               <BookOpen className="w-3.5 h-3.5 text-slate-500" />
               <span>对应学科</span>
             </label>
-            <div className="w-full mt-1.5 px-3 py-2 border border-slate-50 bg-slate-50 text-slate-700 rounded-lg text-xs font-bold">
+            <div className="w-full mt-1.5 min-h-[40px] px-3 py-2 border border-slate-100 bg-slate-50/70 text-slate-700 rounded-xl text-xs font-bold">
               数学几何课
             </div>
           </div>
@@ -328,7 +344,7 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
               <Calendar className="w-3.5 h-3.5 text-slate-500" />
               <span>授课日期</span>
             </label>
-            <div className="w-full mt-1.5 px-3 py-2 border border-slate-50 bg-slate-50 text-slate-500 rounded-lg text-xs font-mono">
+            <div className="w-full mt-1.5 min-h-[40px] px-3 py-2 border border-slate-100 bg-slate-50/70 text-slate-500 rounded-xl text-xs font-mono">
               2026年5月25日
             </div>
           </div>
@@ -348,7 +364,7 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
               }`}
             >
               <Camera className="w-4 h-4" />
-              <span>📷 拍照板书</span>
+              <span>拍照板书</span>
             </button>
 
             <button 
@@ -362,7 +378,7 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
               }`}
             >
               <Mic className="w-4 h-4" />
-              <span>🎤 语音转写</span>
+              <span>语音转写</span>
             </button>
 
             <button 
@@ -403,8 +419,8 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
                   <span className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse" />
                   <span className="font-semibold text-[11px]">板书关键公式 OCR 智能识别流</span>
                 </div>
-                <div className="bg-white border border-slate-150 rounded-xl p-3 shadow-inner flex-1 flex flex-col min-h-0 overflow-hidden">
-                  <pre className="font-mono text-[11px] leading-relaxed text-slate-600 overflow-y-auto max-h-[140px] whitespace-pre-wrap flex-1 scrollbar-thin">
+                <div className="bg-white border border-slate-150 rounded-xl p-3 shadow-inner flex-1 flex flex-col">
+                  <pre className="m-0 font-mono text-[11px] leading-relaxed text-slate-600 whitespace-pre-wrap">
                     {notesContent.manualText}
                   </pre>
                 </div>

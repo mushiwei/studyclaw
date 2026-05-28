@@ -48,11 +48,11 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,#dbeafe_0,transparent_32rem),radial-gradient(circle_at_top_right,#ccfbf1_0,transparent_28rem),#f8fafc] flex flex-col justify-between">
       
       {/* Sticky Floating Glass Navigation Bar - UI/UX Pro Max Guideline */}
       <div className="sticky top-4 z-40 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 hidden sm:block">
-        <nav id="applet_navbar" className="bg-white/90 backdrop-blur-md shadow-md border border-slate-200/80 rounded-2xl">
+        <nav id="applet_navbar" className="bg-white/90 backdrop-blur-xl shadow-lg shadow-slate-900/5 border border-white/80 rounded-2xl ring-1 ring-slate-200/70">
           <div className="px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
             
             {/* Logo Brand Layout */}
@@ -61,13 +61,13 @@ export default function App() {
               onClick={() => handleSwitchTab('home')}
               className="flex items-center gap-3 cursor-pointer select-none group"
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-650 flex items-center justify-center text-white text-xl font-bold shadow-md shadow-blue-500/15 group-hover:scale-105 transition-all duration-200">
-                S
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 via-indigo-600 to-emerald-500 flex items-center justify-center text-white text-lg font-black shadow-md shadow-blue-500/20 group-hover:scale-105 transition-all duration-200">
+                AI
               </div>
               
               <div>
-                <div className="text-sm font-extrabold text-slate-900 leading-tight">StudyClaw</div>
-                <div className="text-[10px] text-slate-500 font-semibold tracking-wide">全闭环学情诊断系统</div>
+                <div className="text-sm font-extrabold text-slate-900 leading-tight">ai学堂</div>
+                <div className="text-[10px] text-slate-500 font-semibold tracking-wide">给学生打造一个专属的学习系统</div>
               </div>
             </div>
 
@@ -89,16 +89,16 @@ export default function App() {
 
               <button 
                 type="button"
-                id="tab_trigger_homework"
-                onClick={() => handleSwitchTab('homework')}
+                id="tab_trigger_preview"
+                onClick={() => handleSwitchTab('preview')}
                 className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
-                  currentTab === 'homework' 
+                  currentTab === 'preview'
                     ? 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 scale-[1.01]' 
                     : 'text-slate-600 hover:bg-slate-100/90 hover:text-slate-900'
                 }`}
               >
-                <BookOpen className="w-4 h-4" />
-                <span>作业宝</span>
+                <Compass className="w-4 h-4" />
+                <span>预习宝</span>
               </button>
 
               <button 
@@ -117,16 +117,16 @@ export default function App() {
 
               <button 
                 type="button"
-                id="tab_trigger_preview"
-                onClick={() => handleSwitchTab('preview')}
+                id="tab_trigger_homework"
+                onClick={() => handleSwitchTab('homework')}
                 className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
-                  currentTab === 'preview' 
+                  currentTab === 'homework'
                     ? 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 scale-[1.01]' 
                     : 'text-slate-600 hover:bg-slate-100/90 hover:text-slate-900'
                 }`}
               >
-                <Compass className="w-4 h-4" />
-                <span>预习宝</span>
+                <BookOpen className="w-4 h-4" />
+                <span>复习宝</span>
               </button>
             </div>
 
@@ -156,13 +156,13 @@ export default function App() {
       </main>
 
       {/* Mobile Bottom Navigation Dock */}
-      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200/60 shadow-[0_-4px_16px_rgba(0,0,0,0.05)]">
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-t border-slate-200/60 shadow-[0_-10px_30px_rgba(15,23,42,0.08)]">
         <div className="grid grid-cols-4 py-2.5 px-2">
           {[
             { id: 'home', name: '首页', icon: Home },
-            { id: 'homework', name: '作业宝', icon: BookOpen },
+            { id: 'preview', name: '预习宝', icon: Compass },
             { id: 'classroom', name: '听课宝', icon: GraduationCap },
-            { id: 'preview', name: '预习宝', icon: Compass }
+            { id: 'homework', name: '复习宝', icon: BookOpen }
           ].map((tab) => {
             const Icon = tab.icon;
             const isActive = currentTab === tab.id;
@@ -191,9 +191,9 @@ export default function App() {
       </div>
 
       {/* Brand Footer Section */}
-      <footer className="w-full bg-white border-t border-slate-150 py-6 text-center text-xs text-slate-400 font-medium pb-24 sm:pb-6">
+      <footer className="w-full bg-white/85 backdrop-blur border-t border-slate-150 py-6 text-center text-xs text-slate-400 font-medium pb-24 sm:pb-6">
         <div className="max-w-7xl mx-auto px-4 space-y-1">
-          <p>© 2026 StudyClaw 数字化智能诊断伴学系统 · 体验演示版</p>
+          <p>© 2026 ai学堂 数字化智能诊断伴学系统 · 体验演示版</p>
           <p className="text-[10px] text-slate-300">所有数据为仿真模拟生成，用于功能演示与流程体验，完美闭环可测试性</p>
         </div>
       </footer>

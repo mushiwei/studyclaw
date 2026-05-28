@@ -94,18 +94,18 @@ export default function HomeView({ onSwitchTab }: HomeViewProps) {
   }, []);
 
   return (
-    <div className="space-y-12 animate-fade-in-up md:px-2">
+    <div className="space-y-10 animate-fade-in-up md:px-2">
       {/* Hero Section */}
       <div 
-        className="relative rounded-3xl py-12 md:py-16 px-6 md:px-12 text-center overflow-hidden border border-slate-100"
+        className="relative rounded-2xl py-12 md:py-16 px-6 md:px-12 text-center overflow-hidden border border-white/80 bg-white shadow-lg shadow-slate-900/5 ring-1 ring-slate-200/60"
         style={{
-          background: 'radial-gradient(100% 100% at top, var(--color-blue-100) 0%, transparent 70%), radial-gradient(80% 80% at bottom right, var(--color-amber-100) 0%, transparent 70%), white'
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.96), rgba(240,253,250,0.88)), radial-gradient(70% 70% at 10% 0%, var(--color-blue-100) 0%, transparent 72%), radial-gradient(60% 70% at 90% 10%, var(--color-emerald-100) 0%, transparent 70%)'
         }}
         id="home_hero_section"
       >
-        <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-blue-100/70 border border-blue-200 text-blue-700 text-xs font-semibold mb-6 animate-pulse">
+        <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/80 border border-blue-100 text-blue-700 text-xs font-bold mb-6 shadow-sm">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>StudyClaw 教育智能体平台 · Demo</span>
+          <span>ai学堂 教育智能体平台 · Demo</span>
         </div>
         
         <h1 className="text-3xl sm:text-5xl font-extrabold font-display text-slate-900 mb-6 tracking-tight leading-tight max-w-4xl mx-auto">
@@ -125,7 +125,7 @@ export default function HomeView({ onSwitchTab }: HomeViewProps) {
               const el = document.getElementById('agents-highlight-title');
               if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }}
-            className="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-semibold shadow-lg shadow-blue-500/20 active:scale-[0.98] transition-all cursor-pointer text-sm sm:text-base"
+            className="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white rounded-xl font-semibold shadow-lg shadow-blue-500/20 active:scale-[0.98] transition-all cursor-pointer text-sm sm:text-base"
           >
             <div className="flex items-center justify-center gap-2">
               <Sparkles className="w-5 h-5 text-indigo-100 animate-pulse" />
@@ -137,10 +137,10 @@ export default function HomeView({ onSwitchTab }: HomeViewProps) {
             type="button"
             id="btn_home_direct_homework"
             onClick={() => onSwitchTab('homework')}
-            className="w-full sm:w-auto px-8 py-3.5 bg-white hover:bg-slate-50 text-slate-700 rounded-xl font-semibold border border-slate-200 shadow-sm active:scale-[0.98] transition-all cursor-pointer text-sm sm:text-base flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-8 py-3.5 bg-white/90 hover:bg-white text-slate-700 rounded-xl font-semibold border border-slate-200 shadow-sm active:scale-[0.98] transition-all cursor-pointer text-sm sm:text-base flex items-center justify-center gap-2"
           >
             <ClipboardCheck className="w-4 h-4 text-slate-500" />
-            <span>直接看作业宝</span>
+            <span>直接看复习宝</span>
           </button>
         </div>
       </div>
@@ -157,18 +157,19 @@ export default function HomeView({ onSwitchTab }: HomeViewProps) {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {/* Card 1: Homework Agent */}
+          {/* Card 3: Homework Agent */}
           <div 
             id="card_home_agent_homework"
             onClick={() => onSwitchTab('homework')}
-            className="group bg-white rounded-2xl border border-slate-100 shadow-sm p-6 cursor-pointer hover:-translate-y-1.5 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300"
+            className="order-3 group bg-white rounded-2xl border border-slate-100 shadow-sm p-6 cursor-pointer hover:-translate-y-1.5 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 relative overflow-hidden"
           >
+            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-500 to-indigo-500" />
             <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-5 group-hover:bg-blue-100 transition-colors">
               <ClipboardCheck className="w-6 h-6" />
             </div>
             
             <div className="flex items-baseline gap-2 mb-2">
-              <h3 className="text-xl font-bold text-slate-800">作业宝</h3>
+              <h3 className="text-xl font-bold text-slate-800">复习宝</h3>
               <span className="text-xs font-mono text-slate-400">Homework Agent</span>
             </div>
             
@@ -192,8 +193,9 @@ export default function HomeView({ onSwitchTab }: HomeViewProps) {
           <div 
             id="card_home_agent_teacher"
             onClick={() => onSwitchTab('classroom')}
-            className="group bg-white rounded-2xl border border-slate-100 shadow-sm p-6 cursor-pointer hover:-translate-y-1.5 hover:shadow-xl hover:shadow-amber-500/5 transition-all duration-300"
+            className="order-2 group bg-white rounded-2xl border border-slate-100 shadow-sm p-6 cursor-pointer hover:-translate-y-1.5 hover:shadow-xl hover:shadow-amber-500/10 transition-all duration-300 relative overflow-hidden"
           >
+            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
             <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-5 group-hover:bg-amber-100 transition-colors">
               <GraduationCap className="w-6 h-6" />
             </div>
@@ -219,12 +221,13 @@ export default function HomeView({ onSwitchTab }: HomeViewProps) {
             </div>
           </div>
 
-          {/* Card 3: Preview Agent */}
+          {/* Card 1: Preview Agent */}
           <div 
             id="card_home_agent_preview"
             onClick={() => onSwitchTab('preview')}
-            className="group bg-white rounded-2xl border border-slate-100 shadow-sm p-6 cursor-pointer hover:-translate-y-1.5 hover:shadow-xl hover:shadow-emerald-500/5 transition-all duration-300"
+            className="order-1 group bg-white rounded-2xl border border-slate-100 shadow-sm p-6 cursor-pointer hover:-translate-y-1.5 hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300 relative overflow-hidden"
           >
+            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500" />
             <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-5 group-hover:bg-emerald-100 transition-colors">
               <Compass className="w-6 h-6" />
             </div>
@@ -253,10 +256,10 @@ export default function HomeView({ onSwitchTab }: HomeViewProps) {
       </div>
 
       {/* Numeric Highlights Wall */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-8" id="home_stats_wall">
+      <div className="bg-white/95 rounded-2xl border border-white/80 shadow-sm ring-1 ring-slate-200/60 p-8" id="home_stats_wall">
         <div className="text-center mb-8 space-y-1">
           <h2 className="text-xl font-bold text-slate-800">平台能力总览</h2>
-          <p className="text-xs text-slate-400">基于 StudyClaw 系统的 Agent 编排与长期数字画像存储支撑</p>
+          <p className="text-xs text-slate-400">基于 ai学堂 系统的 Agent 编排与长期数字画像存储支撑</p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -295,9 +298,9 @@ export default function HomeView({ onSwitchTab }: HomeViewProps) {
       </div>
 
       {/* Infrastructure Platform Base */}
-      <div className="bg-gradient-to-br from-blue-50/70 via-indigo-50/50 to-slate-50/80 rounded-2xl p-8 border border-slate-100" id="home_platform_features">
+      <div className="bg-gradient-to-br from-white via-blue-50/70 to-emerald-50/60 rounded-2xl p-8 border border-white/80 shadow-sm ring-1 ring-slate-200/60" id="home_platform_features">
         <div className="text-center mb-8 space-y-1">
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-800">StudyClaw 系统基础底座</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-800">ai学堂 系统基础底座</h2>
           <p className="text-xs md:text-sm text-slate-600">为三个智能体提供一致的基础编排、多模态解析和长期档案库</p>
         </div>
 
@@ -337,7 +340,7 @@ export default function HomeView({ onSwitchTab }: HomeViewProps) {
       </div>
 
       {/* Whole Day Cycle Progress List */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 sm:p-8" id="home_daily_cycle">
+      <div className="bg-white/95 rounded-2xl border border-white/80 shadow-sm ring-1 ring-slate-200/60 p-6 sm:p-8" id="home_daily_cycle">
         <div className="text-center mb-8 space-y-1">
           <h2 className="text-xl sm:text-2xl font-bold text-slate-800">一天的完整闭环学情协同</h2>
           <p className="text-xs md:text-sm text-slate-500">学情随场景流转，实现无死角服务链条</p>
@@ -372,7 +375,7 @@ export default function HomeView({ onSwitchTab }: HomeViewProps) {
             <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-blue-500 text-white font-extrabold flex items-center justify-center text-xs shadow-md">3</div>
             <div className="flex items-center gap-2 mb-3">
               <ClipboardCheck className="w-5 h-5 text-blue-650" />
-              <span className="font-bold text-blue-800 text-sm">课后消化 · 作业宝</span>
+              <span className="font-bold text-blue-800 text-sm">课后消化 · 复习宝</span>
             </div>
             <p className="text-xs text-slate-500 mb-2">孩子拍照上传手写习题解答</p>
             <p className="text-xs text-blue-600 font-semibold leading-relaxed">

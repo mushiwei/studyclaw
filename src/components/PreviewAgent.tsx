@@ -27,7 +27,8 @@ import {
   Award,
   TrendingUp,
   Check,
-  FileText
+  FileText,
+  PlayCircle
 } from 'lucide-react';
 import { ChatMessage, PvQuizItem } from '../types';
 
@@ -255,6 +256,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
   // Dynamic forecast compre level numbers
   const [forecastBefore] = useState(65);
   const [forecastAfter, setForecastAfter] = useState(65);
+  const previewVideoUrl = 'https://media.w3.org/wai/perspective-videos/understandable-content.mp4';
 
   const [aiCustomContent, setAiCustomContent] = useState<{
     generalOutline: string;
@@ -621,78 +623,125 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
 
   return (
     <div className="space-y-6 sm:space-y-8 animate-fade-in-up px-1.5 sm:px-0">
-      {/* Informative description header */}
-      <div className="text-center space-y-2 px-2">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-100/70 text-emerald-700 text-[10px] sm:text-xs font-semibold rounded-full border border-emerald-200">
-          <BookOpen className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
-          <span>Preview Agent · 3 个技能协同</span>
-        </div>
-        <h2 className="text-xl sm:text-3xl font-extrabold font-display text-slate-900 tracking-tight">课前 15 分钟小挑战</h2>
-        <p className="text-slate-500 max-w-xl mx-auto text-xs sm:text-sm leading-relaxed px-1">
-          输入知识点，马上获得你的专属学习小卡片和趣味小测试！
-        </p>
-         {/* Form elements */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-          <div>
-            <label className="text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1">
-              <BookOpen className="w-3.5 h-3.5 text-slate-500" />
-              <span>科目</span>
-            </label>
-            <select 
-              value={subject} 
-              onChange={(e) => setSubject(e.target.value)}
-              className="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs font-semibold focus:outline-none focus:border-emerald-400 bg-white"
-            >
-              <option>数学</option>
-              <option>语文</option>
-              <option>英语</option>
-            </select>
+      {/* Preview workspace header */}
+      <div className="relative overflow-hidden rounded-2xl border border-emerald-100 bg-gradient-to-br from-white via-emerald-50/70 to-sky-50/80 shadow-sm">
+        <div className="grid gap-6 p-5 sm:p-7 lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">
+          <div className="flex flex-col justify-between gap-6 text-left">
+            <div className="space-y-4">
+              <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-emerald-200 bg-white/80 px-3 py-1 text-[10px] font-bold text-emerald-700 shadow-sm sm:text-xs">
+                <BookOpen className="h-3.5 w-3.5 text-emerald-600" />
+                <span>Preview Agent · 课前预习工作台</span>
+              </div>
+              <div className="space-y-2">
+                <h2 className="font-display text-2xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
+                  课前 15 分钟，把新课变成可掌握的任务
+                </h2>
+                <p className="max-w-2xl text-xs font-medium leading-relaxed text-slate-600 sm:text-sm">
+                  输入科目、年级和知识点，系统会生成预习目标、知识小地图、伴读问题和自测反馈，让学生带着问题走进课堂。
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-2 sm:max-w-xl">
+              {[
+                { label: '定制任务', icon: FileText, active: currentStep >= 1 },
+                { label: '互动伴读', icon: MessageSquare, active: currentStep >= 2 },
+                { label: '自测反馈', icon: ListTodo, active: currentStep >= 3 }
+              ].map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.label}
+                    className={`rounded-xl border px-2.5 py-3 text-center shadow-sm transition-all ${
+                      item.active
+                        ? 'border-emerald-200 bg-white text-emerald-800'
+                        : 'border-white/70 bg-white/50 text-slate-400'
+                    }`}
+                  >
+                    <div className="mx-auto mb-1.5 flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-50">
+                      <Icon className={`h-3.5 w-3.5 ${item.active ? 'text-emerald-600' : 'text-slate-400'}`} />
+                    </div>
+                    <div className="text-[10px] font-black text-slate-400">0{index + 1}</div>
+                    <div className="text-[11px] font-bold">{item.label}</div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          <div>
-            <label className="text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1">
-              <GraduationCap className="w-3.5 h-3.5 text-slate-500" />
-              <span>年级</span>
-            </label>
-            <select 
-              value={grade} 
-              onChange={(e) => setGrade(e.target.value)}
-              className="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs font-semibold focus:outline-none focus:border-emerald-400 bg-white"
-            >
-              <option>三年级</option>
-              <option>二年级</option>
-              <option>四年级</option>
-              <option>五年级</option>
-            </select>
-          </div>
+          <div className="rounded-2xl border border-white/80 bg-white/90 p-4 shadow-lg shadow-emerald-900/5 sm:p-5">
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <div>
+                <h3 className="text-sm font-extrabold text-slate-900">生成课前任务</h3>
+                <p className="text-[11px] font-medium text-slate-500">先选学习范围，再生成专属预习包</p>
+              </div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-md shadow-emerald-600/20">
+                <Compass className="h-5 w-5" />
+              </div>
+            </div>
 
-          <div>
-            <label className="text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1">
-              <FileText className="w-3.5 h-3.5 text-slate-500" />
-              <span>知识点</span>
-            </label>
-            <input 
-              type="text" 
-              value={chapter} 
-              onChange={(e) => setChapter(e.target.value)}
-              placeholder="认识分数"
-              className="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs font-semibold focus:outline-none focus:border-emerald-400 bg-white"
-            />
-          </div>
-        </div>
+            {/* Form elements */}
+            <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+              <div>
+                <label className="mb-1.5 flex items-center gap-1 text-xs font-bold text-slate-700">
+                  <BookOpen className="h-3.5 w-3.5 text-emerald-600" />
+                  <span>科目</span>
+                </label>
+                <select
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
+                  className="min-h-[42px] w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 text-xs font-semibold text-slate-800 outline-none transition focus:border-emerald-400 focus:bg-white focus:ring-4 focus:ring-emerald-100"
+                >
+                  <option>数学</option>
+                  <option>语文</option>
+                  <option>英语</option>
+                </select>
+              </div>
 
-        {/* Generate triggers and Questionnaire modal */}
-        {!isGenerating ? (
-          <div className="pt-1">
-            <button
-              type="button"
-              onClick={startTaskGen}
-              className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold rounded-xl flex items-center justify-center gap-2 shadow-md hover:scale-[1.002] active:scale-[0.99] transition-all cursor-pointer px-4"
-            >
-              <Sparkles className="w-4 h-4 text-white animate-pulse" />
-              <span>{isMobile ? "生成智能课前预习任务" : "生成预习任务（首次使用会询问 2 个个性化问题）"}</span>
-            </button>
-          </div>
+              <div>
+                <label className="mb-1.5 flex items-center gap-1 text-xs font-bold text-slate-700">
+                  <GraduationCap className="h-3.5 w-3.5 text-emerald-600" />
+                  <span>年级</span>
+                </label>
+                <select
+                  value={grade}
+                  onChange={(e) => setGrade(e.target.value)}
+                  className="min-h-[42px] w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 text-xs font-semibold text-slate-800 outline-none transition focus:border-emerald-400 focus:bg-white focus:ring-4 focus:ring-emerald-100"
+                >
+                  <option>三年级</option>
+                  <option>二年级</option>
+                  <option>四年级</option>
+                  <option>五年级</option>
+                </select>
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="mb-1.5 flex items-center gap-1 text-xs font-bold text-slate-700">
+                  <FileText className="h-3.5 w-3.5 text-emerald-600" />
+                  <span>知识点</span>
+                </label>
+                <input
+                  type="text"
+                  value={chapter}
+                  onChange={(e) => setChapter(e.target.value)}
+                  placeholder="认识分数"
+                  className="min-h-[44px] w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3.5 py-2 text-sm font-bold text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-400 focus:bg-white focus:ring-4 focus:ring-emerald-100"
+                />
+              </div>
+            </div>
+
+            {/* Generate triggers and Questionnaire modal */}
+            {!isGenerating ? (
+              <div className="pt-4">
+                <button
+                  type="button"
+                  onClick={startTaskGen}
+                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-3.5 text-xs font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:from-emerald-700 hover:to-teal-700 active:scale-[0.99] sm:text-sm"
+                >
+                  <Sparkles className="h-4 w-4 text-white" />
+                  <span>{isMobile ? "生成智能课前预习任务" : "生成预习任务（首次使用会询问 2 个个性化问题）"}</span>
+                </button>
+              </div>
         ) : !profileSelectionCompleted ? (
           <div className="bg-slate-50 border border-slate-100 p-4 sm:p-6 rounded-xl space-y-4">
             <div className="flex items-center gap-1.5">
@@ -743,22 +792,24 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
             ) : (
               taskCardGenerated && (
                 /* Generated Task Card with elegant UI visuals */
-                <div className="bg-gradient-to-br from-emerald-50/50 via-teal-50/10 to-slate-50 border border-emerald-150 rounded-2xl p-4 sm:p-6 space-y-4 sm:space-y-5 animate-fade-in-up" id="pv_task_card">
-                  <div className="flex justify-between items-center border-b border-emerald-100/60 pb-3 flex-wrap gap-2">
+                <div className="rounded-2xl border border-emerald-100 bg-white p-4 shadow-sm ring-1 ring-emerald-50 sm:p-6 space-y-4 sm:space-y-5 animate-fade-in-up" id="pv_task_card">
+                  <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-emerald-50/70 px-3.5 py-3">
                     <div className="flex items-center gap-2">
-                      <FileText className="w-5 h-5 text-emerald-600 animate-bounce" />
+                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-emerald-700 shadow-sm">
+                        <FileText className="h-4.5 w-4.5" />
+                      </div>
                       <div>
                         <h4 className="font-bold text-slate-800 text-sm">明日自学导案卡 (小学 {grade})</h4>
                         <p className="text-[10px] text-slate-550">定制方向：{profileAnswers.style}</p>
                       </div>
                     </div>
-                    <span className="px-2 py-0.5 text-[9px] bg-emerald-100 text-emerald-800 rounded font-semibold">专属学习小档案</span>
+                    <span className="rounded-full bg-white px-2.5 py-1 text-[9px] font-bold text-emerald-800 shadow-sm">专属学习小档案</span>
                   </div>
 
                   <div className="flex flex-col gap-4">
                     {/* Goal & time - Two columns on PC/iPad, stacked on Mobile */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 h-full">
-                      <div className="bg-white p-3.5 rounded-xl border border-slate-100 shadow-sm flex flex-col justify-between h-full">
+                      <div className="flex h-full flex-col justify-between rounded-xl border border-slate-100 bg-slate-50/70 p-3.5">
                         <span className="text-[11px] font-bold text-emerald-800 flex items-center gap-1 mb-1">
                           <Compass className="w-3.5 h-3.5 text-emerald-600" />
                           <span>预习小目标</span>
@@ -768,7 +819,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                         </p>
                       </div>
 
-                      <div className="bg-white p-3.5 rounded-xl border border-slate-100 shadow-sm flex flex-col justify-between h-full">
+                      <div className="flex h-full flex-col justify-between rounded-xl border border-slate-100 bg-slate-50/70 p-3.5">
                         <span className="text-[11px] font-bold text-emerald-800 flex items-center gap-1">
                           <Clock className="w-3.5 h-3.5 text-emerald-600" style={{ animation: 'pulse 2s infinite' }} />
                           <span>预计要花的时间</span>
@@ -783,8 +834,55 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                       </div>
                     </div>
 
+                    {/* Micro lesson video is placed after the goal, before AI reading help. */}
+                    <div className="rounded-xl border border-emerald-100 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 p-3 shadow-sm">
+                      <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_220px] md:items-center">
+                        <div className="relative overflow-hidden rounded-xl border border-white/10 bg-slate-900 aspect-video">
+                          {previewVideoUrl ? (
+                            <video
+                              controls
+                              preload="metadata"
+                              className="h-full w-full bg-slate-950 object-cover"
+                              src={previewVideoUrl}
+                            >
+                              您的浏览器暂不支持视频播放。
+                            </video>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => onShowToast('微课视频位已预留：接入视频地址后即可在这里播放', 'info')}
+                              className="flex h-full w-full cursor-pointer flex-col items-center justify-center gap-2 text-white transition hover:bg-white/5"
+                            >
+                              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/15 backdrop-blur">
+                                <PlayCircle className="h-8 w-8 text-white" />
+                              </span>
+                              <span className="text-xs font-bold text-white/90">点击预览课前微课位置</span>
+                            </button>
+                          )}
+                        </div>
+
+                        <div className="space-y-2 text-left">
+                          <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-400/15 px-2.5 py-1 text-[10px] font-bold text-emerald-200">
+                            <PlayCircle className="h-3.5 w-3.5" />
+                            <span>课前微课视频 · 演示</span>
+                          </div>
+                          <h5 className="text-sm font-extrabold text-white">先看演示视频，再进入伴读答疑</h5>
+                          <p className="text-[11px] leading-relaxed text-slate-300">
+                            建议放置知识点导入、例题拆解或实物演示视频。学生看完后，下面的知识地图和思考问题会更容易理解。
+                          </p>
+                          <div className="grid grid-cols-3 gap-1.5 text-center">
+                            {['导入', '例题', '提问'].map((item) => (
+                              <span key={item} className="rounded-lg bg-white/10 px-2 py-1 text-[10px] font-bold text-white/80">
+                                {item}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     {/* Simple structured mindmap */}
-                    <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm space-y-2">
+                    <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-4 space-y-2">
                       <span className="text-[11px] font-bold text-emerald-800 flex items-center gap-1">
                         <Brain className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
                         <span>《{chapter}》重点知识小地图</span>
@@ -800,7 +898,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                               <div key={i} className="relative">
                                 <div className="absolute -left-5 sm:-left-7 top-1/2 -translate-y-1/2 w-4 sm:w-5 h-0.5 bg-emerald-200"></div>
                                 <div className="absolute -left-[23px] sm:-left-[31px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-white shadow-sm z-10"></div>
-                                <div className="bg-gradient-to-r from-white to-slate-50 border border-slate-100 p-3.5 rounded-xl shadow-sm hover:shadow-md transition-shadow hover:scale-[1.01] flex flex-col gap-2 text-left">
+                                  <div className="flex flex-col gap-2 rounded-xl border border-slate-100 bg-white p-3.5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
                                   <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg w-fit">
                                     <Sparkles className="w-3.5 h-3.5" />
                                     {concept.label}
@@ -816,7 +914,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                               <div className="relative">
                                 <div className="absolute -left-5 sm:-left-7 top-1/2 -translate-y-1/2 w-4 sm:w-5 h-0.5 bg-emerald-200"></div>
                                 <div className="absolute -left-[23px] sm:-left-[31px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-white shadow-sm z-10"></div>
-                                <div className="bg-gradient-to-r from-white to-slate-50 border border-slate-100 p-3.5 rounded-xl shadow-sm hover:shadow-md transition-shadow hover:scale-[1.01] flex flex-col gap-2 text-left">
+                                <div className="flex flex-col gap-2 rounded-xl border border-slate-100 bg-white p-3.5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
                                   <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg w-fit">
                                     <Sparkles className="w-3.5 h-3.5" />
                                     分母 (下方数据)
@@ -827,7 +925,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                               <div className="relative">
                                 <div className="absolute -left-5 sm:-left-7 top-1/2 -translate-y-1/2 w-4 sm:w-5 h-0.5 bg-emerald-200"></div>
                                 <div className="absolute -left-[23px] sm:-left-[31px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-white shadow-sm z-10"></div>
-                                <div className="bg-gradient-to-r from-white to-slate-50 border border-slate-100 p-3.5 rounded-xl shadow-sm hover:shadow-md transition-shadow hover:scale-[1.01] flex flex-col gap-2 text-left">
+                                <div className="flex flex-col gap-2 rounded-xl border border-slate-100 bg-white p-3.5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
                                   <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-sky-600 bg-sky-50 px-2.5 py-1 rounded-lg w-fit">
                                     <Sparkles className="w-3.5 h-3.5" />
                                     分子 (上方数据)
@@ -838,7 +936,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                               <div className="relative">
                                 <div className="absolute -left-5 sm:-left-7 top-1/2 -translate-y-1/2 w-4 sm:w-5 h-0.5 bg-emerald-200"></div>
                                 <div className="absolute -left-[23px] sm:-left-[31px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-white shadow-sm z-10"></div>
-                                <div className="bg-gradient-to-r from-white to-slate-50 border border-slate-100 p-3.5 rounded-xl shadow-sm hover:shadow-md transition-shadow hover:scale-[1.01] flex flex-col gap-2 text-left">
+                                <div className="flex flex-col gap-2 rounded-xl border border-slate-100 bg-white p-3.5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
                                   <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-lg w-fit">
                                     <Sparkles className="w-3.5 h-3.5" />
                                     分线 (居中横杆)
@@ -852,7 +950,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-white p-4 sm:p-5 rounded-xl border border-slate-100 shadow-sm space-y-3">
+                  <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-4 sm:p-5 space-y-3">
                     <span className="text-[11px] font-bold text-emerald-800 flex items-center gap-1">
                       <HelpCircle className="w-3.5 h-3.5 text-emerald-600" />
                       <span>{aiCustomContent ? "AI 智能定制 4 大思考小扣" : "伴读思考小挑战"}</span>
@@ -885,7 +983,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                   </div>
 
                   {/* Pizza slice scenario questions */}
-                  <div className="bg-white p-4 sm:p-5 rounded-xl border border-slate-100 shadow-sm space-y-1.5 text-left">
+                  <div className="rounded-xl border border-slate-100 bg-white p-4 sm:p-5 shadow-sm space-y-1.5 text-left">
                     <span className="text-[11px] font-bold text-emerald-800 flex items-center gap-1.5">
                       <Compass className="w-3.5 h-3.5 text-emerald-600" />
                       <span>趣味小故事（结合：{profileAnswers.style}）</span>
@@ -896,7 +994,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                   </div>
 
                   {/* Forecast indicator slider */}
-                  <div className="bg-gradient-to-r from-amber-50/70 to-orange-50/70 border border-amber-150 p-4 rounded-xl space-y-2">
+                  <div className="rounded-xl border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 p-4 space-y-2">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1.5 text-xs">
                       <span className="font-bold text-amber-850 flex items-center gap-1">
                         <TrendingUp className="w-3.5 h-3.5 text-amber-600" />
@@ -931,15 +1029,17 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
           </button>
         )}
       </div>
+      </div>
+      </div>
 
       {/* STEP 2: Chat helper and Preset tags */}
       {visibleSteps.includes(2) && (
-        <div ref={stepRefs[2]} id="preview_step_2" className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 sm:p-6 space-y-5 sm:space-y-6 animate-fade-in-up">
-          <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
-            <span className="w-8 h-8 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xs font-bold font-mono">02</span>
+        <div ref={stepRefs[2]} id="preview_step_2" className="rounded-2xl border border-sky-100 bg-white p-4 shadow-sm sm:p-6 space-y-5 sm:space-y-6 animate-fade-in-up">
+          <div className="flex items-center gap-3 rounded-xl bg-sky-50/70 px-3.5 py-3">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-xs font-bold font-mono text-sky-700 shadow-sm">02</span>
             <div>
               <h3 className="font-bold text-slate-800 text-sm sm:text-base flex items-center gap-1.5 justify-start">
-                <MessageSquare className="w-4 h-4 text-blue-600 animate-pulse" />
+                <MessageSquare className="w-4 h-4 text-sky-600 animate-pulse" />
                 <span>互动答疑：有问题随时问我哦</span>
               </h3>
               <div className="text-[10px] sm:text-[11px] text-slate-400">像大朋友一样陪你读书，有不懂的随时点我问！</div>
@@ -967,7 +1067,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                     key={id}
                     type="button"
                     onClick={() => handleChatPresetClick(item.q, item.a)}
-                    className="px-2.5 sm:px-3.5 py-1 sm:py-1.5 border border-emerald-150 bg-emerald-50/50 hover:bg-emerald-100 text-emerald-800 rounded-full text-[10px] sm:text-[10.5px] font-semibold active:scale-95 transition-all cursor-pointer shadow-sm flex items-center gap-1"
+                    className="flex cursor-pointer items-center gap-1 rounded-full border border-emerald-200 bg-white px-2.5 py-1 text-[10px] font-semibold text-emerald-800 shadow-sm transition-all hover:-translate-y-0.5 hover:bg-emerald-50 active:scale-95 sm:px-3.5 sm:py-1.5 sm:text-[10.5px]"
                   >
                     <Search className="w-3.5 h-3.5 text-emerald-600" />
                     <span>{item.q}</span>
@@ -976,10 +1076,10 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
               </div>
 
               {/* Chat window box */}
-              <div className="bg-slate-50 border border-slate-205 rounded-2xl p-3 sm:p-4 flex flex-col space-y-3 sm:space-y-4">
+              <div className="flex flex-col space-y-3 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50 to-white p-3 sm:p-4 sm:space-y-4">
                 <div 
                   id="pv-chat-scroller"
-                  className="h-56 sm:h-64 overflow-y-auto space-y-3.5 pr-1 scroll-smooth"
+                    className="h-60 overflow-y-auto space-y-3.5 pr-1 scroll-smooth sm:h-72"
                 >
                   {chatLog.map((chat) => {
                     const isAi = chat.sender === 'ai';
@@ -995,7 +1095,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                           className={`rounded-2xl px-3 py-2 sm:px-4 sm:py-2.5 text-xs leading-normal max-w-[90%] sm:max-w-[85%] whitespace-pre-line ${
                             isAi 
                               ? 'bg-white text-slate-800 rounded-tl-none border border-slate-100 shadow-sm' 
-                              : 'bg-emerald-600 text-white rounded-tr-none shadow-sm'
+                              : 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-tr-none shadow-sm'
                           }`}
                         >
                           {chat.text}
@@ -1034,12 +1134,12 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                     onChange={(e) => setChatInput(e.target.value)}
                     onKeyPress={(e) => { if (e.key === 'Enter') handleChatSend(); }}
                     placeholder={isMobile ? "输入您的新疑惑..." : "输入或询问您的新疑惑 (例如: 什么是等值分数?)"}
-                    className="flex-grow px-3 py-2 bg-white border border-slate-205 focus:border-emerald-400 rounded-xl text-xs font-semibold focus:outline-none min-h-[40px]"
+                    className="min-h-[42px] flex-grow rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold outline-none transition focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
                   />
                   <button 
                     type="button"
                     onClick={handleChatSend}
-                    className="p-2 px-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl active:scale-95 transition-all cursor-pointer shadow-sm flex items-center justify-center min-h-[40px]"
+                    className="flex min-h-[42px] cursor-pointer items-center justify-center rounded-xl bg-emerald-600 px-3 py-2 text-white shadow-sm transition-all hover:bg-emerald-700 active:scale-95"
                   >
                     <Send className="w-4 h-4" />
                   </button>
@@ -1051,7 +1151,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                   type="button"
                   id="btn_pv_go_quiz"
                   onClick={handleFinishPreviewSection}
-                  className="w-full sm:w-auto px-6 sm:px-8 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-705 text-white text-xs sm:text-sm font-bold rounded-xl shadow-md active:scale-[0.99] transition-all cursor-pointer flex items-center justify-center gap-1.5 mx-auto"
+                  className="mx-auto flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-3.5 text-xs font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:from-emerald-700 hover:to-teal-700 active:scale-[0.99] sm:w-auto sm:px-8 sm:text-sm"
                 >
                   <Compass className="w-4 h-4 text-white animate-spin-slow" />
                   <span>{isMobile ? "完成伴读，开始自测小练习" : "我已阅读完毕且完成伴读，开始自测小练习"}</span>
@@ -1064,9 +1164,9 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
 
       {/* STEP 3: Self checking & Alignment with classes */}
       {visibleSteps.includes(3) && (
-        <div ref={stepRefs[3]} id="preview_step_3" className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 sm:p-6 space-y-5 sm:space-y-6 animate-fade-in-up">
-          <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
-            <span className="w-8 h-8 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-xs font-bold font-mono">03</span>
+        <div ref={stepRefs[3]} id="preview_step_3" className="rounded-2xl border border-amber-100 bg-white p-4 shadow-sm sm:p-6 space-y-5 sm:space-y-6 animate-fade-in-up">
+          <div className="flex items-center gap-3 rounded-xl bg-amber-50/80 px-3.5 py-3">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-xs font-bold font-mono text-amber-700 shadow-sm">03</span>
             <div>
               <h3 className="font-bold text-slate-800 text-sm sm:text-base flex items-center gap-1.5 justify-start">
                 <ListTodo className="w-4.5 h-4.5 text-amber-600 animate-pulse" />
@@ -1092,12 +1192,12 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                   return (
                     <div 
                       key={item.id} 
-                      className={`border border-slate-205 rounded-xl p-3.5 sm:p-4 space-y-3 transition-all ${
+                      className={`rounded-xl border p-3.5 shadow-sm transition-all sm:p-4 space-y-3 ${
                         quizSubmitted 
                           ? selectedAnswers[item.id] === item.correct 
-                            ? 'border-emerald-200 bg-emerald-50/20' 
-                            : 'border-rose-200 bg-rose-50/20'
-                          : 'bg-white hover:border-slate-300'
+                            ? 'border-emerald-200 bg-emerald-50/40'
+                            : 'border-rose-200 bg-rose-50/40'
+                          : 'border-slate-200 bg-white hover:-translate-y-0.5 hover:border-amber-200 hover:shadow-md'
                       }`}
                     >
                       <div className="flex items-start gap-2 sm:gap-2.5">
@@ -1126,12 +1226,12 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                           return (
                             <label 
                               key={i} 
-                              className={`flex items-center gap-2 p-2 sm:p-2.5 border rounded-lg cursor-pointer transition-all text-[11px] sm:text-xs font-semibold select-none ${
+                              className={`flex cursor-pointer select-none items-center gap-2 rounded-xl border p-2 text-[11px] font-semibold transition-all sm:p-2.5 sm:text-xs ${
                                 isSelected 
-                                  ? 'border-emerald-500 bg-emerald-50/30 text-emerald-800 shadow-sm' 
+                                  ? 'border-emerald-500 bg-emerald-50 text-emerald-800 shadow-sm'
                                   : quizSubmitted && isCorrect 
-                                    ? 'border-emerald-300 bg-emerald-50/20 text-emerald-700'
-                                    : 'border-slate-200 hover:bg-slate-50 text-slate-705'
+                                    ? 'border-emerald-300 bg-emerald-50 text-emerald-700'
+                                    : 'border-slate-200 bg-slate-50/60 text-slate-705 hover:bg-white hover:border-amber-200'
                               }`}
                             >
                               <input 
@@ -1166,7 +1266,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                   type="button"
                   id="btn_pv_submit_quiz"
                   onClick={handleQuizSubmit}
-                  className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white text-xs sm:text-sm font-bold rounded-xl shadow-md cursor-pointer active:scale-[0.99] transition-all flex items-center justify-center gap-2"
+                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 px-6 py-3.5 text-xs font-bold text-white shadow-lg shadow-amber-500/20 transition-all hover:from-amber-600 hover:to-orange-700 active:scale-[0.99] sm:w-auto sm:px-8 sm:py-3 sm:text-sm"
                 >
                   <Send className="w-4 h-4 text-white animate-pulse" />
                   <span>提交答案，看看我的秒懂率！</span>
@@ -1201,7 +1301,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                     customEval && (
                       <div className="space-y-5 sm:space-y-6 animate-fade-in-up">
                         {/* Performance evaluation review */}
-                        <div className="p-3.5 sm:p-4 bg-emerald-50/70 text-emerald-850 rounded-xl border border-emerald-150 space-y-1.5 animate-fade-in">
+                        <div className="rounded-xl border border-emerald-200 bg-emerald-50/80 p-3.5 text-emerald-850 shadow-sm sm:p-4 space-y-1.5 animate-fade-in">
                           <h4 className="font-extrabold text-xs flex items-center gap-1.5">
                             <Award className="w-4.5 h-4.5 text-emerald-600 animate-bounce" />
                             <span>你的专属学习小评价</span>
@@ -1212,14 +1312,14 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                         </div>
 
                         {/* Tips for Classroom alignment */}
-                        <div className="border border-slate-150 rounded-xl p-3.5 sm:p-4.5 bg-sky-50/50 space-y-3 shadow-none animate-fade-in">
+                        <div className="rounded-xl border border-sky-100 bg-sky-50/70 p-3.5 shadow-sm sm:p-4.5 space-y-3 animate-fade-in">
                           <span className="text-[11px] sm:text-xs font-bold text-sky-900 flex items-center gap-1.5 flex-wrap">
                             <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-500 animate-glow-pulse" />
                             <span>明天课堂上的表现秘籍（答出这些，老师肯定夸你！）</span>
                           </span>
 
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <div className="bg-white p-3 rounded-lg border border-slate-100 flex flex-col justify-between gap-15">
+                            <div className="flex flex-col justify-between gap-4 rounded-xl border border-slate-100 bg-white p-3 shadow-sm">
                               <span className="text-[9px] sm:text-[10px] text-slate-400 font-bold block flex items-center gap-1">
                                 <Check className="w-3 h-3 text-slate-400" />
                                 <span>老师很可能会问这些哦</span>
@@ -1229,7 +1329,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                               </p>
                             </div>
 
-                            <div className="bg-white p-3 rounded-lg border border-slate-100 flex flex-col justify-between gap-15">
+                            <div className="flex flex-col justify-between gap-4 rounded-xl border border-slate-100 bg-white p-3 shadow-sm">
                               <span className="text-[9px] sm:text-[10px] text-emerald-500 font-bold block flex items-center gap-1">
                                 <Smile className="w-3 h-3 text-emerald-500" />
                                 <span>建议你可以这样回答：</span>
@@ -1242,7 +1342,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                         </div>
 
                         {/* Forecast forecast percentage upgrade details */}
-                        <div className="bg-gradient-to-br from-amber-50 to-orange-55 border border-amber-205 p-4 sm:p-5 rounded-2xl relative animate-fade-in">
+                        <div className="relative rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-4 shadow-sm sm:p-5 animate-fade-in">
                           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
                             <div className="space-y-1 flex-1">
                               <span className="text-xs font-bold text-amber-850 block flex items-center gap-1">
