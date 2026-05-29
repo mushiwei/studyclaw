@@ -626,9 +626,9 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
   return (
     <div className="space-y-6 sm:space-y-8 animate-fade-in-up px-1.5 sm:px-0">
       {/* Preview workspace header */}
-      <div className="relative overflow-hidden rounded-2xl border border-emerald-100 bg-gradient-to-br from-white via-emerald-50/70 to-sky-50/80 shadow-sm">
-        <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-2 lg:items-center">
-          <div className="flex flex-col justify-center gap-6 text-left">
+      <div className={`relative overflow-hidden rounded-2xl ${!isGenerating ? 'border border-emerald-100 bg-gradient-to-br from-white via-emerald-50/70 to-sky-50/80 shadow-sm' : 'border-none bg-transparent shadow-none'}`}>
+        <div className={`grid gap-8 ${!isGenerating ? 'p-6 sm:p-8 lg:grid-cols-12 lg:items-stretch animate-fade-in' : 'p-0 grid-cols-1'}`}>
+          <div className={`flex flex-col justify-between gap-6 text-left ${!isGenerating ? 'lg:col-span-7' : 'hidden'}`}>
             <div className="space-y-4">
               <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-emerald-200 bg-white/80 px-3 py-1 text-[10px] font-bold text-emerald-700 shadow-sm sm:text-xs">
                 <BookOpen className="h-3.5 w-3.5 text-emerald-600" />
@@ -638,30 +638,26 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                 <h2 className="font-display text-2xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
                   课前 15 分钟，把新课变成可掌握的任务
                 </h2>
-                <p className="max-w-2xl text-xs font-medium leading-relaxed text-slate-600 sm:text-sm">
+                <p className="max-w-2xl text-xs font-semibold leading-relaxed text-slate-605 sm:text-sm">
                   输入科目、年级和知识点，系统会生成预习目标、知识小地图、伴读问题和自测反馈，让学生带着问题走进课堂。
                 </p>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-2 sm:max-w-xl">
+            <div className="grid grid-cols-3 gap-2.5 sm:max-w-xl">
               {[
-                { label: '定制任务', icon: FileText, active: currentStep >= 1 },
-                { label: '互动伴读', icon: MessageSquare, active: currentStep >= 2 },
-                { label: '自测反馈', icon: ListTodo, active: currentStep >= 3 }
+                { label: '定制任务', icon: FileText, active: true },
+                { label: '互动伴读', icon: MessageSquare, active: false },
+                { label: '自测反馈', icon: ListTodo, active: false }
               ].map((item, index) => {
                 const Icon = item.icon;
                 return (
                   <div
                     key={item.label}
-                    className={`rounded-xl border px-2.5 py-3 text-center shadow-sm transition-all ${
-                      item.active
-                        ? 'border-emerald-200 bg-white text-emerald-800'
-                        : 'border-white/70 bg-white/50 text-slate-400'
-                    }`}
+                    className="rounded-xl border px-2.5 py-3 text-center shadow-xs transition-all border-white/60 bg-white/50 text-slate-400"
                   >
                     <div className="mx-auto mb-1.5 flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-50">
-                      <Icon className={`h-3.5 w-3.5 ${item.active ? 'text-emerald-600' : 'text-slate-400'}`} />
+                      <Icon className={`h-3.5 w-3.5 ${item.active ? 'text-emerald-600' : 'text-slate-405'}`} />
                     </div>
                     <div className="text-[10px] font-black text-slate-400">0{index + 1}</div>
                     <div className="text-[11px] font-bold">{item.label}</div>
@@ -671,16 +667,58 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-white/80 bg-white/90 p-4 shadow-lg shadow-emerald-900/5 sm:p-5">
-            <div className="mb-4 flex items-center justify-between gap-3">
-              <div>
-                <h3 className="text-sm font-extrabold text-slate-900">生成课前任务</h3>
-                <p className="text-[11px] font-medium text-slate-500">先选学习范围，再生成专属预习包</p>
+          <div className={`transition-all duration-300 ${!isGenerating ? 'rounded-2xl border border-white/80 bg-white/90 p-4 shadow-lg shadow-emerald-900/5 sm:p-5 lg:col-span-5' : 'lg:col-span-12 w-full max-w-none shadow-none border-none bg-transparent !p-0'}`}>
+            
+            {/* Elegant active workspace banner when generating */}
+            {isGenerating && profileSelectionCompleted && (
+              <div className="relative overflow-hidden rounded-2xl border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-sky-50/70 p-4 sm:p-5 shadow-xs flex flex-wrap items-center justify-between gap-4 mb-6 animate-fade-in-up">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-md shadow-emerald-600/20">
+                    <Brain className="h-5.5 w-5.5 text-white" />
+                  </div>
+                  <div className="text-left">
+                    <div className="inline-flex items-center gap-1 rounded-full bg-emerald-100/80 px-2.5 py-0.5 text-[10px] font-extrabold text-emerald-800 animate-pulse">
+                      <BookOpen className="h-3 w-3" />
+                      <span>{subject} · {grade}</span>
+                    </div>
+                    <h3 className="text-base font-extrabold text-slate-950 mt-1 pb-0 leading-tight">
+                      《{chapter || "新学期概念"}》自学导学与课前探究
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Premium horizontal steps */}
+                <div className="flex items-center gap-1.5 sm:gap-2.5 text-[11px] font-bold border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-200/50">
+                  {[
+                    { label: '定制目标', active: currentStep >= 1 },
+                    { label: '伴学探究', active: currentStep >= 2 },
+                    { label: '自测学情', active: currentStep >= 3 }
+                  ].map((item, index) => (
+                    <div key={item.label} className="flex items-center gap-1 font-semibold text-slate-400">
+                      <span className={`inline-flex h-5 w-5 items-center justify-center rounded-full text-[9px] font-black ${
+                        item.active ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/20' : 'bg-slate-200 text-slate-500'
+                      }`}>
+                        0{index + 1}
+                      </span>
+                      <span className={item.active ? 'text-emerald-805 font-bold' : 'text-slate-400 text-xs'}>{item.label}</span>
+                      {index < 2 && <span className="text-slate-300">→</span>}
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-md shadow-emerald-600/20">
-                <Compass className="h-5 w-5" />
+            )}
+
+            {!isGenerating && (
+              <div className="mb-4 flex items-center justify-between gap-3">
+                <div>
+                  <h3 className="text-sm font-extrabold text-slate-900">生成课前任务</h3>
+                  <p className="text-[11px] font-medium text-slate-500">先选学习范围，再生成专属预习包</p>
+                </div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-md shadow-emerald-600/20">
+                  <Compass className="h-5 w-5" />
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Form elements */}
             <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
