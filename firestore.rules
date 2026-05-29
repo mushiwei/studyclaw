@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Standard high-assurance helper functions
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    function incoming() {
+      return request.resource.data;
+    }
+    function existing() {
+      return resource.data;
+    }
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Entity validator logic for PreviewSession - matching the blueprint types
+    function isValidPreviewSession(data) {
+      return data.id is string && data.id.size() <= 128
+          && data.userId is string && data.userId.size() <= 128
+          && data.subject is string && data.subject.size() <= 64
+          && data.grade is string && data.grade.size() <= 64
+          && data.chapter is string && data.chapter.size() <= 128
+          && (data.profileDifficulty == null || (data.profileDifficulty is string && data.profileDifficulty.size() <= 200))
+          && (data.profileStyle == null || (data.profileStyle is string && data.profileStyle.size() <= 200))
+          && (data.chatLogJson == null || (data.chatLogJson is string && data.chatLogJson.size() <= 50000))
+          && (data.quizAnswersJson == null || (data.quizAnswersJson is string && data.quizAnswersJson.size() <= 10000))
+          && data.quizSubmitted is bool
+          && data.forecastAfter is int
+          && data.createdAt is string && data.createdAt.size() <= 64
+          && data.updatedAt is string && data.updatedAt.size() <= 64;
+    }
+
+    match /preview_sessions/{sessionId} {
+      allow get: if isSignedIn() && existing().userId == request.auth.uid && isValidId(sessionId);
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && incoming().userId == request.auth.uid && isValidPreviewSession(incoming()) && isValidId(sessionId);
+      allow update: if isSignedIn() && existing().userId == request.auth.uid && incoming().userId == request.auth.uid && isValidPreviewSession(incoming()) && isValidId(sessionId) && (
+        incoming().diff(existing()).affectedKeys().hasOnly([
+          'profileDifficulty', 'profileStyle', 'chatLogJson', 'quizAnswersJson', 'quizSubmitted', 'forecastAfter', 'updatedAt'
+        ])
+      );
+      allow delete: if isSignedIn() && existing().userId == request.auth.uid && isValidId(sessionId);
+    }
+  }
+}

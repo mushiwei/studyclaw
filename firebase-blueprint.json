@@ -1,0 +1,82 @@
+{
+  "entities": {
+    "PreviewSession": {
+      "title": "PreviewSession",
+      "description": "Stores user preview伴学 progress, chat history, and quiz diagnostic scores",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique session identifier"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Authenticated or anonymous user UID"
+        },
+        "subject": {
+          "type": "string",
+          "description": "E.g. 数学, 语文, 英语"
+        },
+        "grade": {
+          "type": "string",
+          "description": "E.g. 三年级, 四年级"
+        },
+        "chapter": {
+          "type": "string",
+          "description": "E.g. 认识分数"
+        },
+        "profileDifficulty": {
+          "type": "string",
+          "description": "Difficulty answer from Step 1"
+        },
+        "profileStyle": {
+          "type": "string",
+          "description": "Learning style answer from Step 1"
+        },
+        "chatLogJson": {
+          "type": "string",
+          "description": "Serialized JSON string of the chat dialogue to ensure fixed sizes under security rules"
+        },
+        "quizAnswersJson": {
+          "type": "string",
+          "description": "Serialized JSON string of selected quiz options"
+        },
+        "quizSubmitted": {
+          "type": "boolean",
+          "description": "Whether the quiz test has been submitted"
+        },
+        "forecastAfter": {
+          "type": "integer",
+          "description": "Calculated student comprehension percentage score after hot pre-warming"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Session creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last operation timestamp"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "subject",
+        "grade",
+        "chapter",
+        "quizSubmitted",
+        "forecastAfter",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/preview_sessions/{sessionId}": {
+      "schema": "PreviewSession",
+      "description": "Collection hosting student preview sessions with real-time persistent data feedback"
+    }
+  }
+}
