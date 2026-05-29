@@ -5,6 +5,7 @@ coverage/
 .DS_Store
 *.log
 .vercel/
+.netlify/
 __pycache__/
 *.pyc
 .env*

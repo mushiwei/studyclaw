@@ -1,6 +1,8 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
-const DASHSCOPE_API_KEY = process.env.DASHSCOPE_API_KEY;
+const getDashscopeApiKey = () => {
+  return globalThis.Netlify?.env.get('DASHSCOPE_API_KEY') ?? process.env.DASHSCOPE_API_KEY;
+};
 
 type PreviewPayload = {
   generalOutline?: string;
@@ -170,7 +172,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 3. 问题必须为 4 个（不多也不少）。
 4. 保持清楚、专业、适龄，优先关注题目本身、概念本身和课堂衔接。`;
 
-    if (!DASHSCOPE_API_KEY) {
+    const dashscopeApiKey = getDashscopeApiKey();
+    if (!dashscopeApiKey) {
       throw new Error("DASHSCOPE_API_KEY is not set");
     }
 
@@ -178,7 +181,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${DASHSCOPE_API_KEY}`
+        "Authorization": `Bearer ${dashscopeApiKey}`
       },
       body: JSON.stringify({
         model: "qwen-plus",

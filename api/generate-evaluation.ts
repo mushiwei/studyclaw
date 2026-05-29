@@ -1,6 +1,8 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
-const DASHSCOPE_API_KEY = process.env.DASHSCOPE_API_KEY;
+const getDashscopeApiKey = () => {
+  return globalThis.Netlify?.env.get('DASHSCOPE_API_KEY') ?? process.env.DASHSCOPE_API_KEY;
+};
 
 type EvaluationPayload = {
   summary?: string;
@@ -86,7 +88,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 - 测验得分（共3题）：答对了 ${score ?? 3} 题（满分3题）
 `;
 
-    if (!DASHSCOPE_API_KEY) {
+    const dashscopeApiKey = getDashscopeApiKey();
+    if (!dashscopeApiKey) {
       throw new Error("DASHSCOPE_API_KEY is not set");
     }
 
@@ -94,7 +97,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${DASHSCOPE_API_KEY}`
+        "Authorization": `Bearer ${dashscopeApiKey}`
       },
       body: JSON.stringify({
         model: "qwen-plus",
