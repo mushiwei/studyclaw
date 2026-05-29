@@ -13,6 +13,10 @@ async function startServer() {
 
   app.use(express.json());
 
+  app.get("/favicon.ico", (_req, res) => {
+    res.status(204).end();
+  });
+
   // Curriculum Knowledge Base (Simulated Core Database)
   const curriculumDB: Record<string, Record<string, any>> = {
     "数学": {
