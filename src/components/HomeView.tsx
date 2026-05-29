@@ -105,7 +105,7 @@ export default function HomeView({ onSwitchTab }: HomeViewProps) {
       >
         <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/80 border border-blue-100 text-blue-700 text-xs font-bold mb-6 shadow-sm">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>ai学堂 教育智能体平台 · Demo333</span>
+          <span>ai学堂 教育智能体平台 · Demo</span>
         </div>
         
         <h1 className="text-3xl sm:text-5xl font-extrabold font-display text-slate-900 mb-6 tracking-tight leading-tight max-w-4xl mx-auto">
