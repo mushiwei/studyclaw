@@ -15,7 +15,7 @@ export default defineConfig(() => {
       allowedHosts: [
         'yxb.aixuetang.com.cn',
         'localhost:8084',
-        '127.0.0.1:8084',
+        '127.0.0.1:8084'
       ],
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
       // Do not modify—file watching is disabled to prevent flickering during agent edits.
