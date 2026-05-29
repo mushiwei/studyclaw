@@ -39,6 +39,8 @@ interface PreviewAgentProps {
 interface PreviewVideoHit {
   _id?: number | string;
   _score?: number;
+  _rank_score?: number;
+  _source_query?: string;
   _source: {
     id?: number | string;
     name?: string;
@@ -46,6 +48,23 @@ interface PreviewVideoHit {
     ccid: string;
   };
 }
+
+type PreviewContent = {
+  generalOutline: string;
+  keyConcepts: Array<{ label: string; detail: string }>;
+  questions: string[];
+  scenario: string;
+  presetChatQuestions?: Array<{ q: string; a: string }>;
+  quizItems?: Array<{ id: number; question: string; options: string[]; correct: number; analysis: string }>;
+};
+
+type PreviewVideoSearchPayload = {
+  query: string;
+  subject: string;
+  grade: string;
+  chapter: string;
+  questions?: string[];
+};
 
 const BOKECC_SITE_ID = '3BF7C9738A6F67BC';
 
@@ -278,14 +297,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
   const [videoSearchQuery, setVideoSearchQuery] = useState('');
   const [videoError, setVideoError] = useState('');
 
-  const [aiCustomContent, setAiCustomContent] = useState<{
-    generalOutline: string;
-    keyConcepts: Array<{ label: string; detail: string }>;
-    questions: string[];
-    scenario: string;
-    presetChatQuestions?: Array<{ q: string; a: string }>;
-    quizItems?: Array<{ id: number; question: string; options: string[]; correct: number; analysis: string }>;
-  } | null>(null);
+  const [aiCustomContent, setAiCustomContent] = useState<PreviewContent | null>(null);
 
   const [customEval, setCustomEval] = useState<{
     summary: string;
@@ -395,8 +407,8 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
   const microLessonVideoId = selectedVideo?._source.ccid || '';
   const microLessonVideoUrl = microLessonVideoId ? buildBokeccVideoUrl(microLessonVideoId) : '';
 
-  const loadPreviewVideos = async (query: string) => {
-    const normalizedQuery = query.trim();
+  const loadPreviewVideos = async (payload: PreviewVideoSearchPayload) => {
+    const normalizedQuery = payload.query.trim();
     if (!normalizedQuery) return;
 
     setVideoLoading(true);
@@ -411,7 +423,11 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ query: normalizedQuery })
+        body: JSON.stringify({
+          ...payload,
+          query: normalizedQuery,
+          questions: payload.questions?.filter(Boolean).slice(0, 4) || []
+        })
       });
 
       const data = await res.json().catch(() => null);
@@ -444,6 +460,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
       setProfileSelectionCompleted(true);
       // Now start animating the task generation
       setStepLoading(prev => ({ ...prev, 1: true }));
+      let previewContent: PreviewContent = getFrontendFallback(subject, grade, chapter);
       
       try {
         const res = await fetch("/api/generate-preview", {
@@ -469,17 +486,24 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
         }
         
         if (parsedData && parsedData.generalOutline && parsedData.keyConcepts && parsedData.questions) {
-          setAiCustomContent(parsedData);
+          previewContent = parsedData;
+          setAiCustomContent(previewContent);
         } else {
           console.warn("API responds with incomplete content, using intelligent local matching...");
-          setAiCustomContent(getFrontendFallback(subject, grade, chapter));
+          setAiCustomContent(previewContent);
         }
       } catch (e) {
         console.error("Failed to load Qwen AI preview task content, using intelligent local matching:", e);
-        setAiCustomContent(getFrontendFallback(subject, grade, chapter));
+        setAiCustomContent(previewContent);
       }
 
-      await loadPreviewVideos(chapter || subject);
+      await loadPreviewVideos({
+        query: chapter || subject,
+        subject,
+        grade,
+        chapter,
+        questions: previewContent.questions
+      });
 
       setStepLoading(prev => ({ ...prev, 1: false }));
       setTaskCardGenerated(true);
@@ -950,27 +974,44 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                     <div className="rounded-xl border border-emerald-100 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 p-3 shadow-sm">
                       <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_220px] md:items-center">
                         <div className="relative overflow-hidden rounded-xl border border-white/10 bg-slate-900 aspect-video">
-                          <iframe
-                            key={microLessonVideoId || 'preview-video'}
-                            id={`cciframe_${microLessonVideoId || 'empty'}`}
-                            title="课前微课视频"
-                            src={microLessonVideoUrl || 'about:blank'}
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowFullScreen
-                            className="h-full w-full bg-slate-950"
-                          />
+                          {videoLoading ? (
+                            <div className="flex h-full w-full items-center justify-center gap-2 text-xs font-bold text-emerald-100">
+                              <Search className="h-4 w-4 animate-pulse" />
+                              <span>正在匹配章节相关视频...</span>
+                            </div>
+                          ) : microLessonVideoUrl ? (
+                            <iframe
+                              key={microLessonVideoId || 'preview-video'}
+                              id={`cciframe_${microLessonVideoId || 'empty'}`}
+                              title="课前微课视频"
+                              src={microLessonVideoUrl}
+                              frameBorder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              allowFullScreen
+                              className="h-full w-full bg-slate-950"
+                            />
+                          ) : (
+                            <div className="flex h-full w-full flex-col items-center justify-center gap-2 px-4 text-center text-xs font-semibold text-slate-300">
+                              <PlayCircle className="h-7 w-7 text-slate-500" />
+                              <span>{videoError || '暂无可播放视频'}</span>
+                            </div>
+                          )}
                         </div>
 
                         <div className="space-y-2 text-left">
                           <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-400/15 px-2.5 py-1 text-[10px] font-bold text-emerald-200">
                             <PlayCircle className="h-3.5 w-3.5" />
-                            <span>课前微课视频 · 演示</span>
+                            <span>同步学视频 · {videoSearchQuery || chapter}</span>
                           </div>
                           <h5 className="text-sm font-extrabold text-white">先看演示视频，再进入伴读答疑</h5>
                           <p className="text-[11px] leading-relaxed text-slate-300">
-                            建议放置知识点导入、例题拆解或实物演示视频。学生看完后，下面的知识地图和思考问题会更容易理解。
+                            按学科、年级、章节和预习问题精准匹配同学宝视频，优先展示与当前问题最相关的讲解。
                           </p>
+                          {videoHits.length > 0 && (
+                            <div className="text-[10px] font-semibold text-emerald-200">
+                              已匹配 {videoHits.length} 条候选视频
+                            </div>
+                          )}
                           <div className="max-h-28 space-y-1.5 overflow-y-auto pr-1">
                             {videoHits.slice(0, 5).map((item, index) => (
                               <button
