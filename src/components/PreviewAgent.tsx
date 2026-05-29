@@ -36,6 +36,22 @@ interface PreviewAgentProps {
   onShowToast: (msg: string, type: 'info' | 'success' | 'warning' | 'error') => void;
 }
 
+interface PreviewVideoHit {
+  _id?: number | string;
+  _score?: number;
+  _source: {
+    id?: number | string;
+    name?: string;
+    allname?: string;
+    ccid: string;
+  };
+}
+
+const BOKECC_SITE_ID = '3BF7C9738A6F67BC';
+
+const buildBokeccVideoUrl = (ccid: string) =>
+  `https://p.bokecc.com/playhtml.bo?vid=${ccid}&siteid=${BOKECC_SITE_ID}&autoStart=false`;
+
 const getFrontendFallback = (sub: string, gd: string, ch: string) => {
   const s = sub || "数学";
   const g = gd || "三年级";
@@ -256,9 +272,11 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
   // Dynamic forecast compre level numbers
   const [forecastBefore] = useState(65);
   const [forecastAfter, setForecastAfter] = useState(65);
-  const microLessonVideoId = '771EB95BBA9BDBA1B463AB73BD4C026B';
-  const microLessonSiteId = '3BF7C9738A6F67BC';
-  const microLessonVideoUrl = `https://p.bokecc.com/playhtml.bo?vid=${microLessonVideoId}&siteid=${microLessonSiteId}&autoStart=false`;
+  const [videoHits, setVideoHits] = useState<PreviewVideoHit[]>([]);
+  const [selectedVideoCcid, setSelectedVideoCcid] = useState('');
+  const [videoLoading, setVideoLoading] = useState(false);
+  const [videoSearchQuery, setVideoSearchQuery] = useState('');
+  const [videoError, setVideoError] = useState('');
 
   const [aiCustomContent, setAiCustomContent] = useState<{
     generalOutline: string;
@@ -367,6 +385,52 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
     setProfileAnswers({});
     setTaskCardGenerated(false);
     setIsGenerating(true);
+    setVideoHits([]);
+    setSelectedVideoCcid('');
+    setVideoSearchQuery('');
+    setVideoError('');
+  };
+
+  const selectedVideo = videoHits.find((hit) => hit._source.ccid === selectedVideoCcid) || videoHits[0];
+  const microLessonVideoId = selectedVideo?._source.ccid || '';
+  const microLessonVideoUrl = microLessonVideoId ? buildBokeccVideoUrl(microLessonVideoId) : '';
+
+  const loadPreviewVideos = async (query: string) => {
+    const normalizedQuery = query.trim();
+    if (!normalizedQuery) return;
+
+    setVideoLoading(true);
+    setVideoError('');
+    setVideoSearchQuery(normalizedQuery);
+    setVideoHits([]);
+    setSelectedVideoCcid('');
+
+    try {
+      const res = await fetch('/api/search-videos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ query: normalizedQuery })
+      });
+
+      const data = await res.json().catch(() => null);
+      if (!res.ok) {
+        throw new Error(data?.error || '视频搜索失败');
+      }
+
+      const hits = Array.isArray(data?.hits) ? data.hits : [];
+      setVideoHits(hits);
+      setSelectedVideoCcid(hits[0]?._source?.ccid || '');
+      if (hits.length === 0) {
+        setVideoError('没有找到匹配视频，可换一个更具体的章节或问题再试');
+      }
+    } catch (err: any) {
+      console.error('Failed to search preview videos:', err);
+      setVideoError(err?.message || '视频搜索失败');
+    } finally {
+      setVideoLoading(false);
+    }
   };
 
   const selectProfileOption = async (option: string) => {
@@ -414,6 +478,8 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
         console.error("Failed to load Qwen AI preview task content, using intelligent local matching:", e);
         setAiCustomContent(getFrontendFallback(subject, grade, chapter));
       }
+
+      await loadPreviewVideos(chapter || subject);
 
       setStepLoading(prev => ({ ...prev, 1: false }));
       setTaskCardGenerated(true);
@@ -602,6 +668,11 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
     setStepLoading({});
     setCustomEval(null);
     setEvalLoading(false);
+    setVideoHits([]);
+    setSelectedVideoCcid('');
+    setVideoLoading(false);
+    setVideoSearchQuery('');
+    setVideoError('');
     onShowToast('已清空预习记录，可重新演示配置', 'success');
   };
 
@@ -880,9 +951,10 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                       <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_220px] md:items-center">
                         <div className="relative overflow-hidden rounded-xl border border-white/10 bg-slate-900 aspect-video">
                           <iframe
-                            id={`cciframe_${microLessonVideoId}`}
+                            key={microLessonVideoId || 'preview-video'}
+                            id={`cciframe_${microLessonVideoId || 'empty'}`}
                             title="课前微课视频"
-                            src={microLessonVideoUrl}
+                            src={microLessonVideoUrl || 'about:blank'}
                             frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowFullScreen
@@ -899,6 +971,24 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                           <p className="text-[11px] leading-relaxed text-slate-300">
                             建议放置知识点导入、例题拆解或实物演示视频。学生看完后，下面的知识地图和思考问题会更容易理解。
                           </p>
+                          <div className="max-h-28 space-y-1.5 overflow-y-auto pr-1">
+                            {videoHits.slice(0, 5).map((item, index) => (
+                              <button
+                                type="button"
+                                key={item._source.ccid}
+                                onClick={() => setSelectedVideoCcid(item._source.ccid)}
+                                className={`w-full rounded-lg border px-2.5 py-2 text-left text-[10px] font-bold transition ${
+                                  item._source.ccid === selectedVideo?._source.ccid
+                                    ? 'border-emerald-300 bg-emerald-400/20 text-white'
+                                    : 'border-white/10 bg-white/5 text-slate-300 hover:bg-white/10'
+                                }`}
+                              >
+                                <span className="mr-1 text-emerald-300">{index + 1}.</span>
+                                {item._source.name || item._source.allname || `视频 ${index + 1}`}
+                              </button>
+                            ))}
+                          </div>
+
                           <div className="grid grid-cols-3 gap-1.5 text-center">
                             {['导入', '例题', '提问'].map((item) => (
                               <span key={item} className="rounded-lg bg-white/10 px-2 py-1 text-[10px] font-bold text-white/80">
