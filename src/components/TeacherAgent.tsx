@@ -44,6 +44,7 @@ import {
   Line 
 } from 'recharts';
 import { NotesSourceType, ClKnowledgePoint, ClWeakPoint, ClReviewItem, ClKnowledgePointHistory } from '../types';
+import { Badge, Button, Card, FieldLabel, Input, SectionTitle, Select, cn } from './ui';
 
 interface TeacherAgentProps {
   onShowToast: (msg: string, type: 'info' | 'success' | 'warning' | 'error') => void;
@@ -225,35 +226,33 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
   return (
     <div className="space-y-8 animate-fade-in-up">
       {/* Intro Header */}
-      <div className="rounded-2xl border border-amber-100 bg-gradient-to-br from-white via-amber-50/80 to-sky-50/70 p-5 text-left shadow-sm ring-1 ring-white/80 sm:p-7">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/85 text-amber-700 text-xs font-bold rounded-full border border-amber-100 shadow-sm">
-          <Sparkles className="w-3.5 h-3.5 animate-spin" />
-          <span>听课学情分析中心 · 4 项全链路诊断流</span>
-        </div>
+      <Card className="border-amber-100/80 bg-gradient-to-br from-white via-amber-50/65 to-slate-50 p-5 text-left sm:p-7">
+        <Badge tone="amber" className="px-3 py-1 text-xs">
+          <Sparkles className="w-3.5 h-3.5" />
+          <span>ai学堂 · 听课宝</span>
+        </Badge>
         <div className="mt-4 grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <h2 className="text-2xl sm:text-4xl font-extrabold font-display text-slate-950 tracking-tight">听课宝 · 课堂重难点提取与错题透视演示</h2>
-            <p className="mt-2 text-slate-600 max-w-2xl text-sm leading-relaxed">
-              通过上传任意黑板照、上课原声甚至随堂演课笔记，提取全班知识掌握谱，定位易错人员、定制下一步干预方案。
-            </p>
-          </div>
+          <SectionTitle
+            title="听课宝 · 把课堂记录整理成可跟进的学习信息"
+            description="通过黑板照、课堂语音和授课记录，帮助老师更快梳理全班掌握情况与后续跟进重点。"
+          />
           <div className="grid grid-cols-3 gap-2 text-center sm:min-w-[320px]">
             {[
               ['82', '课堂均分'],
               ['4', '诊断流程'],
               ['12', '周趋势']
             ].map(([value, label]) => (
-              <div key={label} className="rounded-xl border border-white/80 bg-white/85 px-3 py-2 shadow-sm">
-                <div className="font-display text-xl font-black text-amber-700">{value}</div>
-                <div className="text-[10px] font-bold text-slate-500">{label}</div>
+              <div key={label} className="rounded-3xl border border-white/80 bg-white/90 px-4 py-3 shadow-sm">
+                <div className="font-display text-xl font-semibold tracking-[-0.02em] text-slate-900">{value}</div>
+                <div className="text-[10px] font-semibold text-slate-500">{label}</div>
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </Card>
 
       {/* Progress Indicators */}
-      <div className="bg-white/95 rounded-2xl border border-white/80 shadow-sm ring-1 ring-slate-200/60 p-4">
+      <Card className="p-5">
         <div className="flex items-center justify-between gap-2 overflow-x-auto scrollbar-none py-1">
           {['手稿采集', '学情分析诊断', '课堂对比报告', '成长档案归纳'].map((name, idx) => {
             const stepNum = idx + 1;
@@ -264,13 +263,12 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
             return (
               <div key={idx} className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
                 <div 
-                  className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-350 ${
-                    isCurrent 
-                      ? 'bg-gradient-to-br from-amber-500 to-orange-500 text-white shadow-md shadow-amber-500/20 active:scale-105 animate-pulse' 
+                  className={cn(`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-350`, isCurrent 
+                      ? 'bg-amber-500 text-white shadow-sm active:scale-105' 
                       : isUnlocked 
                         ? 'bg-emerald-100 text-emerald-700 border border-emerald-200' 
-                        : 'bg-slate-100 text-slate-400'
-                  }`}
+                        : 'bg-slate-100 text-slate-400')}
+                  
                 >
                   {isUnlocked && stepNum < currentStep && !isLoading ? '✓' : stepNum}
                 </div>
@@ -286,11 +284,11 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
             );
           })}
         </div>
-      </div>
+      </Card>
 
       {/* STEP 1: Capture Source面板 */}
-      <div ref={stepRefs[1]} id="teacher_step_1" className="bg-white/95 rounded-2xl border border-white/80 shadow-sm ring-1 ring-slate-200/60 p-5 sm:p-6 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between rounded-xl bg-amber-50/80 px-3.5 py-3 gap-3">
+      <Card ref={stepRefs[1]} id="teacher_step_1" className="p-5 sm:p-6 space-y-6">
+        <div className="flex flex-col gap-3 rounded-2xl border border-amber-100/80 bg-amber-50/70 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start sm:items-center gap-3">
             <span className="w-9 h-9 bg-white text-amber-700 rounded-xl flex items-center justify-center text-xs font-bold font-mono flex-shrink-0 shadow-sm">01</span>
             <div>
@@ -298,53 +296,53 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
               <div className="text-[10px] sm:text-[11px] text-slate-400">设定基本的班课维度，选用不同的多模态感知路径</div>
             </div>
           </div>
-          <span className="px-2 py-0.5 text-[10px] bg-amber-50 text-amber-700 border border-amber-100 rounded-full font-medium w-fit">老师伴手</span>
+          <Badge tone="amber" className="w-fit px-2 py-0.5 text-[10px] font-medium">老师伴手</Badge>
         </div>
 
         {/* Configurations */}
         <div className="grid sm:grid-cols-4 gap-3">
           <div>
-            <label className="text-[11px] font-semibold text-slate-650 block">👥 归属班级</label>
-            <select 
+            <FieldLabel className="mb-1 text-[11px]">👥 归属班级</FieldLabel>
+            <Select
               value={selectedClass} 
               onChange={(e) => setSelectedClass(e.target.value)}
-              className="w-full mt-1.5 min-h-[40px] px-3 py-2 border border-slate-200 bg-slate-50/70 rounded-xl text-xs font-medium focus:outline-none focus:border-amber-500 focus:bg-white focus:ring-4 focus:ring-amber-100 transition"
+              className="min-h-[40px] text-xs font-medium focus:border-amber-500 focus:ring-amber-100"
             >
               <option>三年级 2 班</option>
               <option>三年级 1 班</option>
               <option>四年级 1 班</option>
-            </select>
+            </Select>
           </div>
 
           <div>
-            <label className="text-[11px] font-semibold text-slate-650 flex items-center gap-1">
-              <FileText className="w-3.5 h-3.5 text-slate-500 animate-pulse" />
+            <FieldLabel className="mb-1 text-[11px]">
+              <FileText className="w-3.5 h-3.5 text-slate-500" />
               <span>上课课题</span>
-            </label>
-            <input 
+            </FieldLabel>
+            <Input
               type="text" 
               value={selectedTopic} 
               onChange={(e) => setSelectedTopic(e.target.value)}
-              className="w-full mt-1.5 min-h-[40px] px-3 py-2 border border-slate-200 bg-slate-50/70 rounded-xl text-xs font-medium focus:outline-none focus:border-amber-500 focus:bg-white focus:ring-4 focus:ring-amber-100 transition"
+              className="min-h-[40px] text-xs font-medium focus:border-amber-500 focus:ring-amber-100"
             />
           </div>
 
           <div>
-            <label className="text-[11px] font-semibold text-slate-650 flex items-center gap-1">
+            <FieldLabel className="mb-1 text-[11px]">
               <BookOpen className="w-3.5 h-3.5 text-slate-500" />
               <span>对应学科</span>
-            </label>
-            <div className="w-full mt-1.5 min-h-[40px] px-3 py-2 border border-slate-100 bg-slate-50/70 text-slate-700 rounded-xl text-xs font-bold">
+            </FieldLabel>
+            <div className="flex min-h-[40px] items-center rounded-2xl border border-slate-100 bg-slate-50/70 px-3 py-2 text-xs font-bold text-slate-700">
               数学几何课
             </div>
           </div>
 
           <div>
-            <label className="text-[11px] font-semibold text-slate-650 flex items-center gap-1">
+            <FieldLabel className="mb-1 text-[11px]">
               <Calendar className="w-3.5 h-3.5 text-slate-500" />
               <span>授课日期</span>
-            </label>
-            <div className="w-full mt-1.5 min-h-[40px] px-3 py-2 border border-slate-100 bg-slate-50/70 text-slate-500 rounded-xl text-xs font-mono">
+            </FieldLabel>
+            <div className="flex min-h-[40px] items-center rounded-2xl border border-slate-100 bg-slate-50/70 px-3 py-2 text-xs font-mono text-slate-500">
               2026年5月25日
             </div>
           </div>
@@ -357,7 +355,7 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
               type="button"
               id="btn_cls_tab_board"
               onClick={() => setActiveTab('board')}
-              className={`pb-2 px-4 text-xs font-semibold flex items-center gap-1.5 border-b-2 transition-all cursor-pointer ${
+              className={`pb-2 px-4 text-xs font-semibold flex items-center gap-1.5 border-b-2 transition-all cursor-pointer rounded-t-xl ${
                 activeTab === 'board' 
                   ? 'border-amber-500 text-amber-700 font-bold' 
                   : 'border-transparent text-slate-400 hover:text-slate-600'
@@ -371,7 +369,7 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
               type="button"
               id="btn_cls_tab_voice"
               onClick={() => setActiveTab('voice')}
-              className={`pb-2 px-4 text-xs font-semibold flex items-center gap-1.5 border-b-2 transition-all cursor-pointer ${
+              className={`pb-2 px-4 text-xs font-semibold flex items-center gap-1.5 border-b-2 transition-all cursor-pointer rounded-t-xl ${
                 activeTab === 'voice' 
                   ? 'border-amber-500 text-amber-700 font-bold' 
                   : 'border-transparent text-slate-400 hover:text-slate-600'
@@ -385,7 +383,7 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
               type="button"
               id="btn_cls_tab_text"
               onClick={() => setActiveTab('text')}
-              className={`pb-2 px-4 text-xs font-semibold flex items-center gap-1.5 border-b-2 transition-all cursor-pointer ${
+              className={`pb-2 px-4 text-xs font-semibold flex items-center gap-1.5 border-b-2 transition-all cursor-pointer rounded-t-xl ${
                 activeTab === 'text' 
                   ? 'border-amber-500 text-amber-700 font-bold' 
                   : 'border-transparent text-slate-400 hover:text-slate-600'
@@ -473,21 +471,21 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
                 rows={6}
                 value={notesContent.manualText}
                 readOnly
-                className="w-full px-3 py-2 border border-slate-200 rounded-xl bg-white text-xs leading-relaxed font-mono focus:outline-none"
+                className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2 text-xs leading-relaxed font-mono focus:outline-none"
               />
             </div>
           )}
         </div>
 
-        <button 
+        <Button
           id="btn_cls_analyze"
           onClick={startAnalysisSequence}
           disabled={isRunning || currentStep > 1}
-          className={`w-full py-3 px-6 rounded-xl text-white font-medium shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer ${
-            currentStep > 1 
-              ? 'bg-emerald-500 shadow-emerald-550/10 cursor-not-allowed' 
-              : 'bg-gradient-to-r from-amber-500 to-orange-600 shadow-amber-500/10 hover:from-amber-600 hover:to-orange-700 active:scale-[0.995]'
-          }`}
+          variant={currentStep > 1 ? 'emerald' : 'amber'}
+          className={cn(
+            'w-full',
+            currentStep > 1 && 'cursor-not-allowed hover:translate-y-0 hover:from-emerald-600 hover:to-teal-600'
+          )}
         >
           {currentStep > 1 ? (
             <>
@@ -500,12 +498,12 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
               <span>开始课堂透视 (自动流转后续评估模块)</span>
             </>
           )}
-        </button>
-      </div>
+        </Button>
+      </Card>
 
       {/* STEP 2: Classroom Intelligent Engine */}
       {visibleSteps.includes(2) && (
-        <div ref={stepRefs[2]} id="teacher_step_2" className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-6 animate-fade-in-up">
+        <div ref={stepRefs[2]} id="teacher_step_2" className="space-y-6 rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_12px_32px_rgba(15,23,42,0.04)] animate-fade-in-up">
           <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
             <span className="w-8 h-8 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xs font-bold font-mono">02</span>
             <div>
@@ -529,14 +527,14 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
           ) : (
             <div className="space-y-6 animate-fade-in-up" id="cls_step_2_content">
               {/* Analytics grid widget */}
-              <div className="grid sm:grid-cols-3 gap-4">
-                <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl border border-amber-100/70 p-4 text-center flex flex-col justify-center">
+              <div className="grid gap-4 sm:grid-cols-3">
+                <div className="flex flex-col justify-center rounded-2xl border border-amber-100/80 bg-gradient-to-br from-amber-50 to-orange-50 p-5 text-center">
                   <span className="text-[11px] font-semibold text-amber-800">全班当堂综合评分</span>
-                  <div className="text-3xl font-extrabold text-amber-600 font-display mt-2">82</div>
+                  <div className="mt-2 font-display text-3xl font-semibold tracking-[-0.03em] text-slate-900">82</div>
                   <span className="text-[10px] text-slate-400 mt-1">/ 100 分 · 良等评定</span>
                 </div>
 
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-105 p-4 flex flex-col justify-center">
+                <div className="flex flex-col justify-center rounded-2xl border border-blue-100/80 bg-gradient-to-br from-blue-50 to-indigo-50 p-5">
                   <div className="flex justify-between items-center text-[11px] font-semibold text-blue-800">
                     <span>重难点覆盖饱和度</span>
                     <span>78%</span>
@@ -548,15 +546,15 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
                   <span className="text-[10px] text-slate-450 mt-2">5项重点，已扎实覆盖4项</span>
                 </div>
 
-                <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl border border-emerald-100 p-4 flex flex-col justify-center text-center">
+                <div className="flex flex-col justify-center rounded-2xl border border-emerald-100/80 bg-gradient-to-br from-emerald-50 to-teal-50 p-5 text-center">
                   <span className="text-[11px] font-semibold text-emerald-800">李老师教学手稿完整评分</span>
-                  <div className="text-2xl font-black text-emerald-600 font-display mt-1">88分</div>
+                  <div className="mt-1 font-display text-2xl font-semibold tracking-[-0.03em] text-slate-900">88分</div>
                   <span className="text-[10px] text-slate-400 mt-1">含教学重点 + 例题，结构良好</span>
                 </div>
               </div>
 
               {/* Horizontal Bar Chart for Knowledge structures */}
-              <div className="border border-slate-100 bg-slate-50/50 p-4 rounded-xl space-y-4">
+              <div className="space-y-4 rounded-2xl border border-slate-200/80 bg-slate-50/60 p-5">
                 <div className="flex items-center justify-between text-xs font-semibold text-slate-705">
                   <span>📈 几何概念当堂掌握度矩阵 (全班均值对照)</span>
                   <span className="text-[10px] text-slate-400">基于堂内互动表现评测</span>
@@ -598,11 +596,11 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
                   <span>漏洞雷区 & 提问点预警点 (按严重错人数排序)</span>
                 </div>
                 
-                <div className="grid md:grid-cols-2 gap-3">
+                <div className="grid gap-3 md:grid-cols-2">
                   {weakPoints.map((item, id) => {
                     return (
-                      <div key={id} className="border border-slate-150 p-4 bg-white rounded-xl flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-sm flex-shrink-0">
+                      <div key={id} className="flex items-start gap-3 rounded-2xl border border-slate-200/80 bg-white p-4 shadow-[0_1px_2px_rgba(15,23,42,0.03)]">
+                        <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-orange-100 text-sm font-semibold text-orange-700">
                           {item.rank}
                         </div>
                         
@@ -612,7 +610,7 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
                             <span className="text-slate-400">
                               涉及本班：<span className="text-slate-700 font-bold">{item.student_count} 名学生</span>
                             </span>
-                            <span className={`px-2 py-0.5 rounded text-[9px] font-bold ${
+                            <span className={`rounded-full px-2.5 py-1 text-[9px] font-semibold ${
                               item.severity === 'high' 
                                 ? 'bg-red-50 text-red-700 border border-red-100' 
                                 : item.severity === 'mid' 
@@ -635,7 +633,7 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
 
       {/* STEP 3: School report generation */}
       {visibleSteps.includes(3) && (
-        <div ref={stepRefs[3]} id="teacher_step_3" className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-6 animate-fade-in-up">
+        <div ref={stepRefs[3]} id="teacher_step_3" className="space-y-6 rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_12px_32px_rgba(15,23,42,0.04)] animate-fade-in-up">
           <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
             <span className="w-8 h-8 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-xs font-bold font-mono">03</span>
             <div>
@@ -659,7 +657,7 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
           ) : (
             <div className="space-y-6 animate-fade-in-up" id="cls_step_3_content">
               {/* Report summary card */}
-              <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-150 rounded-xl p-5 flex flex-wrap items-center justify-between gap-4">
+              <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-purple-100/80 bg-gradient-to-r from-purple-50 to-indigo-50 p-5">
                 <div className="space-y-1">
                   <span className="text-xs text-purple-700 font-semibold flex items-center gap-1">
                     <TrendingUp className="w-4 h-4" />
@@ -670,12 +668,12 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
 
                 <div className="flex items-center gap-4">
                   <div className="text-center">
-                    <p className="text-slate-400 line-through text-2xl font-black">76</p>
+                    <p className="text-2xl font-semibold text-slate-400 line-through">76</p>
                     <p className="text-[10px] text-slate-400">上节平均</p>
                   </div>
                   <span className="text-lg text-purple-500 font-bold">→</span>
                   <div className="text-center font-display">
-                    <p className="text-purple-600 text-3xl font-black">82</p>
+                    <p className="text-3xl font-semibold tracking-[-0.03em] text-slate-900">82</p>
                     <p className="text-[10px] text-purple-705 font-semibold">当堂平均</p>
                   </div>
                 </div>
@@ -683,8 +681,8 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
 
               {/* Chart Side by side comparison */}
               <div className="grid lg:grid-cols-2 gap-6">
-                <div className="border border-slate-100 bg-slate-50/50 rounded-xl p-4 space-y-3">
-                  <span className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                <div className="space-y-3 rounded-2xl border border-slate-200/80 bg-slate-50/60 p-5">
+                  <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-700">
                     <BarChart3 className="w-4 h-4 text-purple-500" />
                     <span>6维课堂教法评测能力雷达对比图</span>
                   </span>
@@ -702,8 +700,8 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
                   </div>
                 </div>
 
-                <div className="border border-slate-100 bg-slate-50/50 rounded-xl p-4 space-y-3">
-                  <span className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                <div className="space-y-3 rounded-2xl border border-slate-200/80 bg-slate-50/60 p-5">
+                  <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-700">
                     <BarChart3 className="w-4 h-4 text-purple-500" />
                     <span>当堂学情细能数据条形对比图</span>
                   </span>
@@ -724,19 +722,19 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
               </div>
 
               {/* Teaching suggestions */}
-              <div className="bg-amber-50/40 border border-amber-200/80 rounded-xl p-4.5 space-y-2.5">
-                <h4 className="text-xs font-bold text-amber-800 flex items-center gap-1">
+              <div className="space-y-2.5 rounded-2xl border border-amber-200/80 bg-amber-50/40 p-5">
+                <h4 className="flex items-center gap-1 text-xs font-semibold text-amber-800">
                   <span>👨‍🏫</span>
-                  <span>AI 提效备课干预引导专栏</span>
+                  <span>备课与课堂跟进建议</span>
                 </h4>
                 <p className="text-slate-700 text-xs leading-relaxed whitespace-pre-line">{reportComparison.teaching_advice}</p>
               </div>
 
               {/* Action item check notes */}
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
-                <div className="flex justify-between items-center text-xs font-semibold text-slate-705">
+              <div className="space-y-3 rounded-2xl border border-slate-200/80 bg-slate-50 p-4">
+                <div className="flex items-center justify-between text-xs font-semibold text-slate-705">
                   <span className="flex items-center gap-1">
-                    <CheckSquare className="w-4 h-4 text-amber-500 animate-bounce" />
+                    <CheckSquare className="w-4 h-4 text-amber-500" />
                     <span>下节课提效排期复核表(学生可自勾选)</span>
                   </span>
                   <span className="text-[10px] text-slate-400">一指禅备忘簿</span>
@@ -746,11 +744,11 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
                   {reportComparison.reviewList.map((st) => (
                     <label 
                       key={st.id} 
-                      className="flex items-center gap-3 p-2.5 bg-white rounded-lg border border-slate-100 hover:bg-amber-50/20 cursor-pointer select-none transition-colors"
+                      className="flex cursor-pointer select-none items-center gap-3 rounded-xl border border-slate-200/80 bg-white p-3 transition-colors hover:bg-amber-50/20"
                     >
                       <input type="checkbox" className="w-4 h-4 accent-amber-500 rounded border-slate-200" />
                       <span className="text-xs text-slate-700 font-medium flex-1">{st.content}</span>
-                      <span className={`px-1.5 py-0.5 text-[9px] rounded font-bold ${
+                        <span className={`rounded-full px-2 py-1 text-[9px] font-semibold ${
                         st.priority === '高' ? 'bg-red-50 text-red-700' : 'bg-slate-100 text-slate-600'
                       }`}>
                         {st.priority}优先
@@ -762,25 +760,24 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
 
               {/* Button outputs */}
               <div className="flex flex-wrap gap-3">
-                <button 
-                  type="button"
+                <Button
                   id="btn_cls_export"
                   onClick={() => onShowToast('📄 当堂多边形学情透视诊断报告已一键导出至 Downloads/文件夹', 'success')}
-                  className="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 font-semibold hover:from-purple-700 hover:to-indigo-700 text-white text-xs rounded-xl shadow-md transition-all cursor-pointer flex items-center gap-1"
+                  className="px-6 py-2.5 text-xs"
                 >
                   <Download className="w-4 h-4" />
                   <span>一键下载PDF详尽报告书</span>
-                </button>
+                </Button>
 
-                <button 
-                  type="button"
+                <Button
                   id="btn_cls_share"
                   onClick={() => onShowToast('报告概要 H5 卡片已成功投递至“三年级 2 班家校互联群”', 'success')}
-                  className="px-6 py-2.5 bg-white border border-slate-200 text-xs font-semibold hover:bg-slate-50 text-slate-700 rounded-xl transition-all cursor-pointer flex items-center gap-1"
+                  variant="secondary"
+                  className="px-6 py-2.5 text-xs"
                 >
                   <Share2 className="w-4 h-4 text-slate-400" />
                   <span>分发到家长社群</span>
-                </button>
+                </Button>
               </div>
             </div>
           )}
@@ -789,7 +786,7 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
 
       {/* STEP 4: Skill 4 Semester profile track */}
       {visibleSteps.includes(4) && (
-        <div ref={stepRefs[4]} id="teacher_step_4" className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-6 animate-fade-in-up">
+        <div ref={stepRefs[4]} id="teacher_step_4" className="space-y-6 rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_12px_32px_rgba(15,23,42,0.04)] animate-fade-in-up">
           <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
             <span className="w-8 h-8 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center text-xs font-bold font-mono">04</span>
             <div>
@@ -867,9 +864,9 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
               </div>
 
               {/* semester trend Line chart */}
-              <div className="bg-gradient-to-br from-rose-50/50 to-pink-50/50 rounded-xl p-5 border border-rose-100/80">
+              <div className="rounded-2xl border border-rose-100/80 bg-gradient-to-br from-rose-50/50 to-pink-50/50 p-5">
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-xs font-bold text-slate-750 flex items-center gap-1">
+                  <span className="flex items-center gap-1 text-xs font-semibold text-slate-750">
                     <span>📈</span>
                     <span>{archiveMode === 'class' ? '三年级2班均线' : `${selectedStudent}`} · 语数英学学期双周波动趋势线</span>
                   </span>
@@ -900,13 +897,13 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
                     <span>历史错点跨周期自动挂网监测表（数学几何考卷）</span>
                   </span>
                   {isMobile && (
-                    <span className="text-[10px] text-amber-600 font-semibold animate-pulse">← 左右滑动以查看完整内容 →</span>
+                    <span className="text-[10px] font-semibold text-amber-600">← 左右滑动以查看完整内容 →</span>
                   )}
                 </div>
                 
-                <div className="overflow-x-auto border border-slate-100 rounded-xl">
+                <div className="overflow-x-auto rounded-2xl border border-slate-200/80 bg-white">
                   <table className="w-full text-xs text-left whitespace-nowrap min-w-[640px]">
-                    <thead className="bg-slate-50 uppercase text-slate-500 border-b border-slate-100">
+                    <thead className="border-b border-slate-200 bg-slate-50 uppercase text-slate-500">
                       <tr>
                         <th className="p-2 sm:p-3 font-semibold">几何知识细点</th>
                         <th className="p-2 sm:p-3 font-semibold text-center">第 3 周表现</th>
@@ -954,38 +951,41 @@ export default function TeacherAgent({ onShowToast }: TeacherAgentProps) {
 
               {/* End button actions */}
               <div className="flex flex-wrap gap-2.5">
-                <button 
-                  type="button"
+                <Button
                   id="btn_cls_download_semester"
                   onClick={() => onShowToast(`📅 ${selectedStudent} 本学期12周全阶段成长档案已生成下载！`, 'success')}
-                  className="px-5 py-2 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-655 hover:to-pink-700 text-white font-semibold text-xs rounded-lg shadow-sm cursor-pointer flex items-center justify-center gap-1.5"
+                  variant="primary"
+                  size="sm"
+                  className="bg-gradient-to-r from-red-500 to-pink-600 text-xs hover:from-red-600 hover:to-pink-700"
                 >
                   <Folder className="w-3.5 h-3.5 text-white" />
                   <span>下载学期跨科全景数据报告</span>
-                </button>
+                </Button>
 
-                <button 
-                  type="button"
+                <Button
                   id="btn_cls_copy_link"
                   onClick={() => onShowToast('🔗 已经复制长期轨迹分享加密链接: studyclaw.cn/record/p_9841', 'info')}
-                  className="px-5 py-2 bg-white border border-slate-200 text-slate-805 hover:bg-slate-50 font-semibold text-xs rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                  variant="secondary"
+                  size="sm"
+                  className="px-5 py-2 text-xs"
                 >
                   <Link className="w-3.5 h-3.5 text-slate-500" />
                   <span>拷贝一链通分享给教务</span>
-                </button>
+                </Button>
               </div>
 
               {/* Reset control */}
               <div className="text-center pt-4">
-                <button 
-                  type="button"
+                <Button
                   id="btn_cls_reset_all"
                   onClick={handleReset}
-                  className="text-xs text-slate-400 hover:text-slate-600 hover:underline inline-flex items-center gap-1 cursor-pointer"
+                  variant="ghost"
+                  size="sm"
+                  className="text-xs text-slate-400 hover:bg-transparent hover:text-slate-600 hover:underline"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>清除老师课中诊断缓存，重新加载手稿</span>
-                </button>
+                </Button>
               </div>
             </div>
           )}

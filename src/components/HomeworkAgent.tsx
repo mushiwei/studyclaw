@@ -40,6 +40,7 @@ import {
   HwVariationQuestion, 
   Toast 
 } from '../types';
+import { Badge, Button, Card, FieldLabel, Input, SectionTitle, Select, cn } from './ui';
 
 interface HomeworkAgentProps {
   onShowToast: (msg: string, type: 'info' | 'success' | 'warning' | 'error') => void;
@@ -248,35 +249,33 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
   return (
     <div className="space-y-8 animate-fade-in-up">
       {/* Intro Header */}
-      <div className="rounded-2xl border border-blue-100 bg-gradient-to-br from-white via-blue-50/80 to-indigo-50/70 p-5 text-left shadow-sm ring-1 ring-white/80 sm:p-7">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/85 text-blue-700 text-xs font-bold rounded-full border border-blue-100 shadow-sm">
+      <Card className="border-blue-100/80 bg-gradient-to-br from-white via-blue-50/65 to-slate-50 p-5 text-left sm:p-7">
+        <Badge tone="blue" className="px-3 py-1 text-xs">
           <Brain className="w-3.5 h-3.5" />
-          <span>作业诊断中心 · 从精密批改到随堂巩固一体化闭环</span>
-        </div>
+          <span>ai学堂 · 复习宝</span>
+        </Badge>
         <div className="mt-4 grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <h2 className="text-2xl sm:text-4xl font-extrabold font-display text-slate-950 tracking-tight">复习宝 · 全链条闭环诊断演示</h2>
-            <p className="mt-2 text-slate-600 max-w-2xl text-sm leading-relaxed">
-              体验一键作业批改、跨学级智能追查、实时画像，以及针对性变式题巩固的全天候家教闭环。
-            </p>
-          </div>
+          <SectionTitle
+            title="复习宝 · 把一次作业整理成后续巩固方向"
+            description="围绕一次作业中的错因、薄弱点和后续巩固练习，帮助学生把问题及时看清、及时补上。"
+          />
           <div className="grid grid-cols-3 gap-2 text-center sm:min-w-[320px]">
             {[
               ['65', '初始得分'],
               ['6', '诊断步骤'],
               ['4', '变式训练']
             ].map(([value, label]) => (
-              <div key={label} className="rounded-xl border border-white/80 bg-white/85 px-3 py-2 shadow-sm">
-                <div className="font-display text-xl font-black text-blue-700">{value}</div>
-                <div className="text-[10px] font-bold text-slate-500">{label}</div>
+              <div key={label} className="rounded-3xl border border-white/80 bg-white/90 px-4 py-3 shadow-sm">
+                <div className="font-display text-xl font-semibold tracking-[-0.02em] text-slate-900">{value}</div>
+                <div className="text-[10px] font-semibold text-slate-500">{label}</div>
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </Card>
 
       {/* Step Progress Indicators */}
-      <div className="bg-white/95 rounded-2xl border border-white/80 shadow-sm ring-1 ring-slate-200/60 p-4">
+      <Card className="p-5">
         <div className="flex items-center justify-between gap-1 sm:gap-2 overflow-x-auto scrollbar-none py-1">
           {['习题采集', '多维批改', '成因诊断', '学情画像', '随堂变式', '巩固评估'].map((name, idx) => {
             const stepNum = idx + 1;
@@ -287,13 +286,12 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
             return (
               <div key={idx} className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
                 <div 
-                  className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${
-                    isCurrent 
-                      ? 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20 active:scale-105 animate-pulse' 
+                  className={cn(`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300`, isCurrent 
+                      ? 'bg-slate-900 text-white shadow-sm active:scale-105' 
                       : isUnlocked 
                         ? 'bg-emerald-100 text-emerald-700 border border-emerald-200' 
-                        : 'bg-slate-100 text-slate-400'
-                  }`}
+                        : 'bg-slate-100 text-slate-400')}
+                  
                 >
                   {isUnlocked && stepNum < currentStep && !isLoading ? '✓' : stepNum}
                 </div>
@@ -309,15 +307,15 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
             );
           })}
         </div>
-      </div>
+      </Card>
 
       {/* STEP 1: Question Input Screen */}
-      <div 
+      <Card 
         ref={stepRefs[1]} 
         id="homework_step_1"
-        className="bg-white/95 rounded-2xl border border-white/80 shadow-sm ring-1 ring-slate-200/60 p-5 sm:p-6 space-y-6"
+        className="p-5 sm:p-6 space-y-6"
       >
-        <div className="flex items-center justify-between rounded-xl bg-blue-50/70 px-3.5 py-3">
+        <div className="flex items-center justify-between rounded-2xl border border-blue-100/80 bg-blue-50/70 px-4 py-4">
           <div className="flex items-center gap-3">
             <span className="w-9 h-9 bg-white text-blue-700 rounded-xl flex items-center justify-center text-xs font-bold shadow-sm">01</span>
             <div>
@@ -325,54 +323,54 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
               <div className="text-[11px] text-slate-400">选择学科和年级，载入学生原始解题切片</div>
             </div>
           </div>
-          <span className="px-2 py-0.5 text-[10px] bg-blue-50 text-blue-600 border border-blue-100 rounded-full font-medium">触发源头</span>
+          <Badge tone="blue" className="px-2 py-0.5 text-[10px] font-medium">触发源头</Badge>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-xs font-semibold text-slate-600 flex items-center gap-1.5">
+                <FieldLabel className="mb-1 text-xs">
                   <BookOpen className="w-3.5 h-3.5 text-blue-500" />
                   <span>学习科目</span>
-                </label>
-                <select 
+                </FieldLabel>
+                <Select
                   value={subject} 
                   onChange={(e) => setSubject(e.target.value)}
-                  className="w-full mt-1 min-h-[40px] px-3 py-2 border border-slate-200 bg-slate-50/70 rounded-xl text-xs font-medium focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100 transition"
+                  className="min-h-[40px] text-xs font-medium focus:border-blue-500 focus:ring-blue-100"
                 >
                   <option>数学</option>
                   <option>语文</option>
                   <option>英语</option>
                   <option>科学</option>
-                </select>
+                </Select>
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-slate-600 flex items-center gap-1.5">
+                <FieldLabel className="mb-1 text-xs">
                   <GraduationCap className="w-3.5 h-3.5 text-amber-500" />
                   <span>服务年级</span>
-                </label>
-                <select 
+                </FieldLabel>
+                <Select
                   value={grade} 
                   onChange={(e) => setGrade(e.target.value)}
-                  className="w-full mt-1 min-h-[40px] px-3 py-2 border border-slate-200 bg-slate-50/70 rounded-xl text-xs font-medium focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100 transition"
+                  className="min-h-[40px] text-xs font-medium focus:border-blue-500 focus:ring-blue-100"
                 >
                   <option>三年级</option>
                   <option>二年级</option>
                   <option>四年级</option>
                   <option>五年级</option>
-                </select>
+                </Select>
               </div>
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-600">❓ 题目内容</label>
+              <FieldLabel className="mb-1 text-xs">❓ 题目内容</FieldLabel>
               <textarea 
                 value={questionText}
                 onChange={(e) => setQuestionText(e.target.value)}
                 rows={3}
-                className="w-full mt-1 px-3 py-2 border border-slate-200 bg-slate-50/70 rounded-xl text-xs font-medium focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100 leading-relaxed transition"
+                className="w-full rounded-2xl border border-slate-200 bg-slate-50/70 px-3 py-2 text-xs font-medium leading-relaxed transition focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
               />
             </div>
 
@@ -416,15 +414,15 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
           </div>
         </div>
 
-        <button 
+        <Button
           id="btn_hw_start_correction"
           onClick={triggerCorrectionSequence}
           disabled={currentStep > 1 || isRunning}
-          className={`w-full py-3 px-6 rounded-xl text-white font-medium shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer ${
-            currentStep > 1 
-              ? 'bg-emerald-500 shadow-emerald-500/10 cursor-not-allowed' 
-              : 'bg-gradient-to-r from-blue-600 to-indigo-600 shadow-blue-500/20 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.99]'
-          }`}
+          variant={currentStep > 1 ? 'emerald' : 'primary'}
+          className={cn(
+            'w-full',
+            currentStep > 1 && 'cursor-not-allowed hover:translate-y-0 hover:from-emerald-600 hover:to-teal-600'
+          )}
         >
           {currentStep > 1 ? (
             <>
@@ -437,15 +435,15 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
               <span>开始智能批改 (自动启动多维学情诊断工作流)</span>
             </>
           )}
-        </button>
-      </div>
+        </Button>
+      </Card>
 
       {/* STEP 2: Skill 1 Multimodal Correction */}
       {visibleSteps.includes(2) && (
-        <div 
-          ref={stepRefs[2]} 
+        <div
+          ref={stepRefs[2]}
           id="homework_step_2"
-          className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-6 animate-fade-in-up"
+          className="space-y-6 rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_12px_32px_rgba(15,23,42,0.04)] animate-fade-in-up"
         >
           <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
             <span className="w-8 h-8 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xs font-bold">02</span>
@@ -469,8 +467,8 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
             </div>
           ) : (
             <div className="space-y-6" id="hw_step_2_content">
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="md:col-span-1 border border-slate-100 bg-gradient-to-br from-blue-50/50 to-indigo-50/50 rounded-xl p-5 flex flex-col items-center justify-center text-center space-y-2">
+              <div className="grid gap-6 md:grid-cols-3">
+                <div className="space-y-2 rounded-2xl border border-slate-200/80 bg-gradient-to-br from-blue-50/50 to-indigo-50/50 p-5 text-center md:col-span-1 flex flex-col items-center justify-center">
                   <div className="relative w-24 h-24 flex items-center justify-center">
                     {/* Ring progress bar representation */}
                     <svg className="absolute w-full h-full transform -rotate-90">
@@ -484,14 +482,14 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
                       />
                     </svg>
                     <div className="text-center">
-                      <p className="text-3xl font-extrabold text-blue-600 font-display">{correctionData.total_score}</p>
+                      <p className="font-display text-3xl font-semibold tracking-[-0.03em] text-slate-900">{correctionData.total_score}</p>
                       <p className="text-[10px] text-slate-400">/ 100 分</p>
                     </div>
                   </div>
                   <h4 className="text-xs font-bold text-slate-700">本次计算合规特级评分</h4>
                 </div>
 
-                <div className="md:col-span-2 bg-slate-50 border border-slate-100 rounded-xl p-4 flex flex-col justify-center space-y-1.5">
+                <div className="space-y-1.5 rounded-2xl border border-slate-200/80 bg-slate-50 p-5 md:col-span-2 flex flex-col justify-center">
                   <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-650">
                     <Zap className="w-4 h-4 text-blue-500" />
                     <span>总评阅结论</span>
@@ -510,7 +508,7 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
                   return (
                     <div 
                       key={i} 
-                      className="border border-slate-100 shadow-none hover:shadow-sm rounded-xl p-4 transition-all flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-white"
+                      className="flex flex-col items-start gap-4 rounded-2xl border border-slate-200/80 bg-white p-4 transition-all hover:-translate-y-0.5 hover:shadow-sm sm:flex-row sm:items-center"
                     >
                       <div className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-xs font-bold text-slate-500 flex-shrink-0">
                         {st.step}
@@ -557,10 +555,10 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
 
       {/* STEP 3: Skill 2 Vulnerability Diagnosis */}
       {visibleSteps.includes(3) && (
-        <div 
-          ref={stepRefs[3]} 
+        <div
+          ref={stepRefs[3]}
           id="homework_step_3"
-          className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-6 animate-fade-in-up"
+          className="space-y-6 rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_12px_32px_rgba(15,23,42,0.04)] animate-fade-in-up"
         >
           <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
             <span className="w-8 h-8 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-xs font-bold">03</span>
@@ -585,7 +583,7 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
           ) : (
             <div className="space-y-6" id="hw_step_3_content">
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div className="bg-sky-50/50 rounded-xl border border-sky-100 p-4 space-y-3">
+                <div className="space-y-3 rounded-2xl border border-sky-100/80 bg-sky-50/50 p-4">
                   <div className="flex items-center gap-2">
                     <BookOpen className="w-4.5 h-4.5 text-sky-600" />
                     <h4 className="font-bold text-slate-800 text-xs">知识库缺失 (Gaps)</h4>
@@ -597,7 +595,7 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
                   </ul>
                 </div>
 
-                <div className="bg-amber-50/55 rounded-xl border border-amber-100 p-4 space-y-3">
+                <div className="space-y-3 rounded-2xl border border-amber-100/80 bg-amber-50/55 p-4">
                   <div className="flex items-center gap-2">
                     <RotateCcw className="w-4.5 h-4.5 text-amber-600" />
                     <h4 className="font-bold text-slate-800 text-xs">方法论缺陷 (Method Error)</h4>
@@ -609,7 +607,7 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
                   </ul>
                 </div>
 
-                <div className="bg-rose-50/50 rounded-xl border border-rose-100 p-4 space-y-3">
+                <div className="space-y-3 rounded-2xl border border-rose-100/80 bg-rose-50/50 p-4">
                   <div className="flex items-center gap-2">
                     <HelpCircle className="w-4.5 h-4.5 text-rose-600" />
                     <h4 className="font-bold text-slate-800 text-xs">易错盲区 (Blind Spots)</h4>
@@ -621,7 +619,7 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
                   </ul>
                 </div>
 
-                <div className="bg-purple-50/50 rounded-xl border border-purple-100 p-4 space-y-3 sm:col-span-2 lg:col-span-1">
+                <div className="space-y-3 rounded-2xl border border-purple-100/80 bg-purple-50/50 p-4 sm:col-span-2 lg:col-span-1">
                   <div className="flex items-center gap-2">
                     <Brain className="w-4.5 h-4.5 text-purple-650" />
                     <h4 className="font-bold text-slate-800 text-xs">深度认知级别</h4>
@@ -632,7 +630,7 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
                   </p>
                 </div>
 
-                <div className="bg-emerald-50/50 rounded-xl border border-emerald-100 p-4 space-y-3 sm:col-span-2">
+                <div className="space-y-3 rounded-2xl border border-emerald-100/80 bg-emerald-50/50 p-4 sm:col-span-2">
                   <div className="flex items-center gap-2">
                     <Zap className="w-4.5 h-4.5 text-emerald-600 animate-pulse" />
                     <h4 className="font-bold text-slate-800 text-xs">历史链式追回断点 (Weak Chain)</h4>
@@ -651,7 +649,7 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
                 </div>
               </div>
 
-              <div className="bg-slate-50 border border-slate-100 rounded-xl p-4 space-y-2">
+              <div className="space-y-2 rounded-2xl border border-slate-200/80 bg-slate-50 p-4">
                 <h4 className="font-bold text-xs text-slate-700 flex items-center gap-1.5 justify-start">
                   <FileText className="w-4 h-4 text-emerald-600 animate-pulse" />
                   <span>学情漏洞深层穿透诊断报告</span>
@@ -665,10 +663,10 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
 
       {/* STEP 4: Skill 3 Long-term Portrait */}
       {visibleSteps.includes(4) && (
-        <div 
-          ref={stepRefs[4]} 
+        <div
+          ref={stepRefs[4]}
           id="homework_step_4"
-          className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-6 animate-fade-in-up"
+          className="space-y-6 rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_12px_32px_rgba(15,23,42,0.04)] animate-fade-in-up"
         >
           <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
             <span className="w-8 h-8 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-xs font-bold">04</span>
@@ -692,9 +690,9 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
             </div>
           ) : (
             <div className="space-y-6" id="hw_step_4_content">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="border border-slate-100 bg-slate-50/50 rounded-xl p-4 flex flex-col justify-between space-y-4">
-                  <div className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+              <div className="grid gap-6 md:grid-cols-2">
+                <div className="flex flex-col justify-between space-y-4 rounded-2xl border border-slate-200/80 bg-slate-50/60 p-5">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-700">
                     <BarChart3 className="w-4 h-4 text-purple-500" />
                     <span>六项核心思维能力评级</span>
                   </div>
@@ -721,10 +719,10 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
                   <div className="space-y-2">
                     {portraitData.gaps.map((item, id) => {
                       return (
-                        <div key={id} className="border border-slate-100 hover:border-purple-200 p-3 bg-white rounded-xl transition-all space-y-1">
+                        <div key={id} className="space-y-1 rounded-2xl border border-slate-200/80 bg-white p-3.5 transition-all hover:border-purple-200 hover:shadow-sm">
                           <div className="flex items-center justify-between">
-                            <span className="text-xs font-bold text-slate-800">{item.knowledge_point}</span>
-                            <span className={`px-2 py-0.5 text-[9px] rounded-full font-bold ${
+                            <span className="text-xs font-semibold text-slate-800">{item.knowledge_point}</span>
+                            <span className={`rounded-full px-2.5 py-1 text-[9px] font-semibold ${
                               item.severity === '高' 
                                 ? 'bg-rose-50 text-rose-700 border border-rose-150' 
                                 : 'bg-amber-50 text-amber-700 border border-amber-150'
@@ -744,9 +742,9 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-r from-blue-50/50 to-purple-50/50 rounded-xl p-4 border border-purple-100/80 space-y-2 text-xs">
-                <div className="font-bold text-purple-900 flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-purple-500 animate-pulse" />
+              <div className="space-y-2 rounded-2xl border border-purple-100/80 bg-gradient-to-r from-blue-50/50 to-purple-50/50 p-4 text-xs">
+                <div className="flex items-center gap-1.5 font-semibold text-purple-900">
+                  <Sparkles className="w-4 h-4 text-purple-500" />
                   <span>精准诊断与干预方案建议</span>
                 </div>
                 <p className="text-slate-650 leading-relaxed">{portraitData.suggestion}</p>
@@ -758,10 +756,10 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
 
       {/* STEP 5: Skill 4 Variant Generation */}
       {visibleSteps.includes(5) && (
-        <div 
-          ref={stepRefs[5]} 
+        <div
+          ref={stepRefs[5]}
           id="homework_step_5"
-          className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-6 animate-fade-in-up"
+          className="space-y-6 rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_12px_32px_rgba(15,23,42,0.04)] animate-fade-in-up"
         >
           <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
             <span className="w-8 h-8 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xs font-bold">05</span>
@@ -785,7 +783,7 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
             </div>
           ) : (
             <div className="space-y-6" id="hw_step_5_content">
-              <div className="text-xs text-slate-500 bg-emerald-50/30 p-3 rounded-lg border border-emerald-100 flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 rounded-2xl border border-emerald-100/80 bg-emerald-50/30 p-4 text-xs text-slate-500">
                 <Sparkles className="w-4 h-4 text-emerald-600 flex-shrink-0" />
                 <span>系统针对 <b>方程检验不闭环</b> 和 <b>约束性缺失</b> 生成了 4 道针对性练习，请通过回答并提交进行巩固测试。（允许留空，直接点击下方提交将自动填充优秀回答进行模拟）</span>
               </div>
@@ -795,15 +793,15 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
                   return (
                     <div 
                       key={idx} 
-                      className="border border-slate-200 hover:border-emerald-300 bg-white rounded-xl p-4 transition-all flex flex-col justify-between space-y-4"
+                      className="flex flex-col justify-between space-y-4 rounded-2xl border border-slate-200/80 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-sm"
                     >
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                          <span className="w-6 h-6 rounded-full bg-emerald-50 text-emerald-750 flex items-center justify-center text-xs font-bold">
+                          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-50 text-xs font-semibold text-emerald-750">
                             {item.id}
                           </span>
                           
-                          <span className={`px-2 py-0.5 text-[9px] font-bold rounded ${
+                          <span className={`rounded-full px-2.5 py-1 text-[9px] font-semibold ${
                             item.difficulty === '基础' 
                               ? 'bg-slate-100 text-slate-600' 
                               : item.difficulty === '中等' 
@@ -818,12 +816,12 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
                       </div>
 
                       <div className="space-y-2">
-                        <input 
+                        <Input
                           type="text"
                           value={variationAnswers[item.id]}
                           onChange={(e) => setVariationAnswers(prev => ({ ...prev, [item.id]: e.target.value }))}
                           placeholder="写下您的计算口算答案 (例如: 7只鸡，3只兔)"
-                          className="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs font-medium focus:outline-none focus:border-emerald-500"
+                          className="rounded-xl px-3 py-2 text-xs font-medium focus:border-emerald-500 focus:ring-emerald-100"
                         />
 
                         <details className="group">
@@ -843,16 +841,15 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
               </div>
 
               {!variationSubmitted ? (
-                <button 
+                <Button
                   id="btn_hw_submit_variations"
                   onClick={handleVariationSubmit}
-                  className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl font-medium shadow-md shadow-emerald-500/10 active:scale-[0.99] transition-all cursor-pointer"
+                  variant="emerald"
+                  className="w-full sm:w-auto px-8"
                 >
-                  <div className="flex items-center justify-center gap-1.5">
-                    <Zap className="w-4 h-4 text-white animate-pulse" />
-                    <span>提交练习，进入学情巩固评估</span>
-                  </div>
-                </button>
+                  <Zap className="w-4 h-4 text-white animate-pulse" />
+                  <span>提交练习，进入学情巩固评估</span>
+                </Button>
               ) : (
                 <div className="text-center font-bold text-xs text-emerald-600">
                   ✓ 练习已提交，可在下方查看巩固性学情提升评估报告 
@@ -865,10 +862,10 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
 
       {/* STEP 6: Skill 5 Correction Feedback loop */}
       {visibleSteps.includes(6) && (
-        <div 
-          ref={stepRefs[6]} 
+        <div
+          ref={stepRefs[6]}
           id="homework_step_6"
-          className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-6 animate-fade-in-up"
+          className="space-y-6 rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_12px_32px_rgba(15,23,42,0.04)] animate-fade-in-up"
         >
           <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
             <span className="w-8 h-8 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center text-xs font-bold">06</span>
@@ -892,9 +889,9 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
             </div>
           ) : (
             <div className="space-y-6" id="hw_step_6_content">
-              <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-150 rounded-xl p-5 flex flex-wrap items-center justify-between gap-4">
+              <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-emerald-150 bg-gradient-to-r from-emerald-50 to-teal-50 p-5">
                 <div className="space-y-1">
-                  <div className="text-xs font-bold text-emerald-800 flex items-center gap-1">
+                  <div className="flex items-center gap-1 text-xs font-semibold text-emerald-800">
                     <Award className="w-4 h-4 text-emerald-600 animate-glow-pulse" />
                     <span>专项闭环成功通过！</span>
                   </div>
@@ -905,20 +902,20 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
 
                 <div className="flex items-center gap-4">
                   <div className="text-center font-display">
-                    <p className="text-slate-400 line-through text-2xl font-black">65</p>
+                    <p className="text-2xl font-semibold text-slate-400 line-through">65</p>
                     <p className="text-[9px] text-slate-450">首次评估</p>
                   </div>
                   <span className="text-lg text-emerald-500 font-bold">→</span>
                   <div className="text-center font-display">
-                    <p className="text-emerald-600 text-3xl font-black animate-scale">100</p>
+                    <p className="text-3xl font-semibold tracking-[-0.03em] text-slate-900 animate-scale">100</p>
                     <p className="text-[9px] text-emerald-800 font-semibold">巩固终评</p>
                   </div>
                 </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="border border-slate-100 bg-slate-50/50 rounded-xl p-4 space-y-4">
-                  <div className="text-xs font-bold text-slate-705 flex items-center gap-1.5">
+                <div className="space-y-4 rounded-2xl border border-slate-200/80 bg-slate-50/60 p-5">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-705">
                     <TrendingUp className="w-4 h-4 text-emerald-600" />
                     <span>巩固前后：六维能力结构进化对比</span>
                   </div>
@@ -940,9 +937,9 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
 
                 <div className="space-y-4 flex flex-col justify-between">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1">
-                    <div className="bg-emerald-50/50 p-4 rounded-xl border border-emerald-100 space-y-1.5 flex flex-col justify-center">
-                      <div className="text-xs font-bold text-emerald-800 flex items-center gap-1.5">
-                        <Sparkles className="w-4 h-4 text-emerald-600 animate-pulse" />
+                    <div className="flex flex-col justify-center space-y-1.5 rounded-2xl border border-emerald-100/80 bg-emerald-50/50 p-4">
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-800">
+                        <Sparkles className="w-4 h-4 text-emerald-600" />
                         <span>显著改善指标</span>
                       </div>
                       <p className="text-[11px] text-slate-650 leading-relaxed">
@@ -950,8 +947,8 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
                       </p>
                     </div>
 
-                    <div className="bg-amber-50/60 p-4 rounded-xl border border-amber-100 space-y-1.5 flex flex-col justify-center">
-                      <div className="text-xs font-bold text-amber-800 flex items-center gap-1.5">
+                    <div className="flex flex-col justify-center space-y-1.5 rounded-2xl border border-amber-100/80 bg-amber-50/60 p-4">
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-800">
                         <AlertCircle className="w-4 h-4 text-amber-600" />
                         <span>潜在遗留细微卡点</span>
                       </div>
@@ -962,9 +959,9 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
                     </div>
                   </div>
 
-                  <div className="bg-indigo-50/50 border border-indigo-150 rounded-xl p-4 space-y-2 text-xs">
-                    <h5 className="font-bold text-indigo-900 flex items-center gap-1.5">
-                      <Brain className="w-4 h-4 text-indigo-600 animate-pulse" />
+                  <div className="space-y-2 rounded-2xl border border-indigo-150 bg-indigo-50/50 p-4 text-xs">
+                    <h5 className="flex items-center gap-1.5 font-semibold text-indigo-900">
+                      <Brain className="w-4 h-4 text-indigo-600" />
                       <span>下一阶段个性化学习导向</span>
                     </h5>
                     <p className="text-slate-600 leading-relaxed text-[11px]">
@@ -976,15 +973,16 @@ export default function HomeworkAgent({ onShowToast }: HomeworkAgentProps) {
 
               {/* Reset control */}
               <div className="text-center pt-4">
-                <button 
-                  type="button"
+                <Button
                   id="btn_hw_reset_all"
                   onClick={handleReset}
-                  className="text-xs text-slate-400 hover:text-slate-600 hover:underline inline-flex items-center gap-1 cursor-pointer"
+                  variant="ghost"
+                  size="sm"
+                  className="text-xs text-slate-400 hover:bg-transparent hover:text-slate-600 hover:underline"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>清除批改缓存，重新体验演示</span>
-                </button>
+                </Button>
               </div>
             </div>
           )}

@@ -31,6 +31,7 @@ import {
   PlayCircle
 } from 'lucide-react';
 import { ChatMessage, PvQuizItem } from '../types';
+import { Badge, Button, Card, FieldLabel, Input, Select } from './ui';
 
 interface PreviewAgentProps {
   onShowToast: (msg: string, type: 'info' | 'success' | 'warning' | 'error') => void;
@@ -721,19 +722,19 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
   return (
     <div className="space-y-6 sm:space-y-8 animate-fade-in-up px-1.5 sm:px-0">
       {/* Preview workspace header */}
-      <div className={`relative overflow-hidden rounded-2xl ${!isGenerating ? 'border border-emerald-100 bg-gradient-to-br from-white via-emerald-50/70 to-sky-50/80 shadow-sm' : 'border-none bg-transparent shadow-none'}`}>
+      <div className={`relative overflow-hidden rounded-[28px] ${!isGenerating ? 'border border-emerald-100/80 bg-gradient-to-br from-white via-emerald-50/65 to-slate-50 shadow-[0_16px_40px_rgba(15,23,42,0.04)]' : 'border-none bg-transparent shadow-none'}`}>
         <div className={`grid gap-8 ${!isGenerating ? 'p-6 sm:p-8 lg:grid-cols-12 lg:items-stretch animate-fade-in' : 'grid-cols-1 p-0'}`}>
           <div className={`flex flex-col justify-between gap-6 text-left ${!isGenerating ? 'lg:col-span-7' : 'hidden'}`}>
             <div className="space-y-4">
-              <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-emerald-200 bg-white/80 px-3 py-1 text-[10px] font-bold text-emerald-700 shadow-sm sm:text-xs">
+              <Badge tone="emerald" className="w-fit px-3 py-1 text-[10px] sm:text-xs">
                 <BookOpen className="h-3.5 w-3.5 text-emerald-600" />
-                <span>Preview Agent · 课前预习工作台</span>
-              </div>
+                <span>ai学堂 · 预习宝</span>
+              </Badge>
               <div className="space-y-2">
-                <h2 className="font-display text-2xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
-                  课前 15 分钟，把新课变成可掌握的任务
+                <h2 className="font-display text-2xl font-semibold tracking-[-0.03em] text-slate-950 sm:text-4xl">
+                  预习宝，把课前 15 分钟变成更清楚的准备时间
                 </h2>
-                <p className="max-w-2xl text-xs font-semibold leading-relaxed text-slate-600 sm:text-sm">
+                <p className="max-w-2xl text-xs leading-7 text-slate-600 sm:text-sm">
                   输入科目、年级和知识点，系统会生成预习目标、知识小地图、伴读问题和自测反馈，让学生带着问题走进课堂。
                 </p>
               </div>
@@ -749,36 +750,36 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                 return (
                   <div
                     key={item.label}
-                    className={`rounded-xl border px-2.5 py-3 text-center shadow-sm transition-all ${
+                    className={`rounded-2xl border px-2.5 py-3 text-center transition-all ${
                       item.active
-                        ? 'border-emerald-200 bg-white text-emerald-800'
-                        : 'border-white/70 bg-white/50 text-slate-400'
+                        ? 'border-emerald-200 bg-white text-emerald-800 shadow-sm'
+                        : 'border-white/70 bg-white/60 text-slate-400'
                     }`}
                   >
                     <div className="mx-auto mb-1.5 flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-50">
                       <Icon className={`h-3.5 w-3.5 ${item.active ? 'text-emerald-600' : 'text-slate-400'}`} />
                     </div>
-                    <div className="text-[10px] font-black text-slate-400">0{index + 1}</div>
-                    <div className="text-[11px] font-bold">{item.label}</div>
+                    <div className="text-[10px] font-semibold tracking-[0.08em] text-slate-400">0{index + 1}</div>
+                    <div className="text-[11px] font-semibold">{item.label}</div>
                   </div>
                 );
               })}
             </div>
           </div>
 
-          <div className={`transition-all duration-300 ${!isGenerating ? 'rounded-2xl border border-white/80 bg-white/90 p-4 shadow-lg shadow-emerald-900/5 sm:p-5 lg:col-span-5' : 'w-full max-w-none border-none bg-transparent p-0 shadow-none lg:col-span-12'}`}>
+          <div className={`transition-all duration-300 ${!isGenerating ? 'rounded-[28px] border border-white/80 bg-white/92 p-4 shadow-[0_12px_32px_rgba(15,23,42,0.05)] sm:p-5 lg:col-span-5' : 'w-full max-w-none border-none bg-transparent p-0 shadow-none lg:col-span-12'}`}>
             {isGenerating && profileSelectionCompleted && (
-              <div className="relative mb-6 flex flex-wrap items-center justify-between gap-4 overflow-hidden rounded-2xl border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-sky-50/70 p-4 shadow-sm sm:p-5">
+              <div className="relative mb-6 flex flex-wrap items-center justify-between gap-4 overflow-hidden rounded-3xl border border-emerald-100/80 bg-gradient-to-br from-emerald-50 via-white to-slate-50 p-4 shadow-sm sm:p-5">
                 <div className="flex items-center gap-3">
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-md shadow-emerald-600/20">
                     <Brain className="h-5 w-5 text-white" />
                   </div>
                   <div className="text-left">
-                    <div className="inline-flex items-center gap-1 rounded-full bg-emerald-100/80 px-2.5 py-0.5 text-[10px] font-extrabold text-emerald-800">
+                    <div className="inline-flex items-center gap-1 rounded-full bg-emerald-100/80 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-800">
                       <BookOpen className="h-3 w-3" />
                       <span>{subject} · {grade}</span>
                     </div>
-                    <h3 className="mt-1 text-base font-extrabold leading-tight text-slate-950">
+                    <h3 className="mt-1 text-base font-semibold leading-tight tracking-[-0.02em] text-slate-950">
                       《{chapter || "新学期概念"}》自学导学与课前探究
                     </h3>
                   </div>
@@ -807,7 +808,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
             {!isGenerating && (
               <div className="mb-4 flex items-center justify-between gap-3">
                 <div>
-                  <h3 className="text-sm font-extrabold text-slate-900">生成课前任务</h3>
+                  <h3 className="text-sm font-semibold tracking-[-0.01em] text-slate-900">生成课前任务</h3>
                   <p className="text-[11px] font-medium text-slate-500">先选学习范围，再生成专属预习包</p>
                 </div>
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-md shadow-emerald-600/20">
@@ -819,49 +820,49 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
             {/* Form elements */}
             <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
               <div>
-                <label className="mb-1.5 flex items-center gap-1 text-xs font-bold text-slate-700">
+                <FieldLabel>
                   <BookOpen className="h-3.5 w-3.5 text-emerald-600" />
                   <span>科目</span>
-                </label>
-                <select
+                </FieldLabel>
+                <Select
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
-                  className="min-h-[42px] w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 text-xs font-semibold text-slate-800 outline-none transition focus:border-emerald-400 focus:bg-white focus:ring-4 focus:ring-emerald-100"
+                  className="text-xs focus:border-emerald-400 focus:ring-emerald-100"
                 >
                   <option>数学</option>
                   <option>语文</option>
                   <option>英语</option>
-                </select>
+                </Select>
               </div>
 
               <div>
-                <label className="mb-1.5 flex items-center gap-1 text-xs font-bold text-slate-700">
+                <FieldLabel>
                   <GraduationCap className="h-3.5 w-3.5 text-emerald-600" />
                   <span>年级</span>
-                </label>
-                <select
+                </FieldLabel>
+                <Select
                   value={grade}
                   onChange={(e) => setGrade(e.target.value)}
-                  className="min-h-[42px] w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 text-xs font-semibold text-slate-800 outline-none transition focus:border-emerald-400 focus:bg-white focus:ring-4 focus:ring-emerald-100"
+                  className="text-xs focus:border-emerald-400 focus:ring-emerald-100"
                 >
                   <option>三年级</option>
                   <option>二年级</option>
                   <option>四年级</option>
                   <option>五年级</option>
-                </select>
+                </Select>
               </div>
 
               <div className="sm:col-span-2">
-                <label className="mb-1.5 flex items-center gap-1 text-xs font-bold text-slate-700">
+                <FieldLabel>
                   <FileText className="h-3.5 w-3.5 text-emerald-600" />
                   <span>知识点</span>
-                </label>
-                <input
+                </FieldLabel>
+                <Input
                   type="text"
                   value={chapter}
                   onChange={(e) => setChapter(e.target.value)}
                   placeholder="认识分数"
-                  className="min-h-[44px] w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3.5 py-2 text-sm font-bold text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-400 focus:bg-white focus:ring-4 focus:ring-emerald-100"
+                  className="font-bold text-slate-900 focus:border-emerald-400 focus:ring-emerald-100"
                 />
               </div>
             </div>
@@ -869,17 +870,17 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
             {/* Generate triggers and Questionnaire modal */}
             {!isGenerating ? (
               <div className="pt-4">
-                <button
-                  type="button"
+                <Button
                   onClick={startTaskGen}
-                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-3.5 text-xs font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:from-emerald-700 hover:to-teal-700 active:scale-[0.99] sm:text-sm"
+                  variant="emerald"
+                  className="w-full text-xs sm:text-sm"
                 >
                   <Sparkles className="h-4 w-4 text-white" />
-                  <span>{isMobile ? "生成智能课前预习任务" : "生成预习任务（首次使用会询问 2 个个性化问题）"}</span>
-                </button>
+                  <span>{isMobile ? "生成课前预习任务" : "生成预习任务（首次使用会询问 2 个个性化问题）"}</span>
+                </Button>
               </div>
         ) : !profileSelectionCompleted ? (
-          <div className="bg-slate-50 border border-slate-100 p-4 sm:p-6 rounded-xl space-y-4">
+          <Card className="space-y-4 rounded-2xl border-slate-100 bg-slate-50 p-4 sm:p-6">
             <div className="flex items-center gap-1.5">
               <Compass className="w-5 h-5 text-emerald-600 animate-spin" />
               <h4 className="font-bold text-slate-800 text-xs">明天新课的专属小调查（只需回答 2 个小问题哦）：</h4>
@@ -900,7 +901,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-left">
                 {profileQuestions[currentProfileQ].options.map((opt, i) => (
-                  <button 
+                  <button
                     key={i}
                     type="button"
                     onClick={() => selectProfileOption(opt)}
@@ -912,7 +913,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                 ))}
               </div>
             </div>
-          </div>
+          </Card>
         ) : (
           /* When profile is complete */
           <div className="space-y-6">
@@ -923,40 +924,40 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                   <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full [animation-delay:0.1s]" />
                   <div className="w-3 h-3 bg-emerald-500 rounded-full [animation-delay:0.2s]" />
                 </div>
-                <span className="text-slate-500 text-xs font-medium">私人匹配定制，过滤《${chapter}》难易断点中...</span>
+                <span className="text-slate-500 text-xs font-medium">正在整理《${chapter}》的重点内容...</span>
               </div>
             ) : (
               taskCardGenerated && (
                 /* Generated Task Card with elegant UI visuals */
-                <div className="rounded-2xl border border-emerald-100 bg-white p-4 shadow-sm ring-1 ring-emerald-50 sm:p-6 space-y-4 sm:space-y-5 animate-fade-in-up" id="pv_task_card">
-                  <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-emerald-50/70 px-3.5 py-3">
+                <div className="space-y-4 rounded-[28px] border border-emerald-100/80 bg-white p-4 shadow-[0_16px_40px_rgba(5,150,105,0.06)] ring-1 ring-emerald-50 sm:p-6 sm:space-y-5 animate-fade-in-up" id="pv_task_card">
+                  <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-emerald-100/80 bg-emerald-50/70 px-4 py-3.5">
                     <div className="flex items-center gap-2">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-emerald-700 shadow-sm">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-emerald-700 shadow-sm">
                         <FileText className="h-4.5 w-4.5" />
                       </div>
                       <div>
-                        <h4 className="font-bold text-slate-800 text-sm">明日自学导案卡 (小学 {grade})</h4>
-                        <p className="text-[10px] text-slate-550">定制方向：{profileAnswers.style}</p>
+                        <h4 className="text-sm font-semibold tracking-[-0.01em] text-slate-800">明日预习任务卡 (小学 {grade})</h4>
+                        <p className="text-[10px] text-slate-500">定制方向：{profileAnswers.style}</p>
                       </div>
                     </div>
-                    <span className="rounded-full bg-white px-2.5 py-1 text-[9px] font-bold text-emerald-800 shadow-sm">专属学习小档案</span>
+                    <span className="rounded-full border border-emerald-100 bg-white px-3 py-1 text-[9px] font-semibold tracking-[0.06em] text-emerald-800 shadow-sm">专属学习小档案</span>
                   </div>
 
                   <div className="flex flex-col gap-4">
                     {/* Goal & time - Two columns on PC/iPad, stacked on Mobile */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 h-full">
-                      <div className="flex h-full flex-col justify-between rounded-xl border border-slate-100 bg-slate-50/70 p-3.5">
-                        <span className="text-[11px] font-bold text-emerald-800 flex items-center gap-1 mb-1">
+                      <div className="flex h-full flex-col justify-between rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4">
+                        <span className="mb-1 flex items-center gap-1 text-[11px] font-semibold text-emerald-800">
                           <Compass className="w-3.5 h-3.5 text-emerald-600" />
                           <span>预习小目标</span>
                         </span>
-                        <p className="text-[11px] text-slate-600 leading-relaxed line-clamp-3 text-left">
+                        <p className="text-[11px] leading-6 text-slate-600 line-clamp-3 text-left">
                           {aiCustomContent?.generalOutline || "理解认识分数的数理本质，读懂写对 1/2, 3/4 等简单比例型，建立草稿纸切块作图直觉。"}
                         </p>
                       </div>
 
-                      <div className="flex h-full flex-col justify-between rounded-xl border border-slate-100 bg-slate-50/70 p-3.5">
-                        <span className="text-[11px] font-bold text-emerald-800 flex items-center gap-1">
+                      <div className="flex h-full flex-col justify-between rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4">
+                        <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-800">
                           <Clock className="w-3.5 h-3.5 text-emerald-600" style={{ animation: 'pulse 2s infinite' }} />
                           <span>预计要花的时间</span>
                         </span>
@@ -1042,9 +1043,9 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                     </div>
 
                     {/* Simple structured mindmap */}
-                    <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-4 space-y-2">
-                      <span className="text-[11px] font-bold text-emerald-800 flex items-center gap-1">
-                        <Brain className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
+                    <div className="space-y-2 rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4">
+                      <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-800">
+                        <Brain className="w-3.5 h-3.5 text-emerald-600" />
                         <span>《{chapter}》重点知识小地图</span>
                       </span>
                       <div className="space-y-1.5 font-sans text-[11px] text-slate-600 leading-relaxed pl-1">
@@ -1058,8 +1059,8 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                               <div key={i} className="relative">
                                 <div className="absolute -left-5 sm:-left-7 top-1/2 -translate-y-1/2 w-4 sm:w-5 h-0.5 bg-emerald-200"></div>
                                 <div className="absolute -left-[23px] sm:-left-[31px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-white shadow-sm z-10"></div>
-                                  <div className="flex flex-col gap-2 rounded-xl border border-slate-100 bg-white p-3.5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
-                                  <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg w-fit">
+                                  <div className="flex flex-col gap-2 rounded-2xl border border-slate-200/80 bg-white p-3.5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+                                  <span className="inline-flex w-fit items-center gap-1.5 rounded-lg bg-indigo-50 px-2.5 py-1 text-[11px] font-semibold text-indigo-600">
                                     <Sparkles className="w-3.5 h-3.5" />
                                     {concept.label}
                                   </span>
@@ -1074,8 +1075,8 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                               <div className="relative">
                                 <div className="absolute -left-5 sm:-left-7 top-1/2 -translate-y-1/2 w-4 sm:w-5 h-0.5 bg-emerald-200"></div>
                                 <div className="absolute -left-[23px] sm:-left-[31px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-white shadow-sm z-10"></div>
-                                <div className="flex flex-col gap-2 rounded-xl border border-slate-100 bg-white p-3.5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
-                                  <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg w-fit">
+                                <div className="flex flex-col gap-2 rounded-2xl border border-slate-200/80 bg-white p-3.5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+                                  <span className="inline-flex w-fit items-center gap-1.5 rounded-lg bg-indigo-50 px-2.5 py-1 text-[11px] font-semibold text-indigo-600">
                                     <Sparkles className="w-3.5 h-3.5" />
                                     分母 (下方数据)
                                   </span>
@@ -1085,8 +1086,8 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                               <div className="relative">
                                 <div className="absolute -left-5 sm:-left-7 top-1/2 -translate-y-1/2 w-4 sm:w-5 h-0.5 bg-emerald-200"></div>
                                 <div className="absolute -left-[23px] sm:-left-[31px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-white shadow-sm z-10"></div>
-                                <div className="flex flex-col gap-2 rounded-xl border border-slate-100 bg-white p-3.5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
-                                  <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-sky-600 bg-sky-50 px-2.5 py-1 rounded-lg w-fit">
+                                <div className="flex flex-col gap-2 rounded-2xl border border-slate-200/80 bg-white p-3.5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+                                  <span className="inline-flex w-fit items-center gap-1.5 rounded-lg bg-sky-50 px-2.5 py-1 text-[11px] font-semibold text-sky-600">
                                     <Sparkles className="w-3.5 h-3.5" />
                                     分子 (上方数据)
                                   </span>
@@ -1096,8 +1097,8 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                               <div className="relative">
                                 <div className="absolute -left-5 sm:-left-7 top-1/2 -translate-y-1/2 w-4 sm:w-5 h-0.5 bg-emerald-200"></div>
                                 <div className="absolute -left-[23px] sm:-left-[31px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-white shadow-sm z-10"></div>
-                                <div className="flex flex-col gap-2 rounded-xl border border-slate-100 bg-white p-3.5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
-                                  <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-lg w-fit">
+                                <div className="flex flex-col gap-2 rounded-2xl border border-slate-200/80 bg-white p-3.5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+                                  <span className="inline-flex w-fit items-center gap-1.5 rounded-lg bg-amber-50 px-2.5 py-1 text-[11px] font-semibold text-amber-600">
                                     <Sparkles className="w-3.5 h-3.5" />
                                     分线 (居中横杆)
                                   </span>
@@ -1110,31 +1111,31 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                       </div>
                     </div>
                   </div>
-                  <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-4 sm:p-5 space-y-3">
-                    <span className="text-[11px] font-bold text-emerald-800 flex items-center gap-1">
+                  <div className="space-y-3 rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4 sm:p-5">
+                    <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-800">
                       <HelpCircle className="w-3.5 h-3.5 text-emerald-600" />
-                      <span>{aiCustomContent ? "AI 定制 4 个预习问题" : "伴读思考问题"}</span>
+                      <span>{aiCustomContent ? "定制 4 个预习问题" : "伴读思考问题"}</span>
                     </span>
                     <ol className="text-xs text-slate-600 space-y-2.5 leading-relaxed text-left">
                       {aiCustomContent?.questions ? (
                         aiCustomContent.questions.map((q, idx) => (
                           <li className="flex gap-2.5" key={idx}>
-                            <span className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-700 font-bold flex items-center justify-center flex-shrink-0 text-[10px] mt-0.5">{idx + 1}</span>
+                            <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-emerald-50 text-[10px] font-semibold text-emerald-700">{idx + 1}</span>
                             <span className="flex-1">{q}</span>
                           </li>
                         ))
                       ) : (
                         <>
                           <li className="flex gap-2.5">
-                            <span className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-700 font-bold flex items-center justify-center flex-shrink-0 text-[10px] mt-0.5">1</span>
+                            <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-emerald-50 text-[10px] font-semibold text-emerald-700">1</span>
                             <span className="flex-1">分数表示一个整体中的一部分，还是表示某一个具体物品？</span>
                           </li>
                           <li className="flex gap-2.5">
-                            <span className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-700 font-bold flex items-center justify-center flex-shrink-0 text-[10px] mt-0.5">2</span>
+                            <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-emerald-50 text-[10px] font-semibold text-emerald-700">2</span>
                             <span className="flex-1">同一个整体中，1/2 和 1/4 哪个更大？为什么？</span>
                           </li>
                           <li className="flex gap-2.5">
-                            <span className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-700 font-bold flex items-center justify-center flex-shrink-0 text-[10px] mt-0.5">3</span>
+                            <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-emerald-50 text-[10px] font-semibold text-emerald-700">3</span>
                             <span className="flex-1">分母可以是 1 或 0 吗？分别代表什么含义？</span>
                           </li>
                         </>
@@ -1143,8 +1144,8 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                   </div>
 
                   {/* Scenario questions */}
-                  <div className="rounded-xl border border-slate-100 bg-white p-4 sm:p-5 shadow-sm space-y-1.5 text-left">
-                    <span className="text-[11px] font-bold text-emerald-800 flex items-center gap-1.5">
+                  <div className="space-y-1.5 rounded-2xl border border-slate-200/80 bg-white p-4 text-left shadow-sm sm:p-5">
+                    <span className="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-800">
                       <Compass className="w-3.5 h-3.5 text-emerald-600" />
                       <span>应用场景（结合：{profileAnswers.style}）</span>
                     </span>
@@ -1154,17 +1155,17 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                   </div>
 
                   {/* Forecast indicator slider */}
-                  <div className="rounded-xl border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 p-4 space-y-2">
+                  <div className="space-y-2 rounded-2xl border border-amber-200/80 bg-gradient-to-r from-amber-50 to-orange-50 p-4">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1.5 text-xs">
-                      <span className="font-bold text-amber-850 flex items-center gap-1">
+                      <span className="flex items-center gap-1 font-semibold text-amber-850">
                         <TrendingUp className="w-3.5 h-3.5 text-amber-600" />
                         <span>课堂理解度预估</span>
                       </span>
-                      <span className="font-mono text-amber-700 font-bold text-sm">{forecastBefore}% 听透可能性</span>
+                      <span className="font-mono text-sm font-semibold text-amber-700">{forecastBefore}% 听透可能性</span>
                     </div>
 
-                    <div className="w-full bg-white h-2 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-amber-400 to-orange-500 rounded-full animate-pulse" style={{ width: `${forecastBefore}%` }} />
+                    <div className="h-2 w-full overflow-hidden rounded-full bg-white">
+                      <div className="h-full rounded-full bg-gradient-to-r from-amber-400 to-orange-500" style={{ width: `${forecastBefore}%` }} />
                     </div>
 
                     <span className="text-[10px] text-slate-500 leading-normal flex items-start gap-1 text-left">
@@ -1179,14 +1180,15 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
         )}
 
         {profileSelectionCompleted && !taskCardGenerated && (
-          <button 
-            type="button" 
+          <Button
             onClick={startTaskGen}
-            className="text-xs text-emerald-600 underline font-semibold flex items-center gap-0.5 cursor-pointer ml-1 animate-pulse"
+            variant="ghost"
+            size="sm"
+            className="ml-1 animate-pulse px-0 text-xs text-emerald-600 underline hover:bg-transparent hover:text-emerald-700"
           >
             <RotateCcw className="w-3 h-3 text-emerald-600" />
             <span>重新设定并激活问答问卷</span>
-          </button>
+          </Button>
         )}
       </div>
       </div>
@@ -1194,12 +1196,12 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
 
       {/* STEP 2: Chat helper and Preset tags */}
       {visibleSteps.includes(2) && (
-        <div ref={stepRefs[2]} id="preview_step_2" className="rounded-2xl border border-sky-100 bg-white p-4 shadow-sm sm:p-6 space-y-5 sm:space-y-6 animate-fade-in-up">
-          <div className="flex items-center gap-3 rounded-xl bg-sky-50/70 px-3.5 py-3">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-xs font-bold font-mono text-sky-700 shadow-sm">02</span>
+        <div ref={stepRefs[2]} id="preview_step_2" className="space-y-5 rounded-[28px] border border-sky-100/80 bg-white p-4 shadow-[0_12px_32px_rgba(14,165,233,0.05)] sm:p-6 sm:space-y-6 animate-fade-in-up">
+          <div className="flex items-center gap-3 rounded-2xl border border-sky-100/80 bg-sky-50/70 px-4 py-3.5">
+            <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-white text-xs font-bold font-mono text-sky-700 shadow-sm">02</span>
             <div>
-              <h3 className="font-bold text-slate-800 text-sm sm:text-base flex items-center gap-1.5 justify-start">
-                <MessageSquare className="w-4 h-4 text-sky-600 animate-pulse" />
+              <h3 className="flex items-center justify-start gap-1.5 text-sm font-semibold text-slate-800 sm:text-base">
+                <MessageSquare className="w-4 h-4 text-sky-600" />
                 <span>互动答疑：有问题随时问我哦</span>
               </h3>
               <div className="text-[10px] sm:text-[11px] text-slate-400">围绕概念、例题步骤和易错点进行课前答疑</div>
@@ -1218,7 +1220,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
             <div className="space-y-4 animate-fade-in-up md:px-1" id="pv_step_2_content">
               <div className="text-[11px] text-slate-555 font-semibold flex items-center gap-1">
                 <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                <span>大家都在问这些（点一下直接问）：</span>
+                <span>可以先从这些问题开始：</span>
               </div>
               
               <div className="flex flex-wrap gap-1.5">
@@ -1236,7 +1238,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
               </div>
 
               {/* Chat window box */}
-              <div className="flex flex-col space-y-3 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50 to-white p-3 sm:p-4 sm:space-y-4">
+              <div className="flex flex-col space-y-3 rounded-[24px] border border-slate-200 bg-gradient-to-b from-slate-50 to-white p-3 sm:p-4 sm:space-y-4">
                 <div 
                   id="pv-chat-scroller"
                     className="h-60 overflow-y-auto space-y-3.5 pr-1 scroll-smooth sm:h-72"
@@ -1246,7 +1248,7 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                     return (
                       <div key={chat.id} className={`flex gap-2 sm:gap-3.5 ${isAi ? '' : 'justify-end'}`}>
                         {isAi && (
-                          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs sm:text-sm font-semibold flex-shrink-0 animate-glow-pulse shadow">
+                          <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500 text-xs font-semibold text-white shadow sm:h-8 sm:w-8 sm:text-sm">
                             <BookOpen className="w-3.5 h-3.5 text-white" />
                           </div>
                         )}
@@ -1254,15 +1256,15 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                         <div 
                           className={`rounded-2xl px-3 py-2 sm:px-4 sm:py-2.5 text-xs leading-normal max-w-[90%] sm:max-w-[85%] whitespace-pre-line ${
                             isAi 
-                              ? 'bg-white text-slate-800 rounded-tl-none border border-slate-100 shadow-sm' 
-                              : 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-tr-none shadow-sm'
+                              ? 'rounded-tl-none border border-slate-200/80 bg-white text-slate-800 shadow-sm' 
+                              : 'rounded-tr-none bg-emerald-600 text-white shadow-sm'
                           }`}
                         >
                           {chat.text}
                         </div>
 
                         {!isAi && (
-                          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-amber-400 text-white flex items-center justify-center text-xs sm:text-sm font-bold flex-shrink-0 shadow">
+                          <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-slate-900 text-xs font-semibold text-white shadow sm:h-8 sm:w-8 sm:text-sm">
                             <Smile className="w-4 h-4 text-white" />
                           </div>
                         )}
@@ -1288,34 +1290,35 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
 
                 {/* Text entry field */}
                 <div className="flex gap-2">
-                  <input 
+                  <Input
                     type="text" 
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
                     onKeyPress={(e) => { if (e.key === 'Enter') handleChatSend(); }}
                     placeholder={isMobile ? "输入您的新疑惑..." : "输入或询问您的新疑惑 (例如: 什么是等值分数?)"}
-                    className="min-h-[42px] flex-grow rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold outline-none transition focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
+                    className="min-h-[42px] flex-grow text-xs focus:border-emerald-400 focus:ring-emerald-100"
                   />
-                  <button 
-                    type="button"
+                  <Button
                     onClick={handleChatSend}
-                    className="flex min-h-[42px] cursor-pointer items-center justify-center rounded-xl bg-emerald-600 px-3 py-2 text-white shadow-sm transition-all hover:bg-emerald-700 active:scale-95"
+                    variant="emerald"
+                    size="sm"
+                    className="min-h-[42px] px-3"
                   >
                     <Send className="w-4 h-4" />
-                  </button>
+                  </Button>
                 </div>
               </div>
 
               <div className="text-center pt-2">
-                <button 
-                  type="button"
+                <Button
                   id="btn_pv_go_quiz"
                   onClick={handleFinishPreviewSection}
-                  className="mx-auto flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-3.5 text-xs font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:from-emerald-700 hover:to-teal-700 active:scale-[0.99] sm:w-auto sm:px-8 sm:text-sm"
+                  variant="emerald"
+                  className="mx-auto w-full text-xs sm:w-auto sm:px-8 sm:text-sm"
                 >
                   <Compass className="w-4 h-4 text-white animate-spin-slow" />
                   <span>{isMobile ? "完成伴读，开始自测小练习" : "我已阅读完毕且完成伴读，开始自测小练习"}</span>
-                </button>
+                </Button>
               </div>
             </div>
           )}
@@ -1324,15 +1327,15 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
 
       {/* STEP 3: Self checking & Alignment with classes */}
       {visibleSteps.includes(3) && (
-        <div ref={stepRefs[3]} id="preview_step_3" className="rounded-2xl border border-amber-100 bg-white p-4 shadow-sm sm:p-6 space-y-5 sm:space-y-6 animate-fade-in-up">
-          <div className="flex items-center gap-3 rounded-xl bg-amber-50/80 px-3.5 py-3">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-xs font-bold font-mono text-amber-700 shadow-sm">03</span>
+        <div ref={stepRefs[3]} id="preview_step_3" className="space-y-5 rounded-[28px] border border-amber-100/80 bg-white p-4 shadow-[0_12px_32px_rgba(245,158,11,0.05)] sm:p-6 sm:space-y-6 animate-fade-in-up">
+          <div className="flex items-center gap-3 rounded-2xl border border-amber-100/80 bg-amber-50/80 px-4 py-3.5">
+            <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-white text-xs font-bold font-mono text-amber-700 shadow-sm">03</span>
             <div>
-              <h3 className="font-bold text-slate-800 text-sm sm:text-base flex items-center gap-1.5 justify-start">
-                <ListTodo className="w-4.5 h-4.5 text-amber-600 animate-pulse" />
+              <h3 className="flex items-center gap-1.5 justify-start text-sm font-semibold text-slate-800 sm:text-base">
+                <ListTodo className="w-4.5 h-4.5 text-amber-600" />
                 <span>随堂小测验：看看你学会了吗</span>
               </h3>
-              <div className="text-[10px] sm:text-[11px] text-slate-400">做完这 3 道题，系统会帮你批改，明天听课会更轻松哦！</div>
+              <div className="text-[10px] sm:text-[11px] text-slate-400">做完这 3 道题后，可以更清楚地知道自己哪里已经掌握、哪里还要再听一遍。</div>
             </div>
           </div>
 
@@ -1422,48 +1425,48 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
               </div>
 
               {!quizSubmitted ? (
-                <button 
-                  type="button"
+                <Button
                   id="btn_pv_submit_quiz"
                   onClick={handleQuizSubmit}
-                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 px-6 py-3.5 text-xs font-bold text-white shadow-lg shadow-amber-500/20 transition-all hover:from-amber-600 hover:to-orange-700 active:scale-[0.99] sm:w-auto sm:px-8 sm:py-3 sm:text-sm"
+                  variant="amber"
+                  className="w-full text-xs sm:w-auto sm:px-8 sm:py-3 sm:text-sm"
                 >
                   <Send className="w-4 h-4 text-white animate-pulse" />
                   <span>提交答案，查看预习理解度</span>
-                </button>
+                </Button>
               ) : (
                 <div className="space-y-5 sm:space-y-6">
                   {evalLoading ? (
                     <div className="space-y-4 animate-pulse">
-                      <div className="p-3.5 sm:p-4 bg-emerald-50/20 text-emerald-800 rounded-xl border border-emerald-100 space-y-2">
-                        <div className="h-4 bg-emerald-100 rounded w-1/4 animate-pulse" />
-                        <div className="h-3 bg-emerald-100/70 rounded w-full animate-pulse" />
-                        <div className="h-3 bg-emerald-100/50 rounded w-5/6 animate-pulse" />
+                      <div className="space-y-2 rounded-2xl border border-emerald-100/80 bg-emerald-50/20 p-4 text-emerald-800">
+                        <div className="h-4 w-1/4 rounded bg-emerald-100" />
+                        <div className="h-3 w-full rounded bg-emerald-100/70" />
+                        <div className="h-3 w-5/6 rounded bg-emerald-100/50" />
                       </div>
                       
-                      <div className="border border-slate-150 rounded-xl p-3.5 sm:p-4.5 bg-sky-50/20 space-y-3">
-                        <div className="h-4 bg-sky-100 rounded w-1/3 animate-pulse" />
+                      <div className="space-y-3 rounded-2xl border border-slate-200/80 bg-sky-50/20 p-4">
+                        <div className="h-4 w-1/3 rounded bg-sky-100" />
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                          <div className="h-16 bg-white/70 rounded-lg border border-slate-100 animate-pulse" />
-                          <div className="h-16 bg-white/70 rounded-lg border border-slate-100 animate-pulse" />
+                          <div className="h-16 rounded-xl border border-slate-100 bg-white/70" />
+                          <div className="h-16 rounded-xl border border-slate-100 bg-white/70" />
                         </div>
                       </div>
 
-                      <div className="bg-gradient-to-br from-amber-50/30 to-orange-50/30 border border-amber-100 p-4 sm:p-5 rounded-2xl flex items-center justify-between">
+                      <div className="flex items-center justify-between rounded-2xl border border-amber-100 bg-gradient-to-br from-amber-50/30 to-orange-50/30 p-4 sm:p-5">
                         <div className="space-y-2 flex-1">
-                          <div className="h-4 bg-amber-100 rounded w-1/3 animate-pulse" />
-                          <div className="h-3 bg-amber-100/50 rounded w-2/3 animate-pulse" />
+                          <div className="h-4 w-1/3 rounded bg-amber-100" />
+                          <div className="h-3 w-2/3 rounded bg-amber-100/50" />
                         </div>
-                        <div className="w-16 h-12 bg-amber-100/50 rounded-xl animate-pulse" />
+                        <div className="h-12 w-16 rounded-xl bg-amber-100/50" />
                       </div>
                     </div>
                   ) : (
                     customEval && (
                       <div className="space-y-5 sm:space-y-6 animate-fade-in-up">
                         {/* Performance evaluation review */}
-                        <div className="rounded-xl border border-emerald-200 bg-emerald-50/80 p-3.5 text-emerald-850 shadow-sm sm:p-4 space-y-1.5 animate-fade-in">
-                          <h4 className="font-extrabold text-xs flex items-center gap-1.5">
-                            <Award className="w-4.5 h-4.5 text-emerald-600 animate-bounce" />
+                        <div className="space-y-1.5 rounded-2xl border border-emerald-200 bg-emerald-50/80 p-4 text-emerald-850 shadow-sm animate-fade-in">
+                          <h4 className="flex items-center gap-1.5 text-xs font-semibold">
+                            <Award className="w-4.5 h-4.5 text-emerald-600" />
                             <span>你的专属学习小评价</span>
                           </h4>
                           <p className="text-[11px] sm:text-xs leading-relaxed text-slate-705">
@@ -1472,15 +1475,15 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                         </div>
 
                         {/* Tips for Classroom alignment */}
-                        <div className="rounded-xl border border-sky-100 bg-sky-50/70 p-3.5 shadow-sm sm:p-4.5 space-y-3 animate-fade-in">
-                          <span className="text-[11px] sm:text-xs font-bold text-sky-900 flex items-center gap-1.5 flex-wrap">
-                            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-500 animate-glow-pulse" />
+                        <div className="space-y-3 rounded-2xl border border-sky-100/80 bg-sky-50/70 p-4 shadow-sm animate-fade-in">
+                          <span className="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold text-sky-900 sm:text-xs">
+                            <Sparkles className="h-3.5 w-3.5 text-sky-500 sm:h-4 sm:w-4" />
                             <span>明天课堂上的回答建议</span>
                           </span>
 
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <div className="flex flex-col justify-between gap-4 rounded-xl border border-slate-100 bg-white p-3 shadow-sm">
-                              <span className="text-[9px] sm:text-[10px] text-slate-400 font-bold block flex items-center gap-1">
+                            <div className="flex flex-col justify-between gap-4 rounded-2xl border border-slate-200/80 bg-white p-3.5 shadow-sm">
+                              <span className="block text-[9px] font-semibold text-slate-400 sm:text-[10px] flex items-center gap-1">
                                 <Check className="w-3 h-3 text-slate-400" />
                                 <span>老师很可能会问这些哦</span>
                               </span>
@@ -1489,8 +1492,8 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                               </p>
                             </div>
 
-                            <div className="flex flex-col justify-between gap-4 rounded-xl border border-slate-100 bg-white p-3 shadow-sm">
-                              <span className="text-[9px] sm:text-[10px] text-emerald-500 font-bold block flex items-center gap-1">
+                            <div className="flex flex-col justify-between gap-4 rounded-2xl border border-slate-200/80 bg-white p-3.5 shadow-sm">
+                              <span className="block text-[9px] font-semibold text-emerald-500 sm:text-[10px] flex items-center gap-1">
                                 <Smile className="w-3 h-3 text-emerald-500" />
                                 <span>建议你可以这样回答：</span>
                               </span>
@@ -1502,11 +1505,11 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
                         </div>
 
                         {/* Forecast forecast percentage upgrade details */}
-                        <div className="relative rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-4 shadow-sm sm:p-5 animate-fade-in">
+                        <div className="relative rounded-[24px] border border-amber-200/80 bg-gradient-to-br from-amber-50 to-orange-50 p-4 shadow-sm sm:p-5 animate-fade-in">
                           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
                             <div className="space-y-1 flex-1">
-                              <span className="text-xs font-bold text-amber-850 block flex items-center gap-1">
-                                <TrendingUp className="w-4 h-4 text-amber-600 animate-pulse" />
+                              <span className="block text-xs font-semibold text-amber-850 flex items-center gap-1">
+                                <TrendingUp className="w-4 h-4 text-amber-600" />
                                 <span>课堂理解度预计达到 {forecastAfter}%</span>
                               </span>
                               <p className="text-[10px] sm:text-[10.5px] text-slate-605 leading-relaxed font-semibold">
@@ -1546,13 +1549,14 @@ export default function PreviewAgent({ onShowToast }: PreviewAgentProps) {
 
       {/* Global Bottom Reset control shown at the very bottom of PreviewAgent page */}
       <div className="flex justify-center pt-6 border-t border-slate-100/30">
-        <button 
-          type="button"
+        <Button
           onClick={handleReset}
-          className="text-xs text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1.5 transition-all cursor-pointer bg-blue-50/40 hover:bg-blue-50 hover:scale-102 border border-blue-200/40 px-3.5 py-1.5 rounded-xl shadow-xs"
+          variant="secondary"
+          size="sm"
+          className="border-blue-200/40 bg-blue-50/40 text-xs text-blue-600 hover:bg-blue-50 hover:text-blue-800"
         >
           <span>🔄 重新演示</span>
-        </button>
+        </Button>
       </div>
     </div>
   );

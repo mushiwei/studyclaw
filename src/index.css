@@ -1,18 +1,55 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
-  --font-display: "Space Grotesk", "Inter", "PingFang SC", sans-serif;
+  --font-display: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
+  --color-brand-50: #eef8ff;
+  --color-brand-100: #d8ecff;
+  --color-brand-500: #2f6df6;
+  --color-brand-600: #1d4ed8;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f8fafc;
+  --color-border-soft: #e2e8f0;
 }
 
 /* Base style resets */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  background-color: #f8fafc;
+  background:
+    radial-gradient(circle at top left, rgba(226, 232, 240, 0.75), transparent 26rem),
+    radial-gradient(circle at top right, rgba(219, 234, 254, 0.55), transparent 22rem),
+    #f8fafc;
   color: #1e293b;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(59, 130, 246, 0.2);
+  color: #0f172a;
 }
 
 /* Animations */
@@ -45,6 +82,11 @@ body {
 
 .animate-glow-pulse {
   animation: glow-pulse 2s infinite ease-in-out;
+}
+
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.35), transparent);
 }
 
 /* Custom scrollbars */
